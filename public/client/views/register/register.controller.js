@@ -15,7 +15,7 @@
         function register(radio) {
            if(radio==='1')
            {
-               $location.url("/faculty");
+               $location.url("/faculty/1");
            }
            else if(radio==='2')
            {

@@ -34,7 +34,7 @@
                 controllerAs: "model"
             })
 
-            .when("/faculty", {
+            .when("/faculty/:fid", {
                 templateUrl: "client/views/faculty/faculty.view.html",
                 controller: "FacultyController",
                 controllerAs: "model"
