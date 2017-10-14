@@ -1,23 +1,18 @@
 var express = require('express');
 var app = express();
-
+var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
+
+var ipaddress = '127.0.0.1';
+var port = process.env.PORT || 3000;
+app.use(express.static(__dirname + '/public'));
+
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// configure a public directory to host static content
-app.use(express.static(__dirname + '/public'));
+var connectionString = 'mongodb://127.0.0.1:27017/serviceLearning';
 
-require ("./test/app.js")(app);
+var db = mongoose.connect(connectionString);
 
-// var ipaddress = process.env.OPENSHIFT_NODEJS_IP;
-// var port      = process.env.OPENSHIFT_NODEJS_PORT || 3000;
-//
-// app.listen(port, ipaddress);
-
-//console.log(process.env);
-
-// app.listen(3000);
-
-port = process.env.PORT || 3000;
-app.listen(port);
+app.listen(port, ipaddress);
