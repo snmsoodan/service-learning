@@ -3,7 +3,7 @@ var app = express();
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 
-var ipaddress = '127.0.0.1';
+// var ipaddress = '127.0.0.1';
 var port = process.env.PORT || 3000;
 app.use(express.static(__dirname + '/public'));
 
@@ -15,4 +15,4 @@ var connectionString = process.env.MONGODB_URI ||'mongodb://127.0.0.1:27017/serv
 
 var db = mongoose.connect(connectionString);
 
-app.listen(port, ipaddress);
+app.listen(port);
