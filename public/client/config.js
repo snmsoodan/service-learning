@@ -18,6 +18,11 @@
                     controller: "LoginController",
                     controllerAs: "model"
                 })
+            .when("/register", {
+                templateUrl: "client/views/register/register.view.html",
+                controller: "RegisterController",
+                controllerAs: "model"
+            })
 
             .otherwise({
                 redirectTo: "home"
