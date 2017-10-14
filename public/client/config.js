@@ -10,11 +10,11 @@
         $routeProvider
 
             .when("/home", {
-                templateUrl: "views/home/home.view.html"
+                templateUrl: "client/views/home/home.view.html"
             })
 
             .when("/login", {
-                    templateUrl: "views/login/login.view.html",
+                    templateUrl: "client/views/login/login.view.html",
                     controller: "LoginController",
                     controllerAs: "model"
                 })
