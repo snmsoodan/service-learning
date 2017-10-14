@@ -11,7 +11,7 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-var connectionString = 'mongodb://127.0.0.1:27017/serviceLearning';
+var connectionString = process.env.MONGODB_URI ||'mongodb://127.0.0.1:27017/serviceLearning';
 
 var db = mongoose.connect(connectionString);
 
