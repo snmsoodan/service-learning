@@ -9,11 +9,12 @@
         vm.register = register;
 
         function init(){
-
+            console.log("register")
         }init();
 
-        function register() {
-
+        function register(radio) {
+            console.log("register function")
+            console.log(radio)
         }
 
     }
