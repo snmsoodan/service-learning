@@ -13,8 +13,18 @@
         }init();
 
         function register(radio) {
-            console.log("register function")
-            console.log(radio)
+           if(radio==='1')
+           {
+               $location.url("/faculty");
+           }
+           else if(radio==='2')
+           {
+               $location.url("/partner");
+           }
+           else if(radio==='3')
+           {
+               $location.url("/admin");
+           }
         }
 
     }
