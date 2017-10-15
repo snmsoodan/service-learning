@@ -6,13 +6,8 @@
     function FacultyController($rootScope,$location,$routeParams) {
         var vm = this;
         vm.fid = $routeParams.fid;
-
-
         function init(){
             console.log(vm.fid)
         }init();
-
-
-
     }
 })();
