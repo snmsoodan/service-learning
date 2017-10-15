@@ -3,13 +3,13 @@
     angular.module("ServiceLearningApp")
         .controller("FacultyController",FacultyController);
 
-    function FacultyController($rootScope,$location) {
+    function FacultyController($rootScope,$location,$routeParams) {
         var vm = this;
-        vm.message = null;
+        vm.fid = $routeParams.fid;
 
 
         function init(){
-            console.log("faculty")
+            console.log(vm.fid)
         }init();
 
 

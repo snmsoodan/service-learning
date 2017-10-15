@@ -14,7 +14,7 @@
             })
 
             .when("/login", {
-                    templateUrl: "client/views/login/login.view.html",
+                    templateUrl: "  client/views/login/login.view.html",
                     controller: "LoginController",
                     controllerAs: "model"
                 })
@@ -67,12 +67,22 @@
                 controllerAs: "model"
             })
 
+            //faculty start
             .when("/faculty/:fid", {
                 templateUrl: "client/views/faculty/faculty.view.html",
                 controller: "FacultyController",
                 controllerAs: "model"
             })
-
+            .when("/faculty/:fid/facultyProfile", {
+                templateUrl: "client/views/faculty/facultyProfile.view.html",
+                controller: "FacultyController",
+                controllerAs: "model"
+            })
+            .when("/faculty/:fid/facultyRequestForMoreJobs", {
+                templateUrl: "client/views/faculty/facultyRequestForMoreJobs.view.html",
+                controller: "FacultyController",
+                controllerAs: "model"
+            })
             .otherwise({
                 redirectTo: "home"
             });
