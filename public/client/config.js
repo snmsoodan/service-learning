@@ -14,7 +14,7 @@
             })
 
             .when("/login", {
-                    templateUrl: "  client/views/login/login.view.html",
+                    templateUrl: "client/views/login/login.view.html",
                     controller: "LoginController",
                     controllerAs: "model"
                 })

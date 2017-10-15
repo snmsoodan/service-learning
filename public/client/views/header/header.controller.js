@@ -8,7 +8,7 @@
         vm.logout = logout;
 
         function init() {
-            alert("---");
+
         }
 
         init();
