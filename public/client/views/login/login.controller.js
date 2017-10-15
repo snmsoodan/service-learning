@@ -6,8 +6,8 @@
     var users=[
         {_id: "123", username: "alice",    password: "alice",    firstName: "Alice",  lastName: "Wonder", role:"faculty"  },
         {_id: "234", username: "bob",      password: "bob",      firstName: "Bob",    lastName: "Marley", role:"faculty"  },
-        {_id: "345", username: "charly",   password: "charly",   firstName: "Charly", lastName: "Garcia", role:"admin"  },
-        {_id: "456", username: "jannunzi", password: "jannunzi", firstName: "Jose",   lastName: "Annunzi",role:"partner" }
+        {_id: "345", username: "carl",   password: "carl",   firstName: "Charly", lastName: "Garcia", role:"admin"  },
+        {_id: "456", username: "dean", password: "dean", firstName: "Jose",   lastName: "Annunzi",role:"partner" }
     ]
 
     function LoginController($rootScope,$location) {
@@ -29,6 +29,12 @@
                     {
                         $location.url("/faculty/"+users[i]._id);
                     }
+
+                    if(users[i].role==="admin")
+                    {
+                        $location.url("/admin/"+users[i]._id);
+                    }
+
                 }
             }
         }

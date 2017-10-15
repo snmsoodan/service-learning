@@ -48,5 +48,14 @@ body{
 .rdright{
     margin-right: 4px;
 }
+.adlist1{
+    text-align: center;
+}
 
+.right-line{
+    height: 90vh;
+    border-right: 1px solid lightgrey;
+    margin-top: -20px;
+    padding-top: 10px;
+}
 /*******************************************

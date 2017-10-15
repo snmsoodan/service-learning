@@ -23,11 +23,44 @@
                 controller: "RegisterController",
                 controllerAs: "model"
             })
-            .when("/admin", {
+            //admin start
+            .when("/admin/:aid", {
                 templateUrl: "client/views/admin/admin.view.html",
                 controller: "AdminController",
                 controllerAs: "model"
             })
+            .when("/admin/:aid/partnerList", {
+                templateUrl: "client/views/admin/partnerList.view.html",
+                controller: "AdminController",
+                controllerAs: "model"
+            })
+            .when("/admin/:aid/partnerDetail/:pid", {
+                templateUrl: "client/views/admin/partnerDetails.view.html",
+                controller: "AdminController",
+                controllerAs: "model"
+            })
+            .when("/admin/:aid/partnerDetail/:pid/allProposals", {
+                templateUrl: "client/views/admin/partnerSpecificAllProposals.view.html",
+                controller: "AdminController",
+                controllerAs: "model"
+            })
+            .when("/admin/:aid/partnerDetail/:pid/acceptedProposals", {
+                templateUrl: "client/views/admin/partnerSpecificAcceptedProposals.view.html",
+                controller: "AdminController",
+                controllerAs: "model"
+            })
+            .when("/admin/:aid/partnerDetail/:pid/rejectedProposals", {
+                templateUrl: "client/views/admin/partnerSpecificRejectedProposals.view.html",
+                controller: "AdminController",
+                controllerAs: "model"
+            })
+            .when("/admin/:aid/partnerDetail/:pid/newProposals", {
+                templateUrl: "client/views/admin/partnerSpecificNewProposals.view.html",
+                controller: "AdminController",
+                controllerAs: "model"
+            })
+
+            //admin end
             .when("/partner", {
                 templateUrl: "client/views/partner/partner.view.html",
                 controller: "PartnerController",

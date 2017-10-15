@@ -3,13 +3,13 @@
     angular.module("ServiceLearningApp")
         .controller("AdminController",AdminController);
 
-    function AdminController($rootScope,$location) {
+    function AdminController($rootScope,$location,$routeParams) {
         var vm = this;
-        vm.message = null;
+        vm.aid = $routeParams.aid;
 
 
         function init(){
-            console.log("admin")
+            console.log(vm.aid)
         }init();
 
 
