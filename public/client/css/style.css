@@ -41,4 +41,22 @@ body{
     border-radius: 7px;
 }
 
+.radiobutton{
+    margin-bottom: 20px;
+}
+
+.rdright{
+    margin-right: 4px;
+}
+.adlist1{
+    text-align: center;
+}
+
+.right-line{
+    height: 90vh;
+    border-right: 1px solid lightgrey;
+    margin-top: -12px;
+    padding-top: 10px;
+}
+
 /*******************************************

@@ -1,5 +1,5 @@
 {
-  "name": "Service Learning",
+  "name": "ServiceLearning",
   "version": "1.0.0",
   "description": "Service Learning at Northeastern University",
   "scripts": {
@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "body-parser": "^1.18.2",
-    "express": "^3.4.8",
+    "express": "^4.16.2",
     "mongoose": "^4.12.1"
   },
   "devDependencies": {},

@@ -1,0 +1,88 @@
+<div class="card" style="margin-top: 60px" align="center">
+    <div class="card-body">
+        <table style="width:10%" border="1px">
+            <tr>
+                <th class="bg-success">Accepted</th>
+                <th class="bg-danger">Rejected</th>
+                <th class="bg-info">New</th>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-xs col-sm col-md-2 col-lg-2 right-line">
+            <ul class="list-group">
+                <li  class="list-group-item">
+                    <a href="#/admin/{{model.aid}}/partnerDetail/1">
+                        <b style="color: #e21a2d">Partner Name</b>
+                    </a>
+                </li>
+                <li  class="list-group-item">
+                    <a href="#/admin/{{model.aid}}/partnerDetail/1/allProposals">
+                        All Proposals
+                    </a>
+                </li>
+                <li  class="list-group-item">
+                    <a href="#/admin/{{model.aid}}/partnerDetail/1/acceptedProposals">
+                        <b style="color: purple;"> Accepted Proposals</b>
+                    </a>
+                </li>
+                <li  class="list-group-item">
+                    <a href="#/admin/{{model.aid}}/partnerDetail/1/rejectedProposals">
+                        Rejected Proposals
+                    </a>
+                </li>
+                <li  class="list-group-item">
+                    <a href="#/admin/{{model.aid}}/partnerDetail/1/newProposals">
+                        New Proposals
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-xs-11 col-sm-12 col-md-7 col-lg-7">
+
+            <form name="myForm">
+                <div class="card text-white bg-success mb-3" style="max-width: 200rem;">
+                    <div class="card-header">Partner 1</div>
+                    <p class="navbar-text pull-right">
+                        <a href="#/user/{{model.id}}/website/new" class="navbar-link">
+          <span class="glyphicon glyphicon-cog">
+          </span>
+                        </a>
+                        <div class="card-body">
+                            <h4 class="card-title"> Accepted project proposal 1</h4>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+        </div>
+        <div class="card text-white bg-success mb-3" style="max-width: 200rem;">
+            <div class="card-header">Partner 1</div>
+            <p class="navbar-text pull-right">
+                <a href="#/user/{{model.id}}/website/new" class="navbar-link">
+          <span class="glyphicon glyphicon-cog">
+          </span>
+                </a>
+                <div class="card-body">
+                    <h4 class="card-title"> Accepted project proposal 2</h4>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+    </div>
+    <div class="card text-white bg-success mb-3" style="max-width: 200rem;">
+        <div class="card-header">Partner 1</div>
+        <p class="navbar-text pull-right">
+            <a href="#/user/{{model.id}}/website/new" class="navbar-link">
+          <span class="glyphicon glyphicon-cog">
+          </span>
+            </a>
+            <div class="card-body">
+                <h4 class="card-title"> Accepted project proposal 3</h4>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    </div>
+</div>
+</form>
+
+        </div>
+    </div>
+</div>
