@@ -29,6 +29,7 @@
                 controller: "AdminController",
                 controllerAs: "model"
             })
+            //start admin partner list
             .when("/admin/:aid/partnerList", {
                 templateUrl: "client/views/admin/partnerList.view.html",
                 controller: "AdminController",
@@ -59,7 +60,35 @@
                 controller: "AdminController",
                 controllerAs: "model"
             })
+            .when("/admin/:aid/partnerDetail/:pid/createNewProposals", {
+                templateUrl: "client/views/admin/partnerSpecificCreateNewProposal.view.html",
+                controller: "AdminController",
+                controllerAs: "model"
+            })
+            //end admin partner list
 
+            //start admin partner proposals
+            .when("/admin/:aid/adminPartnerAllProposals", {
+                templateUrl: "client/views/admin/adminPartnerAllProposals.view.html",
+                controller: "AdminController",
+                controllerAs: "model"
+            })
+            .when("/admin/:aid/adminPartnerAcceptedProposals", {
+                templateUrl: "client/views/admin/adminPartnerAcceptedProposals.view.html",
+                controller: "AdminController",
+                controllerAs: "model"
+            })
+            .when("/admin/:aid/adminPartnerRejectedProposals", {
+                templateUrl: "client/views/admin/adminPartnerRejectedProposals.view.html",
+                controller: "AdminController",
+                controllerAs: "model"
+            })
+            .when("/admin/:aid/adminPartnerNewProposals", {
+                templateUrl: "client/views/admin/adminPartnerNewProposals.view.html",
+                controller: "AdminController",
+                controllerAs: "model"
+            })
+            // end admin partner proposals
             //admin end
             .when("/partner", {
                 templateUrl: "client/views/partner/partner.view.html",
