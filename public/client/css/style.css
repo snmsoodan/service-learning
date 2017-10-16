@@ -1,23 +1,60 @@
+.text-nowrap{
+    white-space: nowrap; !important;
+}
+
+body{
+    background: #e9e9e9;
+}
+
+.redBG{
+    background-color: #e21a2d;
+    color:#ffffff;
+}
+
+.form-control:focus{
+    border: 1px solid #e21a2d;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+.header-padding{
+    margin-top: 100px;
+}
+
+/************************Header styling****************************/
 .navbar-inverse {
     background-color: #e21a2d;
     border-color: #e21a2d;
 }
+
 .navbar-inverse .navbar-brand{
     color: #ffffff;
     font-weight: bolder;
     font-size:20px;
 }
-.text-nowrap{
-    white-space: nowrap; !important;
-}
-body{
-    background: #e9e9e9;
-}
-/*****************Login styling***********************************/
-.login-padding{
-    margin-top: 100px;
+
+.nav>li>a{
+    color:#ffffff;
+    font-weight: bolder;
+    padding: 18px 12px;
 }
 
+.nav>li>a:hover , .nav>li>a:active , .nav>li>a:focus{
+    color : #ffffff;
+    font-size: 16px;
+    background-color: #e21a2d; !important;
+}
+
+.top-nav {
+    padding-right:15px;
+}
+
+.top-nav>li {
+    display: inline-block;
+    float: left;
+}
+
+/*****************Login styling***********************************/
 .form-signin {
     max-width: 350px;
     padding: 15px 35px 45px;
@@ -41,6 +78,8 @@ body{
     border-radius: 7px;
 }
 
+/***************Register styling****************************/
+
 .radiobutton{
     margin-bottom: 20px;
 }
@@ -59,4 +98,4 @@ body{
     padding-top: 10px;
 }
 
-/*******************************************
+/*******************************************/
