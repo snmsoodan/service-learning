@@ -1,7 +1,56 @@
-<div class="login-padding">
-<form class="form-signin">
-    <h2>Partner</h2>
+<div class="header-padding"></div>
 
-</form>
+<div class="container-fluid" style="margin-top: 20px" ng-controller="PartnerController as model">
 
+    <div class="row">
+
+        <div class="col-xs col-sm col-md-2 col-lg-2 right-line">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <a href="" ng-click="model.changeView('CS')">
+                        <b style="color: purple">Current Semester</b>
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a href="" ng-click="model.changeView('EO')">
+                        <b style="color: purple">Explore Opportunities</b>
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a href="" ng-click="model.changeView('PS')">
+                        <b style="color: purple">Previous Semester</b>
+                    </a>
+                </li>
+                <li  class="list-group-item">
+                    <a href="" ng-click="model.changeView('OI')">
+                        <b style="color: purple;">Organization Info</b>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-xs col-sm col-md-2 col-lg-2" style="background-color: white;width:1200px">
+
+            <div ng-switch="model.currentView">
+
+                <div ng-switch-when="CS">
+                    <div ng-include="'client/views/partner/partnerCurrSemApp.view.html'"></div>
+                </div>
+
+                <div ng-switch-when="EO">
+                    <div ng-include="'client/views/partner/partnerExploreOpp.view.html'"></div>
+                </div>
+
+                <div ng-switch-when="PS">
+                    <div ng-include="'client/views/partner/partnerPrevSemApp.view.html'"></div>
+                </div>
+
+                <div ng-switch-when="OI">
+                    <div ng-include="'client/views/partner/partnerOrgInfo.view.html'"></div>
+                </div>
+
+             </div>
+        </div>
+
+    </div>
 </div>

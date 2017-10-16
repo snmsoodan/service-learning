@@ -8,11 +8,20 @@
         <a href="#/home" class="navbar-brand">Service Learning@<i>Northeastern University</i></a>
     </div>
     <!-- Top Menu Items -->
-    <ul class="nav navbar-right top-nav text-nowrap">
+    <ul class="nav navbar-right top-nav text-nowrap" ng-controller="HeaderController as model">
 
-        <li><a href="#/login">Login</a></li>
+        <!--<li ng-show = "currentUser">
+            <a href="#/home"><i class="fa fa-home" aria-hidden="true"> Home</i></a>
+        </li>-->
 
-        <li><a ng-show= "currentUser" href="#/home" ng-click="model.logout()">Logout</a></li>
+        <li ng-hide = "currentUser"><a href="#/login">
+            <i class="fa fa-sign-in" aria-hidden="true"> Log in</i></a>
+        </li>
+
+        <li ng-show = "currentUser">
+            <a href="#/home" ng-click="model.logout()">
+                <i class="fa fa-sign-out" aria-hidden="true"> Log out</i></a>
+        </li>
     </ul>
 
 </nav>
