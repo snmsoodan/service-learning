@@ -71,12 +71,37 @@
                 controllerAs: "model"
             })
 
+            //faculty start
             .when("/faculty/:fid", {
                 templateUrl: "client/views/faculty/faculty.view.html",
                 controller: "FacultyController",
                 controllerAs: "model"
             })
-
+            .when("/faculty/:fid/facultyProfile", {
+                templateUrl: "client/views/faculty/faculty.view.html",
+                controller: "FacultyController",
+                controllerAs: "model"
+            })
+            .when("/faculty/:fid/facultySuggestedJobs", {
+                templateUrl: "client/views/faculty/facultySuggestedJobs.view.html",
+                controller: "FacultyController",
+                controllerAs: "model"
+            })
+            .when("/faculty/:fid/facultyAcceptedJobs", {
+                templateUrl: "client/views/faculty/facultyAcceptedJobs.view.html",
+                controller: "FacultyController",
+                controllerAs: "model"
+            })
+            .when("/faculty/:fid/facultyRejectedJobs", {
+                templateUrl: "client/views/faculty/facultyRejectedJobs.view.html",
+                controller: "FacultyController",
+                controllerAs: "model"
+            })
+            .when("/faculty/:fid/facultyAllJobs", {
+                templateUrl: "client/views/faculty/facultyAllJobs.view.html",
+                controller: "FacultyController",
+                controllerAs: "model"
+            })
             .otherwise({
                 redirectTo: "home"
             });
