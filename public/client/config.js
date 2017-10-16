@@ -59,7 +59,11 @@
                 controller: "AdminController",
                 controllerAs: "model"
             })
-
+            .when("/admin/:aid/partnerDetail/:pid/createNewProposals", {
+                templateUrl: "client/views/admin/partnerSpecificCreateNewProposal.view.html",
+                controller: "AdminController",
+                controllerAs: "model"
+            })
             //admin end
             .when("/partner", {
                 templateUrl: "client/views/partner/partner.view.html",
