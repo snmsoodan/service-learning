@@ -1,0 +1,33 @@
+<h3 align="center"><b>Current Semester Applications Details</b></h3>
+
+    <div ng-controller="PartnerController as model">
+
+        <button type="button" class="btn btn-success">Start New Application</button>
+
+        <table class="table" style="padding-top: 40px">
+
+            <thead>
+               <tr>
+                   <th>Application Name</th>
+                   <th>Status</th>
+                   <th>Last edit by</th>
+                   <th>Last edit at</th>
+                   <th></th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr ng-repeat="appInfo in model.currentSemData">
+                   <td>{{appInfo.appName}}</td>
+                   <td>{{appInfo.status}}</td>
+                   <td>{{appInfo.editBy}}</td>
+                   <td>{{appInfo.editAt}}</td>
+                   <td>
+                       <button type="button" class="btn btn-info">View</button>
+                       <button type="button" class="btn btn-danger" ng-disabled="appInfo.status == 'Approved'">Delete</button>
+                   </td>
+               </tr>
+            </tbody>
+        </table>
+
+    </div>
+

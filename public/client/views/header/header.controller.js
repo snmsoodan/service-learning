@@ -14,6 +14,8 @@
         init();
 
         function logout() {
+            $rootScope.currentUser = null;
+            console.log("checck" +$rootScope.currentUser);
            /* UserService.logout()
                 .then(function () {
                     $rootScope.currentUser = null;

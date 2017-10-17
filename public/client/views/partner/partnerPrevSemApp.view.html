@@ -1,0 +1,29 @@
+<div ng-controller="PartnerController as model">
+    <h3 align="center"><b>Previous Semester Applications</b></h3>
+
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Application Name</th>
+                <th>Status</th>
+                <th>Last edit by</th>
+                <th>Last edit at</th>
+                <th></th>
+            </tr>
+            </thead>
+
+            <tbody>
+             <tr ng-repeat="appInfo in model.prevSemData">
+                 <td>{{appInfo.appName}}</td>
+                 <td>{{appInfo.status}}</td>
+                 <td>{{appInfo.editBy}}</td>
+                 <td>{{appInfo.editAt}}</td>
+                 <td>
+                     <button type="button" class="btn btn-info">View</button>
+                 </td>
+             </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
