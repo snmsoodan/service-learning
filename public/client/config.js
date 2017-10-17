@@ -89,6 +89,51 @@
                 controllerAs: "model"
             })
             // end admin partner proposals
+            .when("/admin/:aid/adminProposalDetailsEdit/:pid", {
+                templateUrl: "client/views/admin/adminProposalDetailsEdit.view.html",
+                controller: "AdminController",
+                controllerAs: "model"
+            })
+            .when("/admin/:aid/adminProposalDetailsNew/:pid", {
+                templateUrl: "client/views/admin/adminProposalDetailsNew.view.html",
+                controller: "AdminController",
+                controllerAs: "model"
+            })
+
+                //admin faculty list view
+            .when("/admin/:aid/facultyList", {
+                templateUrl: "client/views/admin/facultyList.view.html",
+                controller: "AdminController",
+                controllerAs: "model"
+            })
+
+            .when("/admin/:aid/facultyDetail/:pid", {
+                templateUrl: "client/views/admin/facultyDetails.view.html",
+                controller: "AdminController",
+                controllerAs: "model"
+            })
+
+
+            .when("/admin/:aid/facultyDetail/:fid/allProposals", {
+                templateUrl: "client/views/admin/facultySpecificAllProposals.view.html",
+                controller: "AdminController",
+                controllerAs: "model"
+            })
+            .when("/admin/:aid/facultyDetail/:fid/acceptedProposals", {
+                templateUrl: "client/views/admin/facultySpecificAcceptedProposals.view.html",
+                controller: "AdminController",
+                controllerAs: "model"
+            })
+            .when("/admin/:aid/facultyDetail/:fid/rejectedProposals", {
+                templateUrl: "client/views/admin/facultySpecificRejectedProposals.view.html",
+                controller: "AdminController",
+                controllerAs: "model"
+            })
+            .when("/admin/:aid/facultyDetail/:fid/newProposals", {
+                templateUrl: "client/views/admin/facultySpecificNewProposals.view.html",
+                controller: "AdminController",
+                controllerAs: "model"
+            })
             //admin end
             .when("/partner", {
                 templateUrl: "client/views/partner/partner.view.html",
