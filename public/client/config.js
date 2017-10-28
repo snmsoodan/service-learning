@@ -29,43 +29,6 @@
                 controller: "AdminController",
                 controllerAs: "model"
             })
-            //start admin partner list
-            .when("/admin/:aid/partnerList", {
-                templateUrl: "client/views/admin/partnerList.view.html",
-                controller: "AdminController",
-                controllerAs: "model"
-            })
-            .when("/admin/:aid/partnerDetail/:pid", {
-                templateUrl: "client/views/admin/partnerDetails.view.html",
-                controller: "AdminController",
-                controllerAs: "model"
-            })
-            .when("/admin/:aid/partnerDetail/:pid/allProposals", {
-                templateUrl: "client/views/admin/partnerSpecificAllProposals.view.html",
-                controller: "AdminController",
-                controllerAs: "model"
-            })
-            .when("/admin/:aid/partnerDetail/:pid/acceptedProposals", {
-                templateUrl: "client/views/admin/partnerSpecificAcceptedProposals.view.html",
-                controller: "AdminController",
-                controllerAs: "model"
-            })
-            .when("/admin/:aid/partnerDetail/:pid/rejectedProposals", {
-                templateUrl: "client/views/admin/partnerSpecificRejectedProposals.view.html",
-                controller: "AdminController",
-                controllerAs: "model"
-            })
-            .when("/admin/:aid/partnerDetail/:pid/newProposals", {
-                templateUrl: "client/views/admin/partnerSpecificNewProposals.view.html",
-                controller: "AdminController",
-                controllerAs: "model"
-            })
-            .when("/admin/:aid/partnerDetail/:pid/createNewProposals", {
-                templateUrl: "client/views/admin/partnerSpecificCreateNewProposal.view.html",
-                controller: "AdminController",
-                controllerAs: "model"
-            })
-            //end admin partner list
 
             //start admin partner proposals
             .when("/admin/:aid/adminPartnerAllProposals", {
@@ -73,67 +36,31 @@
                 controller: "AdminController",
                 controllerAs: "model"
             })
-            .when("/admin/:aid/adminPartnerAcceptedProposals", {
-                templateUrl: "client/views/admin/adminPartnerAcceptedProposals.view.html",
+
+            .when("/admin/:aid/adminPartnerList", {
+                templateUrl: "client/views/admin/partnerList.view.html",
                 controller: "AdminController",
                 controllerAs: "model"
             })
-            .when("/admin/:aid/adminPartnerRejectedProposals", {
-                templateUrl: "client/views/admin/adminPartnerRejectedProposals.view.html",
+            .when("/admin/:aid/adminPartnerList/:pid", {
+                templateUrl: "client/views/admin/adminPartnerSpecificProposal.view.html",
                 controller: "AdminController",
                 controllerAs: "model"
             })
-            .when("/admin/:aid/adminPartnerNewProposals", {
-                templateUrl: "client/views/admin/adminPartnerNewProposals.view.html",
+            .when("/admin/:aid/adminPartnerList/:pid/proposal/:prid", {
+                templateUrl: "client/views/admin/adminPartnerSpecificProposalView.view.html",
                 controller: "AdminController",
                 controllerAs: "model"
             })
+
+
+
+
             // end admin partner proposals
-            .when("/admin/:aid/adminProposalDetailsEdit/:pid", {
-                templateUrl: "client/views/admin/adminProposalDetailsEdit.view.html",
-                controller: "AdminController",
-                controllerAs: "model"
-            })
-            .when("/admin/:aid/adminProposalDetailsNew/:pid", {
-                templateUrl: "client/views/admin/adminProposalDetailsNew.view.html",
-                controller: "AdminController",
-                controllerAs: "model"
-            })
-
-                //admin faculty list view
-            .when("/admin/:aid/facultyList", {
-                templateUrl: "client/views/admin/facultyList.view.html",
-                controller: "AdminController",
-                controllerAs: "model"
-            })
-
-            .when("/admin/:aid/facultyDetail/:pid", {
-                templateUrl: "client/views/admin/facultyDetails.view.html",
-                controller: "AdminController",
-                controllerAs: "model"
-            })
 
 
-            .when("/admin/:aid/facultyDetail/:fid/allProposals", {
-                templateUrl: "client/views/admin/facultySpecificAllProposals.view.html",
-                controller: "AdminController",
-                controllerAs: "model"
-            })
-            .when("/admin/:aid/facultyDetail/:fid/acceptedProposals", {
-                templateUrl: "client/views/admin/facultySpecificAcceptedProposals.view.html",
-                controller: "AdminController",
-                controllerAs: "model"
-            })
-            .when("/admin/:aid/facultyDetail/:fid/rejectedProposals", {
-                templateUrl: "client/views/admin/facultySpecificRejectedProposals.view.html",
-                controller: "AdminController",
-                controllerAs: "model"
-            })
-            .when("/admin/:aid/facultyDetail/:fid/newProposals", {
-                templateUrl: "client/views/admin/facultySpecificNewProposals.view.html",
-                controller: "AdminController",
-                controllerAs: "model"
-            })
+
+
             //admin end
             .when("/partner", {
                 templateUrl: "client/views/partner/partner.view.html",
