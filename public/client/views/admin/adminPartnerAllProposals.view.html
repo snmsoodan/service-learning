@@ -1,91 +1,73 @@
-<div class="card" style="margin-top: 60px" align="center">
-    <div class="card-body">
-        <table style="width:10%" border="1px">
-            <tr>
-                <th class="bg-success">Accepted</th>
-                <th class="bg-danger">Rejected</th>
-                <th class="bg-info">New</th>
-            </tr>
-        </table>
+
+
+<div id="content">
+    <div id="mainBox" class="textBox">
+        <div id="mainMenuBar">
+            <a class="btn btn-primary ">In Progress</a>
+            <a class="btn btn-primary ">Submitted</a>
+            <!--<a class="btn btn-primary ">Login</a>-->
+        </div>
     </div>
 </div>
 
-<div class="container-fluid" style="margin-top: 20px">
-    <div class="row">
-        <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2 right-line">
-            <ul class="list-group">
-                <li  class="list-group-item">
-                    <a href="#/admin/{{model.aid}}/adminPartnerAllProposals">
-                        <b style="color: purple;"> All Proposals</b>
-                    </a>
-                </li>
-                <li  class="list-group-item">
-                    <a href="#/admin/{{model.aid}}/adminPartnerAcceptedProposals">
-                        Accepted Proposals
-                    </a>
-                </li>
-                <li  class="list-group-item">
-                    <a href="#/admin/{{model.aid}}/adminPartnerRejectedProposals">
-                        Rejected Proposals
-                    </a>
-                </li>
-                <li  class="list-group-item">
-                    <a href="#/admin/{{model.aid}}/adminPartnerNewProposals">
-                        New Proposals
-                    </a>
-                </li>
-            </ul>
 
-            <ul class="list-group">
-                <li  class="list-group-item">
-                    <a href="#/admin/{{model.aid}}/partnerList">
-                        <b style="color: #e21a2d">  Partner List</b>
-                    </a>
-                </li>
-            </ul>
-        </div>
+<div class="container-fluid" style="margin-top: 100px">
 
-        <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+   <div class="col-md-2 right-line1">
+       <ul class="list-group">
+           <li class="list-group-item ">
+               <a>Cras justo odio</a>
+           </li>
+           <li class="list-group-item">
+               <a>Dapibus ac facilisis in</a>
+           </li>
+           <li class="list-group-item">
+               <a>Morbi leo risus</a>
+           </li>
+           <li class="list-group-item">
+               <a>Porta ac consectetur ac</a>
+           </li>
+           <li class="list-group-item">
+               <a>Vestibulum at eros</a>
+           </li>
+       </ul>
 
+   </div>
 
-            <form name="myForm">
-                <div class="card text-white bg-success mb-3" style="max-width: 200rem;">
-                    <div class="card-header">Partner 1</div>
-                    <p class="navbar-text pull-right">
-                        <a href="#/admin/{{model.aid}}/adminProposalDetailsEdit/1" class="navbar-link">
-          <span class="glyphicon glyphicon-cog">
-          </span>
-                        </a></p>
-                    <div class="card-body">
-                        <h4 class="card-title"> Accepted project proposal</h4>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                </div>
-                <div class="card text-white bg-danger mb-3" style="max-width: 200rem;">
-                    <div class="card-header">Partner 2</div>
-                    <p class="navbar-text pull-right">
-                        <a href="#/user/{{model.id}}/website/new" class="navbar-link">
-          <span class="glyphicon glyphicon-cog">
-          </span>
-                        </a></p>
-                    <div class="card-body">
-                        <h4 class="card-title"> Rejected project proposal</h4>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                </div>
-                <div class="card text-white bg-info mb-3" style="max-width: 200rem;">
-                    <div class="card-header">Partner 3</div>
-                    <p class="navbar-text pull-right" >
-                        <a href="#/admin/{{model.aid}}/adminProposalDetailsNew/1" class="navbar-link">
-                            <span class="glyphicon glyphicon-chevron-right"></span>
-                        </a></p>
-                    <div class="card-body">
-                        <h4 class="card-title">New project proposal</h4>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                </div>
-            </form>
+    <div class="col-md-4 right-line1">
+        <ul class="list-group">
+            <li class="list-group-item active">Cras justo odio</li>
+            <li class="list-group-item">Dapibus ac facilisis in</li>
+            <li class="list-group-item">Morbi leo risus</li>
+            <li class="list-group-item">Porta ac consectetur ac</li>
+            <li class="list-group-item">Vestibulum at eros</li>
+        </ul>
 
-        </div>
     </div>
+
+    <div class="col-md-6 right-line1">
+        <div class="card" align="center" style="margin: auto">
+            <div class="card-header">
+              <h3> Organization Name</h3>
+                <label>Girl Scout Cookies</label>
+                <h3> Organization Address</h3>
+                <label>230 Huntington</label>
+                <h3> Organization website</h3>
+                <label>www.fakewebsite.com</label>
+            </div>
+            <div class="card-block">
+                <!--<h4 class="card-title">Special title treatment</h4>-->
+                <!--<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>-->
+                <div>
+
+
+                 <a href="#" class="btn btn-primary">Approve</a>
+                 <a href="#" class="btn btn-primary">Reject</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
 </div>
