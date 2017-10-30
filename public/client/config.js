@@ -49,6 +49,21 @@
                 controllerAs: "model"
             })
 
+            .when("/admin/:aid/adminPartnerListInProgress", {
+                templateUrl: "client/views/admin/partnerListInProgress.view.html",
+                controller: "AdminController",
+                controllerAs: "model"
+            })
+            .when("/admin/:aid/adminPartnerListInProgress/:pid", {
+                templateUrl: "client/views/admin/adminPartnerSpecificProposalInProgress.view.html",
+                controller: "AdminController",
+                controllerAs: "model"
+            })
+            .when("/admin/:aid/adminPartnerListInProgress/:pid/proposal/:prid", {
+                templateUrl: "client/views/admin/adminPartnerSpecificProposalViewInProgress.view.html",
+                controller: "AdminController",
+                controllerAs: "model"
+            })
 
 
 
