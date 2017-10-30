@@ -12,10 +12,7 @@ app.use(express.static(__dirname + '/public'));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-// var assignment = require("./public/server/app.js");
-// assignment(app);
-var project=require("./project/app");
-project(app);
-
+var assignment = require("./public/server/app.js");
+assignment(app);
 app.listen(port);
-// module.exports = app;
+module.exports = app;
