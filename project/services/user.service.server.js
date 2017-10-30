@@ -19,10 +19,10 @@ module.exports=function (app,models) {
     app.put("/api/user/:userId",updateUser);
     app.delete("/api/user/:userId",deleteUser);
 
-    // app.post("/api/login", passport.authenticate('wam'), login);
+    app.post("/api/login", passport.authenticate('wam'), login);
     app.post("/api/logout",logout);
     app.post("/api/register",register);
-    // app.get("/api/loggedIn",loggedIn);
+    app.get("/api/loggedIn",loggedIn);
 
 
 
