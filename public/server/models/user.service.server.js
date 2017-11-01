@@ -1,7 +1,7 @@
 
 /* unlike angular, if w e ask by name, we cant get it */
 // we are passing models
-module.exports= function(app, models){
+/*module.exports= function(app, models){
 
    var userModel = models.userModel;
     var MongoClient = require('mongodb').MongoClient
@@ -9,7 +9,7 @@ module.exports= function(app, models){
     var url = 'mongodb://localhost:27017/serviceLearning';
     /* John pappy's - declare APIs at top and write functions below */
 
-    app.post("/api/user", createUser);
+    /*app.post("/api/user", createUser);
     app.post("/api/register", register);
     app.get("/api/user", getUsers);
     app.get("/api/loggedIn",loggedIn);
@@ -33,7 +33,7 @@ module.exports= function(app, models){
     // done is simlar to that of local strategy.
     // we need to call done with instance of an object that represents a user
 
-    function register(req,res) {
+    /*function register(req,res) {
         var username = req.body.params.name;
         var registrationObject = JSON.parse(JSON.stringify(username));
         console.log('converted Ibj = '+registrationObject);
@@ -139,7 +139,7 @@ module.exports= function(app, models){
         var url = 'mongodb://localhost:27017/serviceLearning';
         MongoClient.connect(url, function(err, db) {
             console.log("Connected correctly to server");
-            var collection = db.collection('EmployeeInfo');
+            var collection = db.collection('UserInfo');
             collection.find({status: "P"}).toArray(function(err, items) {
                 if (err) {
                     console.log('err'+err);
@@ -158,7 +158,7 @@ module.exports= function(app, models){
                 var id = {
                     _id: regUpdObject._id
                 };
-                var collection = db.collection('EmployeeInfo');
+                var collection = db.collection('UserInfo');
                 collection.findOneAndUpdate(
                     {"username" :regUpdObject.username},
                     {$set:{"status" : regUpdObject.status,"updatedDate" : new Date(Date.now()).toISOString()}}//change as needed
@@ -183,7 +183,7 @@ module.exports= function(app, models){
 
             cursor.each(function(err, doc) {
 
-                db.collection('EmployeeInfo').insert([{
+                db.collection('UserInfo').insert([{
                     Employeeid: 1,
                     EmployeeName: "parashar",
                     firstName : "parashar",
@@ -309,7 +309,7 @@ module.exports= function(app, models){
         // res.send(400);
     }
 
-    function updateUser(req,res) {
+    /*function updateUser(req,res) {
 
 
         var userId = req.params.userId;
@@ -414,7 +414,7 @@ module.exports= function(app, models){
 
 
     /* helper functions */
-    function generateError(username, password) {
+    /*function generateError(username, password) {
 
         for(var i in users){
             if(users[i].username === username &&
@@ -436,4 +436,4 @@ module.exports= function(app, models){
         return "the passwords do not match! Wake up";
     }
 
-};
+};*/

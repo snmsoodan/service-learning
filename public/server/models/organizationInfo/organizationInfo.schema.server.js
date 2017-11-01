@@ -1,0 +1,15 @@
+module.exports = function () {
+    var mongoose = require("mongoose"); // mongoDb has no notion of schemas. this is at the application level
+
+    var OrgInfoSchema = mongoose.Schema ({
+        orgName : String,
+        address : String,
+        website : String,
+        mission : String,
+        status : {type: String,
+                  enum: ['Approved','NoStatus','Rejected']}
+
+    }, {collection: "OrgInfo"});
+
+    return OrgInfoSchema;
+};

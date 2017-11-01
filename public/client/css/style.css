@@ -33,13 +33,13 @@ body{
     font-size:20px;
 }
 
-.nav>li>a{
+.header-style>li>a{
     color:#ffffff;
     font-weight: bolder;
     padding: 18px 12px;
 }
 
-.nav>li>a:hover , .nav>li>a:active , .nav>li>a:focus{
+.header-style>li>a:hover , .header-style>li>a:active , .header-style>li>a:focus{
     color : #ffffff;
     font-size: 16px;
     background-color: #e21a2d; !important;
