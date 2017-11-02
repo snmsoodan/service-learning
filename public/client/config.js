@@ -9,10 +9,6 @@
 
         $routeProvider
 
-            .when("/home", {
-                templateUrl: "client/views/home/home.view.html"
-            })
-
             .when("/login", {
                     templateUrl: "client/views/login/login.view.html",
                     controller: "LoginController",
@@ -24,7 +20,7 @@
                 controllerAs: "model"
             })
             //admin start
-            .when("/admin/:aid", {
+            .when("/admin", {
                 templateUrl: "client/views/admin/admin.view.html",
                 controller: "AdminController",
                 controllerAs: "model"
@@ -84,7 +80,7 @@
             })
 
             //faculty start
-            .when("/faculty/:fid", {
+            .when("/faculty", {
                 templateUrl: "client/views/faculty/faculty.view.html",
                 controller: "FacultyController",
                 controllerAs: "model"
@@ -115,7 +111,7 @@
                 controllerAs: "model"
             })
             .otherwise({
-                redirectTo: "home"
+                redirectTo: "login"
             });
 
 

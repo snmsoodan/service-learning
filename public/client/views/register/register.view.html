@@ -3,31 +3,59 @@
 
         <h2 class="form-signin-heading" style="color:#e21a2d">Create an account</h2>
 
-        <span style="color: green;">{{model.message}}</span>
-        <br>
-        <input type="text" class="form-control" name="firstname" placeholder="Firstname" ng-model="firstname" required="" autofocus="" />
-        <input type="text" class="form-control" name="lastname" placeholder="Lastname" ng-model="lastname" required="" autofocus="" />
+        <div ng-show="model.message" class="alert alert-danger width-class" role="alert">{{model.message}}</div>
 
-        <input type="text" class="form-control" name="username" placeholder="Email Address" ng-model="username" required="" autofocus="" />
-        <input type="password" class="form-control" name="password" placeholder="Password" ng-model="password" required=""/>
-        <input type="password" class="form-control" name="password" placeholder="Confirm Password" ng-model="passwordRe" required=""/>
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href data-target="#partnerInfo" data-toggle="tab">Partner</a>
+            </li>
 
+            <li>
+                <a href data-target="#facultyInfo" data-toggle="tab">Faculty</a>
+            </li>
+        </ul>
 
-        <div class="btn-group radiobutton"  data-toggle="buttons">
-            <!--<label class="btn btn-secondary active">-->
-            <input class="rdright" ng-value="1"  ng-model="myradio" type="radio" name="options" id="option1" autocomplete="off"> Faculty &nbsp;&nbsp;
-            <!--</label>-->
-            <!--<label class="btn btn-secondary">-->
-            <input class="rdright" ng-value="2" ng-model="myradio" type="radio" name="options" id="option2" autocomplete="off" > Partner &nbsp;&nbsp;
-            <!--</label>-->
-            <!--<label class="btn btn-secondary">-->
-            <input class="rdright" ng-value="3" ng-model="myradio" type="radio" name="options" id="option3" autocomplete="off"> Admin
-            <!--</label>-->
-            <!--{{myradio}}-->
+        <div class="tab-content">
+
+            <div class="tab-pane active" id="partnerInfo">
+
+                <div class="form-group" style="padding-top: 20px">
+                    <select class="form-control" ng-model="model.partner.orgId">
+                        <option value="" disabled selected>Please select your Organization</option>
+                        <option value="0">Service-Learning</option>
+                        <option value="1">BalletRox</option>
+                        <option value="2">826 Boston</option>
+                        <option value="3">Boston Cares</option>
+                        <option value="4">Daily table</option>
+                        <option value="5">Wang YMCA</option>
+                    </select>
+                </div>
+
+                <h5 style="padding-top: 5px;padding-bottom: 5px">Don't see your organization? <a>Create</a></h5>
+
+                <input type="text" class="form-control" placeholder="FirstName" ng-model="model.partner.firstName" required="" autofocus="" />
+                <input type="text" class="form-control" placeholder="LastName" ng-model="model.partner.lastName" required="" autofocus="" />
+
+                <input type="text" class="form-control" placeholder="Email Address" ng-model="model.partner.username" required="" autofocus="" />
+                <input type="password" class="form-control" name="Password" placeholder="Password" ng-model="model.partner.password" required=""/>
+
+                <a ng-click="model.registerPartner(model.partner)" class="btn redBG btn-danger btn-block">Register</a>
+
+            </div>
+
+            <div class="tab-pane" id="facultyInfo">
+
+                <div style="padding-top: 20px">
+                    <input type="text" class="form-control" name="firstname" placeholder="FirstName" ng-model="model.faculty.firstName" required="" autofocus="" />
+                    <input type="text" class="form-control" name="lastname" placeholder="LastName" ng-model="model.faculty.lastName" required="" autofocus="" />
+                    <input type="text" class="form-control" name="username" placeholder="Email Address" ng-model="model.faculty.username" required="" autofocus="" />
+                    <input type="password" class="form-control" name="password" placeholder="Password" ng-model="model.faculty.password" required=""/>
+
+                    <a ng-click="model.registerFaculty(model.faculty)" class="btn redBG btn-danger btn-block">Register</a>
+                </div>
+
+            </div>
         </div>
-
-
-        <a ng-click="model.register(myradio)" class="btn redBG btn-danger btn-block">Register</a>
 
     </form>
 
