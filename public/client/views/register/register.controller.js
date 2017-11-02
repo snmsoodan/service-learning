@@ -7,12 +7,14 @@
 
          var vm = this;
          vm.registerPartner = registerPartner;
+         vm.registerFaculty = registerFaculty;
 
          function init(){
-
          }init();
 
          function registerPartner(partner) {
+
+             vm.message = null;
 
              if(!partner.orgId){
                  vm.message = "Please select an organization";
@@ -28,7 +30,7 @@
                  return;
              }
 
-             if(!partner.emailId){
+             if(!partner.username){
                  vm.message = "Please enter an email address";
                  return;
              }
@@ -38,41 +40,93 @@
                  return;
              }
 
+             
              var newPartner = {
-                  firstName: partner.firstName,
-                  lastName:partner.lastName,
-                  emailId:partner.emailId,
-                  password:partner.password,
-                  role:"PARTNER"
+                  "firstName":partner.firstName,
+                  "lastName":partner.lastName,
+                  "username":partner.username,
+                  "password":partner.password,
+                  "role":"PARTNER"
              };
+
+             if(partner.orgId === "0" && partner.username === "admin@test.com"){
+                 newPartner.role="ADMIN";
+             }
 
              UserService.register(newPartner)
                  .then(function(user){
-                     console.log("returned from registering partner",user);
                      if(user)
                      {
-                         console.log("registered user",user.data);
-                         $rootScope.currentUser = newPartner;
-                         $rootScope.currentUser.orgId = partner.orgId;
+                         $rootScope.currentUser = user.data;
+                         console.log("user data"+user);
 
-                         var info = {
-                             userId : user.id,
-                             organizationId : partner.orgId
-                         };
-                         console.log("partner org info",info);
-                         PartnerOrgInfoService.addUserOrgInfo(info)
-                             .then(function(res){
-                                 if(res)
+                         if($rootScope.currentUser.role === "PARTNER"){
+                             var info = {
+                                 userId : user.data._id,
+                                 organizationId : partner.orgId
+                             };
+
+
+                             PartnerOrgInfoService.addUserOrgInfo(info)
+                                 .then(function(response){
+                                     console.log("after add User Org", +response.data);
                                      $location.url("/partner");
-                             })
+                                 }, function(err){
+                                     console.log(err);
+                                 });
+                         }
+                         else if($rootScope.currentUser.role === "ADMIN")
+                             $location.url("/admin");
                      }else
                          vm.message = "email id already exists";
-                 },
-                     function(err){
+                 },function(err){
+                        vm.message = err.data;
                         console.log(err);
                      }
                  );
+         }
 
+
+         function registerFaculty(faculty) {
+
+             vm.message = null;
+
+             if(!faculty.firstName){
+                 vm.message = "Please enter a first name";
+                 return;
+             }
+             if(!faculty.lastName){
+                 vm.message = "Please enter a last name";
+                 return;
+             }
+
+             if(!faculty.username || faculty.username.indexOf("@northeastern.edu") === -1){
+                 vm.message = "Please enter your northeastern email id";
+                 return;
+             }
+
+             if(!faculty.password){
+                 vm.message = "Please enter a password";
+                 return;
+             }
+
+             var newFaculty = {
+                 "firstName":faculty.firstName,
+                 "lastName":faculty.lastName,
+                 "username":faculty.username,
+                 "password":faculty.password,
+                 "role":"FACULTY"
+             };
+
+             UserService.register(newFaculty)
+                 .then(function(user){
+                     console.log("returned from registering faculty",user);
+                     $rootScope.currentUser = user.data;
+                     $location.url("/faculty");
+                     },function(err){
+                         console.log(err);
+                     }
+                 );
          }
     }
 })();

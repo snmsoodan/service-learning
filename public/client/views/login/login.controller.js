@@ -16,6 +16,8 @@
 
         function login(user) {
 
+            console.log("user login info"+user);
+
             if (!user) {
                 vm.message = "Please enter login details";
                 return;
@@ -25,16 +27,16 @@
                 .then(function (response) {
                         $rootScope.currentUser = response.data;
                         if ($rootScope.currentUser.role === "FACULTY") {
-                            $location.url("/faculty/" + user._id);
+                            $location.url("/faculty/");
                         }
 
                         if ($rootScope.currentUser.role === "ADMIN") {
-                            vm.userDao = users;
-                            sessionStorage.userDao = JSON.stringify(users);
-                            $location.url("/admin/" + user._id);
+                            //vm.userDao = users;
+                            //sessionStorage.userDao = JSON.stringify(users);
+                            $location.url("/admin/");
                         }
 
-                        if ($rootScope.user.role === "PARTNER") {
+                        if ($rootScope.currentUser.role === "PARTNER") {
                             $location.url("/partner");
                         }
                     },

@@ -12,7 +12,6 @@ module.exports = function () {
     return api;
 
     function addUserOrgInfo(info) {
-        console.log("model org info"+info);
         return PartnerOrgInfo.create(info);
     }
-}
+};

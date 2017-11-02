@@ -10,5 +10,6 @@
     <orderEntry type="library" name="bcrypt-nodejs-DefinitelyTyped" level="application" />
     <orderEntry type="library" name="passport-DefinitelyTyped" level="application" />
     <orderEntry type="library" name="passport-local-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="express-DefinitelyTyped" level="application" />
   </component>
 </module>

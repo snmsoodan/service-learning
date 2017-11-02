@@ -12,7 +12,6 @@
         return model;
 
         function addUserOrgInfo(info) {
-            console.log("client service userorginfo");
             return $http.post("/api/userOrgInfo",info);
         }
     }

@@ -8,7 +8,7 @@ module.exports = function () {
     var api = {
         createUser: createUser,
         findUserById: findUserById,
-        findUserByEmailId: findUserByEmailId,
+        findUserByUserName: findUserByUserName,
         findUserByCredentials: findUserByCredentials
     };
 
@@ -18,19 +18,15 @@ module.exports = function () {
         return UserInfo.findById({_id: userId});
     }
 
-    function findUserByEmailId(email) {
-        return UserInfo.findOne({emailId: email});
+    function findUserByUserName(name) {
+        return UserInfo.findOne({username: name});
     }
 
-
-    //findOne returns only One (first one for multiple results)
     function findUserByCredentials(username, password) {
         return UserInfo.findOne({username: username, password: password});
     }
 
     function createUser(newUser) {
-        var res = user.create(newUser);
-        console.log("reached model",res);
-        return res;
+        return UserInfo.create(newUser);
     }
 };

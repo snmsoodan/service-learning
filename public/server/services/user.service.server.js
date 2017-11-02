@@ -1,38 +1,40 @@
-var passport      = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-var bcrypt = require("bcrypt-nodejs");
+module.exports = function(app,userModel) {
 
-module.exports = function(app,userModel){
+    var passport = require('passport');
+    var LocalStrategy = require('passport-local').Strategy;
+    var bcrypt = require("bcrypt-nodejs");
 
-    app.post('/api/login', passport.authenticate('serviceLearning'), login);
-    app.post('/api/logout',logout);
-    app.get('/api/loggedIn',loggedIn);
-    app.post('/api/register',register);
+    var auth = authorized;
+    app.post('/api/login', passport.authenticate('local'), login);
+    app.post('/api/logout', logout);
+    app.get('/api/loggedIn', loggedIn);
+    app.post('/api/register', register);
 
 
-    passport.use('serviceLearning',new LocalStrategy(localStrategy));
+    passport.use('local', new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
     passport.deserializeUser(deserializeUser);
 
 
     function localStrategy(username, password, done) {
         userModel
-            .findUserByUsername(username)
+            .findUserByUserName(username)
             .then(
-                function(user) {
-                    if (user && bcrypt.compareSync(password,user.password))
-                    {
+                function (user) {
+                    if (user && bcrypt.compareSync(password, user.password)) {
                         return done(null, user);
-                    }else{
+                    } else {
                         return done(null, false);
                     }
                 },
-                function(err) {
-                    if (err) { return done(err); }
+                function (err) {
+                    if (err) {
+                        return done(err);
+                    }
                 }
-
             );
     }
+
     function serializeUser(user, done) {
         delete user.password;
         done(null, user);
@@ -42,14 +44,22 @@ module.exports = function(app,userModel){
         userModel
             .findById(user._id)
             .then(
-                function(user){
+                function (user) {
                     delete user.password;
                     done(null, user);
                 },
-                function(err){
+                function (err) {
                     done(err, null);
                 }
             );
+    }
+
+    function authorized (req, res, next) {
+        if (!req.isAuthenticated()) {
+            res.send(401);
+        } else {
+            next();
+        }
     }
 
     function login(req, res) {
@@ -60,7 +70,7 @@ module.exports = function(app,userModel){
 
     function loggedIn(req, res) {
         //console.log(req.isAuthenticated() ? req.user : '0');
-        //res.send(req.isAuthenticated() ? req.user : '0');
+        res.send(req.isAuthenticated() ? req.user : '0');
     }
 
     function logout(req, res) {
@@ -70,34 +80,32 @@ module.exports = function(app,userModel){
 
     function register(req,res) {
         var newUser = req.body;
-        console.log("server service"+newUser);
 
         userModel
-            .findUserByEmailId(newUser.emailId)
-            .then(function(user) {
-                if(user)
-                    res.json(null);
-                else{
-                    newUser.password = bcrypt.hashSync(newUser.password);
-                    var result = userModel.createUser(newUser);
-                    return result;
-                }
-            },
-            function(err){
-                res.status(400).send(err);
-            })
-            .then(function(user){
-                if(user)
-                {
-                    req.login(user,function(err) {
-                        if(err)
+            .findUserByUserName(newUser.username)
+            .then(function (user) {
+                    if (user)
+                        res.status(400).send("email already exists");
+                    else {
+                        newUser.password = bcrypt.hashSync(newUser.password);
+                        return userModel.createUser(newUser);
+                    }
+                },
+                function (err) {
+                    res.status(400).send(err);
+                })
+            .then(function (user) {
+                if (user) {
+                    req.login(user, function (err) {
+                        if (err)
                             res.status(400).send(err);
                         else
                             res.json(user);
                     });
                 }
-            }, function(err) {
+            }, function (err) {
                 res.status(400).send(err);
             });
     }
 };
+

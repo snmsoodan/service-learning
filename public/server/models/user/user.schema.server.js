@@ -7,7 +7,7 @@ module.exports = function () {
     var UserSchema = mongoose.Schema ({
         firstName : String,
         lastName : String,
-        emailId : {type: String, required: true},
+        username : {type: String, required: true},
         password : String,
         role :  String,
         createdDate : {type: Date, default : Date.now}

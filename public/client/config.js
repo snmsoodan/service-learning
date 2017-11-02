@@ -20,7 +20,7 @@
                 controllerAs: "model"
             })
             //admin start
-            .when("/admin/:aid", {
+            .when("/admin", {
                 templateUrl: "client/views/admin/admin.view.html",
                 controller: "AdminController",
                 controllerAs: "model"
@@ -80,7 +80,7 @@
             })
 
             //faculty start
-            .when("/faculty/:fid", {
+            .when("/faculty", {
                 templateUrl: "client/views/faculty/faculty.view.html",
                 controller: "FacultyController",
                 controllerAs: "model"
