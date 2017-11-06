@@ -3,8 +3,8 @@
 <div id="content">
     <div id="mainBox" class="textBox">
         <div id="mainMenuBar">
-            <a href="#/admin/1/adminPartnerListInProgress" class="btn btn-primary ">In Progress</a>
-            <a href="#/admin/1/adminPartnerList" class="btn btn-primary ">Submitted</a>
+            <a href="#/admin/{{model.aid}}/adminPartnerListInProgress" class="btn btn-primary ">In Progress</a>
+            <a href="#/admin/{{model.aid}}/adminPartnerList" class="btn btn-primary ">Submitted</a>
             <!--<a class="btn btn-primary ">Login</a>-->
         </div>
     </div>
@@ -15,20 +15,23 @@
 
     <div class="col-md-2 right-line1">
         <ul class="list-group">
-            <li class="list-group-item active">
-                <a style="color: white" href="#/admin/1/adminPartnerList/1">Cras justo odio</a>
-            </li>
-            <li class="list-group-item">
-                <a href="#/admin/1/adminPartnerList/1">Dapibus ac facilisis in</a>
-            </li>
-            <li class="list-group-item">
-                <a href="#/admin/1/adminPartnerList/1">Morbi leo risus</a>
-            </li>
-            <li class="list-group-item">
-                <a href="#/admin/1/adminPartnerList/1">Porta ac consectetur ac</a>
-            </li>
-            <li class="list-group-item">
-                <a href="#/admin/1/adminPartnerList/1">Vestibulum at eros</a>
+            <!--<li class="list-group-item active">-->
+                <!--<a style="color: white" href="#/admin/1/adminPartnerList/1">Cras justo odio</a>-->
+            <!--</li>-->
+            <!--<li class="list-group-item">-->
+                <!--<a href="#/admin/1/adminPartnerList/1">Dapibus ac facilisis in</a>-->
+            <!--</li>-->
+            <!--<li class="list-group-item">-->
+                <!--<a href="#/admin/1/adminPartnerList/1">Morbi leo risus</a>-->
+            <!--</li>-->
+            <!--<li class="list-group-item">-->
+                <!--<a href="#/admin/1/adminPartnerList/1">Porta ac consectetur ac</a>-->
+            <!--</li>-->
+            <!--<li class="list-group-item">-->
+                <!--<a href="#/admin/1/adminPartnerList/1">Vestibulum at eros</a>-->
+            <!--</li>-->
+            <li  ng-repeat="partner in model.partners" class="list-group-item">
+                <a  href="#/admin/{{model.aid}}/adminPartnerList/{{partner._id}}">{{partner.name}}</a>
             </li>
         </ul>
 

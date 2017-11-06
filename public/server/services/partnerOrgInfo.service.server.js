@@ -13,6 +13,9 @@ module.exports = function(app,partnerOrgInfoModel) {
              });
      }
 
+
+
+
     function getUserOrgId(req,res){
         var userId =req.params.userId;
         partnerOrgInfoModel.getUserOrgId(userId)
