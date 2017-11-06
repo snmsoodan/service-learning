@@ -15,42 +15,41 @@
 
     <div class="col-md-2 right-line1">
         <ul class="list-group">
-            <li class="list-group-item active">
-                <a style="color: white" href="#/admin/1/adminPartnerList/1">Cras justo odio</a>
+            <!--<li class="list-group-item active">-->
+                <!--<a style="color: white" href="#/admin/1/adminPartnerList/1">Cras justo odio</a>-->
+            <!--</li>-->
+            <!--<li class="list-group-item">-->
+                <!--<a href="#/admin/1/adminPartnerList/1">Dapibus ac facilisis in</a>-->
+            <!--</li>-->
+            <!--<li class="list-group-item">-->
+                <!--<a href="#/admin/1/adminPartnerList/1">Morbi leo risus</a>-->
+            <!--</li>-->
+            <!--<li class="list-group-item">-->
+                <!--<a href="#/admin/1/adminPartnerList/1">Porta ac consectetur ac</a>-->
+            <!--</li>-->
+            <!--<li class="list-group-item">-->
+                <!--<a href="#/admin/1/adminPartnerList/1">Vestibulum at eros</a>-->
+            <!--</li>-->
+
+            <li ng-repeat="partner in model.partners" class="list-group-item"   >
+                <a ng-if="partner._id==model.pid" href="#/admin/{{model.aid}}/adminPartnerList/{{partner._id}}"><b>{{partner.name}}</b></a>
+
+                <a ng-if="partner._id!=model.pid" href="#/admin/{{model.aid}}/adminPartnerList/{{partner._id}}">{{partner.name}}</a>
             </li>
-            <li class="list-group-item">
-                <a href="#/admin/1/adminPartnerList/1">Dapibus ac facilisis in</a>
-            </li>
-            <li class="list-group-item">
-                <a href="#/admin/1/adminPartnerList/1">Morbi leo risus</a>
-            </li>
-            <li class="list-group-item">
-                <a href="#/admin/1/adminPartnerList/1">Porta ac consectetur ac</a>
-            </li>
-            <li class="list-group-item">
-                <a href="#/admin/1/adminPartnerList/1">Vestibulum at eros</a>
-            </li>
+
         </ul>
 
     </div>
 
     <div class="col-md-4 right-line1">
         <ul class="list-group">
-            <li class="list-group-item active">
-                <a style="color: white"> Cras justo odio</a>
+
+            <li ng-repeat="p in model.pApplications" class="list-group-item" >
+                <a ng-if="p.applicationId==model.prid" href="#/admin/{{model.aid}}/adminPartnerList/{{p._id}}/proposal/{{p.applicationId}}"><b>{{p.name}}</b></a>
+
+                <a ng-if="p.applicationId!=model.prid" href="#/admin/{{model.aid}}/adminPartnerList/{{p._id}}/proposal/{{p.applicationId}}">{{p.name}}</a>
             </li>
-            <li class="list-group-item">
-                <a>Dapibus ac facilisis in</a>
-            </li>
-            <li class="list-group-item">
-                <a> Morbi leo risus</a>
-            </li>
-            <li class="list-group-item">
-                <a>Porta ac consectetur ac</a>
-            </li>
-            <li class="list-group-item">
-                <a>Vestibulum at eros</a>
-            </li>
+
         </ul>
 
     </div>

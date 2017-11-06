@@ -12,4 +12,4 @@ module.exports = function(app,partnerOrgInfoModel) {
                  res.status(400).send(err);
              });
      }
-};
+}

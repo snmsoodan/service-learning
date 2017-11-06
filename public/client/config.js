@@ -20,48 +20,52 @@
                 controllerAs: "model"
             })
             //admin start
-            .when("/admin", {
+            .when("/admin/:aid", {
                 templateUrl: "client/views/admin/admin.view.html",
                 controller: "AdminController",
                 controllerAs: "model"
             })
 
             //start admin partner proposals
-            .when("/admin/:aid/adminPartnerAllProposals", {
-                templateUrl: "client/views/admin/adminPartnerAllProposals.view.html",
-                controller: "AdminController",
-                controllerAs: "model"
-            })
+            // .when("/admin/:aid/adminPartnerAllProposals", {
+            //     templateUrl: "client/views/admin/adminPartnerAllProposals.view.html",
+            //     controller: "AdminController",
+            //     controllerAs: "model"
+            // })
 
             .when("/admin/:aid/adminPartnerList", {
                 templateUrl: "client/views/admin/partnerList.view.html",
-                controller: "AdminController",
+                controller: "PartnerListController",
                 controllerAs: "model"
             })
+
             .when("/admin/:aid/adminPartnerList/:pid", {
                 templateUrl: "client/views/admin/adminPartnerSpecificProposal.view.html",
-                controller: "AdminController",
+                controller: "AdminPartnerSpecificController",
                 controllerAs: "model"
             })
+
             .when("/admin/:aid/adminPartnerList/:pid/proposal/:prid", {
                 templateUrl: "client/views/admin/adminPartnerSpecificProposalView.view.html",
-                controller: "AdminController",
+                controller: "AdminPartnerSpecificProposalViewController",
                 controllerAs: "model"
             })
 
             .when("/admin/:aid/adminPartnerListInProgress", {
                 templateUrl: "client/views/admin/partnerListInProgress.view.html",
-                controller: "AdminController",
+                controller: "PartnerListInProgressController",
                 controllerAs: "model"
             })
+
             .when("/admin/:aid/adminPartnerListInProgress/:pid", {
                 templateUrl: "client/views/admin/adminPartnerSpecificProposalInProgress.view.html",
-                controller: "AdminController",
+                controller: "AdminPartnerSpecificInProgressController",
                 controllerAs: "model"
             })
+
             .when("/admin/:aid/adminPartnerListInProgress/:pid/proposal/:prid", {
                 templateUrl: "client/views/admin/adminPartnerSpecificProposalViewInProgress.view.html",
-                controller: "AdminController",
+                controller: "AdminPartnerSpecificProposalViewInProgressController",
                 controllerAs: "model"
             })
 
@@ -70,6 +74,11 @@
             // end admin partner proposals
 
 
+            .when("/try", {
+                templateUrl: "client/views/admin/try.view.html",
+                controller: "TryController",
+                controllerAs: "model"
+            })
 
 
             //admin end
