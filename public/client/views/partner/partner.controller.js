@@ -31,7 +31,7 @@
                         .then(function (res) {
                             vm.userOrgInfo = res.data;
                             if(vm.userOrgInfo.status === 'NoStatus')
-                                $location.url("/OrgNotApproved");
+                                $location.url("/OrgNotYetApproved");
                             else if(vm.userOrgInfo.status === 'Rejected')
                                 $location.url("/OrgRejected");
                         })

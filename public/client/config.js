@@ -24,7 +24,7 @@
                 controller: "OrgRegisterController",
                 controllerAs: "model"
             })
-            .when("/OrgNotApproved",{
+            .when("/OrgNotYetApproved",{
                 templateUrl: "client/views/404/orgNotYetApproved.view.html"
             })
             .when("/OrgRejected",{
