@@ -6,12 +6,17 @@ module.exports = function () {
     var PartnerOrgInfo = mongoose.model("PartnerOrgInfo", PartnerOrgInfoSchema);
 
     var api = {
-        addUserOrgInfo: addUserOrgInfo
+        addUserOrgInfo: addUserOrgInfo,
+        getUserOrgId:getUserOrgId
     };
 
     return api;
 
     function addUserOrgInfo(info) {
         return PartnerOrgInfo.create(info);
+    }
+
+    function getUserOrgId(id){
+        return PartnerOrgInfo.findOne({userId:id});
     }
 };

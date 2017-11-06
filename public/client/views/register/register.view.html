@@ -23,15 +23,11 @@
                     <select class="form-control" ng-model="model.partner.orgId">
                         <option value="" disabled selected>Please select your Organization</option>
                         <option value="0">Service-Learning</option>
-                        <option value="1">BalletRox</option>
-                        <option value="2">826 Boston</option>
-                        <option value="3">Boston Cares</option>
-                        <option value="4">Daily table</option>
-                        <option value="5">Wang YMCA</option>
+                        <option ng-repeat="org in model.OrgsInfo" value="{{org._id}}">{{org.name}}</option>
                     </select>
                 </div>
 
-                <h5 style="padding-top: 5px;padding-bottom: 5px">Don't see your organization? <a>Create</a></h5>
+                <h5 style="padding-top: 5px;padding-bottom: 5px">Don't see your organization? <a href="#/newOrg">Create</a></h5>
 
                 <input type="text" class="form-control" placeholder="FirstName" ng-model="model.partner.firstName" required="" autofocus="" />
                 <input type="text" class="form-control" placeholder="LastName" ng-model="model.partner.lastName" required="" autofocus="" />

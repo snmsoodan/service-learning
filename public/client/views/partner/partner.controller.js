@@ -3,12 +3,11 @@
     angular.module("ServiceLearningApp")
         .controller("PartnerController",PartnerController);
 
-    function PartnerController($rootScope,$location) {
+    function PartnerController($rootScope,PartnerOrgInfoService,OrgInfoService,$location) {
         var vm = this;
         vm.message = null;
         vm.pid = $rootScope.currentUser._id;
         vm.currentView = "CS";
-        vm.changeView = changeView;
 
         vm.currentSemData = [
             {id:1,appName:'App1',status:'In Progress',editBy:'xxx@gmail.com',editAt:'2017-10-16 16:55'},
@@ -24,13 +23,20 @@
 
 
         function init(){
+            PartnerOrgInfoService.getUserOrgId($rootScope.currentUser._id)
+                .then(function(response){
+                    $rootScope.currentUser.orgId = response.data.orgId;
+
+                    OrgInfoService.getOrgById($rootScope.currentUser.orgId)
+                        .then(function (res) {
+                            vm.userOrgInfo = res.data;
+                            if(vm.userOrgInfo.status === 'NoStatus')
+                                $location.url("/OrgNotApproved");
+                            else if(vm.userOrgInfo.status === 'Rejected')
+                                $location.url("/OrgRejected");
+                        })
+                })
         }init();
-
-        function changeView(view) {
-            vm.currentView = view;
-        }
-
-
 
     }
 })();
