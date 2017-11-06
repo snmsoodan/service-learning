@@ -19,7 +19,7 @@
     ]
 
 
-    function AdminPartnerSpecificInProgressController($rootScope,$location,$routeParams,$scope,$http,ApplicationInfoService,OrganizationInfoService) {
+    function AdminPartnerSpecificInProgressController($rootScope,$location,$routeParams,$scope,$http,ApplicationInfoService,OrgInfoService) {
         var vm = this;
         vm.aid = $routeParams.aid;
         vm.pid = $routeParams.pid;
@@ -35,7 +35,7 @@
                         vm.partners=[];
                         for(var i in applicationData)
                         {
-                            OrganizationInfoService.getAllPartnerNamesApplicationsInProgress(applicationData[i].organizationId)
+                            OrgInfoService.getAllPartnerNamesApplicationsInProgress(applicationData[i].organizationId)
                                 .then(
                                     function (response2) {
                                         var organizationName=response2.data;

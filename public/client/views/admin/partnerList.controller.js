@@ -10,7 +10,7 @@
         {_id: "456", name: "jannunzi", applicationId:"4" }
     ]
 
-    function PartnerListController($rootScope,$location,$routeParams,$scope,$http,OrganizationInfoService,ApplicationInfoService) {
+    function PartnerListController($rootScope,$location,$routeParams,$scope,$http,OrgInfoService,ApplicationInfoService) {
         var vm = this;
         vm.aid = $routeParams.aid;
 
@@ -26,7 +26,7 @@
                         vm.partners=[];
                         for(var i in applicationData)
                         {
-                            OrganizationInfoService.getAllPartnerNamesApplicationsSubmitted(applicationData[i].organizationId)
+                            OrgInfoService.getAllPartnerNamesApplicationsSubmitted(applicationData[i].organizationId)
                                 .then(
                                     function (response2) {
                                         var organizationName=response2.data;

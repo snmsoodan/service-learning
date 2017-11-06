@@ -19,7 +19,7 @@
     ]
 
 
-    function AdminPartnerSpecificController($rootScope,$location,$routeParams,$scope,$http,ApplicationInfoService,OrganizationInfoService) {
+    function AdminPartnerSpecificController($rootScope,$location,$routeParams,$scope,$http,ApplicationInfoService,OrgInfoService) {
         var vm = this;
         vm.aid = $routeParams.aid;
         vm.pid = $routeParams.pid;
@@ -35,7 +35,7 @@
                         vm.partners=[];
                         for(var i in applicationData)
                         {
-                            OrganizationInfoService.getAllPartnerNamesApplicationsSubmitted(applicationData[i].organizationId)
+                            OrgInfoService.getAllPartnerNamesApplicationsSubmitted(applicationData[i].organizationId)
                                 .then(
                                     function (response2) {
                                         var organizationName=response2.data;
@@ -57,14 +57,6 @@
                 )
 
 
-
-            // for (var i in partnerApps)
-            // {
-            //     if(partnerApps[i]._id===vm.pid)
-            //     {
-            //         vm.pApplications.push(partnerApps[i]);
-            //     }
-            // }
 
         }init();
 

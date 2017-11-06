@@ -8,7 +8,9 @@ module.exports = function () {
     var api = {
         addOrgInfo: addOrgInfo,
         getAllOrg:getAllOrg,
-        getOrgById:getOrgById
+        getOrgById:getOrgById,
+        getAllPartnerNamesApplicationsSubmitted:getAllPartnerNamesApplicationsSubmitted,
+        getAllPartnerNamesApplicationsInProgress:getAllPartnerNamesApplicationsInProgress
     };
 
     return api;
@@ -25,4 +27,14 @@ module.exports = function () {
     function getOrgById(orgId) {
         return OrgInfo.findById(orgId);
     }
+
+
+    function getAllPartnerNamesApplicationsSubmitted(id) {
+        return OrgInfo.findById(id);
+    }
+
+    function getAllPartnerNamesApplicationsInProgress(id) {
+        return OrgInfo.findById(id);
+    }
+
 };
