@@ -8,7 +8,6 @@
         var model = {
             login:login,
             register:register
-
         };
 
         return model;
