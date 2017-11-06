@@ -3,13 +3,17 @@
     angular.module("ServiceLearningApp")
         .controller("RegisterController", RegisterController);
 
-    function RegisterController($rootScope, $location, UserService, PartnerOrgInfoService) {
+    function RegisterController($rootScope, $location, UserService, PartnerOrgInfoService,OrgInfoService) {
 
          var vm = this;
          vm.registerPartner = registerPartner;
          vm.registerFaculty = registerFaculty;
 
          function init(){
+             OrgInfoService.getAllOrg()
+                 .then(function(allOrg){
+                     vm.OrgsInfo = allOrg.data;
+                 })
          }init();
 
          function registerPartner(partner) {
@@ -58,18 +62,19 @@
                      if(user)
                      {
                          $rootScope.currentUser = user.data;
+                         $rootScope.currentUser.orgId = partner.orgId;
                          console.log("user data"+user);
 
                          if($rootScope.currentUser.role === "PARTNER"){
                              var info = {
                                  userId : user.data._id,
-                                 organizationId : partner.orgId
+                                 orgId : partner.orgId
                              };
 
 
                              PartnerOrgInfoService.addUserOrgInfo(info)
                                  .then(function(response){
-                                     console.log("after add User Org", +response.data);
+                                     console.log("after add User Org", +response);
                                      $location.url("/partner");
                                  }, function(err){
                                      console.log(err);

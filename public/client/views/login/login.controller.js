@@ -26,6 +26,7 @@
             UserService.login(user)
                 .then(function (response) {
                         $rootScope.currentUser = response.data;
+                        console.log(response);
                         if ($rootScope.currentUser.role === "FACULTY") {
                             $location.url("/faculty/");
                         }

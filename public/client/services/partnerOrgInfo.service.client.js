@@ -6,13 +6,18 @@
     function PartnerOrgInfoService($http){
 
         var model = {
-            addUserOrgInfo:addUserOrgInfo
+            addUserOrgInfo:addUserOrgInfo,
+            getUserOrgId:getUserOrgId
         };
 
         return model;
 
         function addUserOrgInfo(info) {
-            return $http.post("/api/userOrgInfo",info);
+            return  $http.post("/api/userOrgInfo",info);
+        }
+
+        function getUserOrgId(userId) {
+            return $http.get("/api/getUserOrgId/" +userId);
         }
     }
 })();
