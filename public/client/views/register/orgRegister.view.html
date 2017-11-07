@@ -1,0 +1,30 @@
+<div class="header-padding" ng-controller="OrgRegisterController as model">
+
+    <form class="form-signin">
+
+        <div ng-show="model.message" class="alert alert-danger width-class" role="alert">{{model.message}}</div>
+
+        <h2 class="form-signin-heading" style="color:#e21a2d">Enter your account information</h2>
+
+        <input type="text" class="form-control" placeholder="FirstName" ng-model="model.partner.firstName" required="" autofocus="" />
+        <input type="text" class="form-control" placeholder="LastName" ng-model="model.partner.lastName" required="" autofocus="" />
+
+        <input type="text" class="form-control" placeholder="Email Address" ng-model="model.partner.username" required="" autofocus="" />
+        <input type="password" class="form-control" name="Password" placeholder="Password" ng-model="model.partner.password" required=""/>
+
+        <h2 class="form-signin-heading" style="color:#e21a2d">Enter your organization's information</h2>
+
+        <input type="text" class="form-control" placeholder="Name" ng-model="model.org.name" required="" autofocus="" />
+        <input type="text" class="form-control" placeholder="Address" ng-model="model.org.address" required="" autofocus="" />
+        <input type="text" class="form-control" placeholder="Website" ng-model="model.org.website" required="" autofocus="" />
+
+        <textarea rows="5" cols="20" class="form-control" placeholder="Mission" ng-model="model.org.mission" required="" autofocus=""></textarea>
+
+
+        <button ng-click="model.orgRegister(model.partner,model.org)" class="btn redBG btn-danger btn-block">Submit Request and Create Account</button>
+        <!--<button ng-click="model.createUsers()" class="btn redBG btn-danger btn-block">Data Patch</button>-->
+
+
+    </form>
+
+</div>

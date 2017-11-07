@@ -3,23 +3,30 @@
     angular.module("ServiceLearningApp")
         .controller("AdminController",AdminController);
 
+    var partners=[
+        {_id: "123", name: "alice", applicationId:"1" },
+        {_id: "234", name: "bob", applicationId:"2" },
+        {_id: "345", name: "charly", applicationId:"3"  },
+        {_id: "456", name: "jannunzi", applicationId:"4" }
+    ]
+
     function AdminController($rootScope,$location,$routeParams,$scope,$http,UserService) {
         var vm = this;
         vm.aid = $routeParams.aid;
         vm.activateRejectUser = activateRejectUser;
+        vm.partners=partners;
 
         function init(){
-            //$http.post("/api/getAllUsers", user)
             var user = {status:"NoStatus"};
             UserService.getAllUsers(user)
                 .then(function (success) {
-                vm.users = success.data;
-                vm.users = JSON.parse(vm.users);
-                removeDuplicates(vm.users,'username');
-                console.log(vm.aid)
-            } ,function (error){
+                    vm.users = success.data;
+                    vm.users = JSON.parse(vm.users);
+                    removeDuplicates(vm.users,'username');
+                    console.log(vm.aid)
+                } ,function (error){
 
-            });
+                });
 
         }init();
 
@@ -38,8 +45,6 @@
 
 
             UserService.activateRejectUser(user)
-               // .then(
-            //$http.post('/api/getRegisterReject/', {params: {name: JSON.stringify(user)}})
                 .then(
                     function(success){
                         vm.message = success.data;
@@ -60,16 +65,13 @@
                         vm.message = error.data;
                     });
 
-            //vm.users = sessionStorage.getItem('userDao');
 
         }
 
         function rejectUserCancel(user,status,type) {
-            //if (type === '4') {
             user.status = status;
             user.reason = '';
             user.reject = false;
-            //}
         }
 
         function removeDuplicates(originalArray, objKey) {
