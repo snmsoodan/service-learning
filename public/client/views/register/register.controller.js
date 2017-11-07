@@ -129,7 +129,7 @@
                      console.log("returned from registering faculty",user);
                      $rootScope.currentUser = user.data;
                      //$location.url("/faculty");
-                     vm.message = "User regostration is successfull , kindly make sure to get approved by ADMIN";
+                     vm.message = "Request for approval has been sent to ADMIN successfully...";
                      },function(err){
                          console.log(err);
                      }
