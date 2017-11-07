@@ -9,7 +9,9 @@ module.exports = function () {
         createUser: createUser,
         findUserById: findUserById,
         findUserByUserName: findUserByUserName,
-        findUserByCredentials: findUserByCredentials
+        findUserByCredentials: findUserByCredentials,
+        fetchUser: fetchUser,
+        updateUser: updateUser
     };
 
     return api;
@@ -28,5 +30,17 @@ module.exports = function () {
 
     function createUser(newUser) {
         return UserInfo.create(newUser);
+    }
+
+    function fetchUser(status) {
+        return UserInfo.find({status: status});
+    }
+
+    function updateUser(newUser) {
+        return UserInfo.update({_id: newUser._id},{
+            $set: {
+                status: newUser.status
+            }
+        });
     }
 };

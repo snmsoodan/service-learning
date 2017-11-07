@@ -120,14 +120,16 @@
                  "lastName":faculty.lastName,
                  "username":faculty.username,
                  "password":faculty.password,
-                 "role":"FACULTY"
+                 "role":"FACULTY",
+                 "status":"NoStatus"
              };
 
              UserService.register(newFaculty)
                  .then(function(user){
                      console.log("returned from registering faculty",user);
                      $rootScope.currentUser = user.data;
-                     $location.url("/faculty");
+                     //$location.url("/faculty");
+                     vm.message = "Request for approval has been sent to ADMIN successfully...";
                      },function(err){
                          console.log(err);
                      }

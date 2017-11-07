@@ -32,7 +32,7 @@
             })
 
             //admin start
-            .when("/admin/:aid", {
+            .when("/admin/", {
                 templateUrl: "client/views/admin/admin.view.html",
                 controller: "AdminController",
                 controllerAs: "model"
