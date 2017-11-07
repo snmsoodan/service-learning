@@ -72,11 +72,11 @@
                 <td><span>{{user.role}}</span>
                 <td><span>{{user.status}}</span>
                 <td>{{user.createdDate}}</td>
-                <td><button ng-if="user.status =='P'" ng-click="model.activateRejectUser(user,'A','0')">Activate</button>
-                    <button ng-if="user.status =='P'" ng-click="model.activateRejectUser(user,'D','1')">Reject</button>
-                    <span ng-if="user.status =='D' && user.reason != 'null' && !user.reject">Rejected reason : {{user.reason}}</span>
-                    <button ng-if="user.status =='D'" ng-show="user.reject" ng-click="model.activateRejectUser(user,'D','2')">Submit</button>
-                    <button ng-if="user.status =='D'" ng-show="user.reject" ng-click="model.rejectUserCancel(user,'D','2')">Cancel</button>
+                <td><button ng-if="user.status =='NoStatus'" ng-click="model.activateRejectUser(user,'Approved','0')">Activate</button>
+                    <button ng-if="user.status =='NoStatus'" ng-click="model.activateRejectUser(user,'Rejected','1')">Reject</button>
+                    <span ng-if="user.status =='Rejected' && !user.reject">Rejected reason : {{user.reason}}</span>
+                    <button ng-if="user.status =='Rejected'" ng-show="user.reject" ng-click="model.activateRejectUser(user,'Rejected','2')">Submit</button>
+                    <button ng-if="user.status =='Rejected'" ng-show="user.reject" ng-click="model.rejectUserCancel(user,'Rejected','2')">Cancel</button>
                 </td>
             </tr>
             </tbody>

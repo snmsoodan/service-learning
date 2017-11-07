@@ -9,6 +9,8 @@ module.exports = function(app,userModel) {
     app.post('/api/logout', logout);
     app.get('/api/loggedIn', loggedIn);
     app.post('/api/register', register);
+    app.post('/api/getRegisterReject',activateRejectUser);
+    app.post('/api/getAllUsers',fetchUser);
 
 
     passport.use('local', new LocalStrategy(localStrategy));
@@ -106,6 +108,32 @@ module.exports = function(app,userModel) {
             }, function (err) {
                 res.status(400).send(err);
             });
+    }
+
+    function activateRejectUser(req,res) {
+        var newUser = req.body;
+
+        userModel
+            .findUserByUserName(newUser.username)
+            .then(function (obj) {
+                     console.log('---updateOne---'+obj+' ---- updated user '+newUser._id);
+                     return userModel.updateUser(newUser);
+
+                },
+                function (err) {
+                console.log('---err---'+err);
+                    res.status(400).send(err);
+                });
+    }
+
+    function fetchUser(req,res) {
+        var newUser = req.body;
+        userModel.fetchUser(newUser.status).then(function (obj) {
+            res.json(obj);
+        } , function(err) {
+            res.status(400).send(err);
+        });
+
     }
 };
 

@@ -3,6 +3,7 @@
 module.exports = function () {
     var mongoose = require("mongoose"); // mongoDb has no notion of schemas. this is at the application level
     var ROLES =  ["Admin", "Partner", "Faculty"];
+    var status = ['Approved','NoStatus','Rejected'];
 
     var UserSchema = mongoose.Schema ({
         firstName : String,
@@ -10,7 +11,10 @@ module.exports = function () {
         username : {type: String, required: true},
         password : String,
         role :  String,
-        createdDate : {type: Date, default : Date.now}
+        createdDate : {type: Date, default : Date.now},
+        status : String,
+        reason: String,
+        reject: Boolean
     }, {collection: "UserInfo"});
 
     return UserSchema;

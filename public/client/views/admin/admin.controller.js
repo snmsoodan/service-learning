@@ -3,14 +3,16 @@
     angular.module("ServiceLearningApp")
         .controller("AdminController",AdminController);
 
-    function AdminController($rootScope,$location,$routeParams,$scope,$http) {
+    function AdminController($rootScope,$location,$routeParams,$scope,$http,UserService) {
         var vm = this;
         vm.aid = $routeParams.aid;
         vm.activateRejectUser = activateRejectUser;
 
         function init(){
-            var user = {};
-            $http.post("/api/getAllUsers", user).then(function (success) {
+            //$http.post("/api/getAllUsers", user)
+            var user = {status:"NoStatus"};
+            UserService.getAllUsers(user)
+                .then(function (success) {
                 vm.users = success.data;
                 vm.users = JSON.parse(vm.users);
                 removeDuplicates(vm.users,'username');
@@ -34,24 +36,30 @@
                 user.status = status;
             }
 
-            $http.post('/api/getRegisterReject/', {params: {name: JSON.stringify(user)}})
+
+            UserService.activateRejectUser(user)
+               // .then(
+            //$http.post('/api/getRegisterReject/', {params: {name: JSON.stringify(user)}})
                 .then(
                     function(success){
                         vm.message = success.data;
+                        vm.users = [];
+                        var user = {status:"NoStatus"};
+                        UserService.getAllUsers(user)
+                            .then(function (success) {
+                                vm.users = success.data;
+                                vm.users = JSON.parse(JSON.stringify(vm.users));
+                                removeDuplicates(vm.users,'username');
+                                console.log(vm.aid)
+                            } ,function (error){
+
+                            });
                     })
                 .catch(
                     function(error){
                         vm.message = error.data;
                     });
-            vm.users = [];
-            $http.post("/api/getAllUsers", user).then(function (success) {
-                vm.users = success.data;
-                vm.users = JSON.parse(JSON.stringify(vm.users));
-                removeDuplicates(vm.users,'username');
-                console.log(vm.aid)
-            } ,function (error){
 
-            });
             //vm.users = sessionStorage.getItem('userDao');
 
         }
