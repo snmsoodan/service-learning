@@ -16,13 +16,13 @@ module.exports = function(app,orgInfoModel) {
             service: 'gmail',
             auth: {
                 user: 'sanamsoodan@gmail.com',
-                pass: ''
+                pass: 'harman587'
             }
         });
 
         var mailOptions = {
             from: 'sanamsoodan@gmail.com',
-            to: 'singh.sa@husky.neu.edu',
+            to: 'raju.al@husky.neu.edu',
             subject: 'Sending Email using Node.js',
             text: 'That was easy!'
         };
