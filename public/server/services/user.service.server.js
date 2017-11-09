@@ -116,12 +116,16 @@ module.exports = function(app,userModel) {
         userModel
             .findUserByUserName(newUser.username)
             .then(function (obj) {
-                     console.log('---updateOne---'+obj+' ---- updated user '+newUser._id);
-                     return userModel.updateUser(newUser);
-
+                    userModel.updateUser(newUser).then(
+                        function(success) {
+                            console.log('---updateOne---'+obj+' ---- updated user = '+success);
+                            res.json(obj);
+                        } , function(err) {
+                            res.status(400).send(err);
+                        });
                 },
                 function (err) {
-                console.log('---err---'+err);
+                    console.log('---err---'+err);
                     res.status(400).send(err);
                 });
     }

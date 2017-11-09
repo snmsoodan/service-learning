@@ -4,9 +4,10 @@
         .controller("LoginController",LoginController);
 
 
-    function LoginController(UserService,$rootScope,$location) {
+    function LoginController(UserService,$rootScope,$location,$routeParams) {
         var vm = this;
         vm.login = login;
+        vm.message = $routeParams.message;
         vm.createUsers = createUsers;
         vm.userDao = [];
 
@@ -28,10 +29,8 @@
                         $rootScope.currentUser = response.data;
                         if ($rootScope.currentUser.role === "FACULTY" && $rootScope.currentUser.status === "Approved") {
                             console.log('-----user console'+$rootScope.currentUser.status);
-                            $location.url("/faculty/");
+                            $location.url("/faculty/"+$rootScope.currentUser.firstName);
                         } else  if ($rootScope.currentUser.role === "ADMIN" && $rootScope.currentUser.status === "Approved") {
-                            //vm.userDao = users;
-                            //sessionStorage.userDao = JSON.stringify(users);
                             $location.url("/admin/");
                         } else if ($rootScope.currentUser.role === "PARTNER" && $rootScope.currentUser.status === "Approved") {
                             $location.url("/partner");

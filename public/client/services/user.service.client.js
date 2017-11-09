@@ -10,8 +10,6 @@
             register:register,
             getAllUsers:getAllUsers,
             activateRejectUser:activateRejectUser
-
-
         };
 
         return model;

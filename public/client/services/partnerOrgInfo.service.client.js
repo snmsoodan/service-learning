@@ -17,7 +17,8 @@
         }
 
         function getUserOrgId(userId) {
-            return $http.get("/api/getUserOrgId/" +userId);
+            console.log('Method :: getUserOrgId :: userId '+userId);
+            return $http.post("/api/getUserOrgId",userId);
         }
     }
 })();

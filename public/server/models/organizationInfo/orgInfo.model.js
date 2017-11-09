@@ -10,7 +10,8 @@ module.exports = function () {
         getAllOrg:getAllOrg,
         getOrgById:getOrgById,
         getAllPartnerNamesApplicationsSubmitted:getAllPartnerNamesApplicationsSubmitted,
-        getAllPartnerNamesApplicationsInProgress:getAllPartnerNamesApplicationsInProgress
+        getAllPartnerNamesApplicationsInProgress:getAllPartnerNamesApplicationsInProgress,
+        updateOrgById:updateOrgById
     };
 
     return api;
@@ -21,7 +22,7 @@ module.exports = function () {
 
     function getAllOrg(){
         console.log("model get all org");
-        return OrgInfo.find();
+        return OrgInfo.find({status:'Approved'});
     }
 
     function getOrgById(orgId) {
@@ -35,6 +36,14 @@ module.exports = function () {
 
     function getAllPartnerNamesApplicationsInProgress(id) {
         return OrgInfo.findById(id);
+    }
+
+    function updateOrgById(newUser) {
+        return OrgInfo.update({_id: newUser._id},{
+            $set: {
+                status: newUser.status
+            }
+        });
     }
 
 };

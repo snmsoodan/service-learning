@@ -10,7 +10,7 @@
         {_id: "456", name: "jannunzi", applicationId:"4" }
     ]
 
-    function AdminController($rootScope,$location,$routeParams,$scope,$http,UserService) {
+    function AdminController($rootScope,$location,$routeParams,$scope,$http,UserService,PartnerOrgInfoService,OrgInfoService) {
         var vm = this;
         vm.aid = $routeParams.aid;
         vm.activateRejectUser = activateRejectUser;
@@ -21,7 +21,7 @@
             UserService.getAllUsers(user)
                 .then(function (success) {
                     vm.users = success.data;
-                    vm.users = JSON.parse(vm.users);
+                    vm.users = JSON.parse(JSON.stringify(vm.users));
                     removeDuplicates(vm.users,'username');
                     console.log(vm.aid)
                 } ,function (error){
@@ -48,6 +48,24 @@
                 .then(
                     function(success){
                         vm.message = success.data;
+                        var user = success.data;
+                        if (user.role === 'PARTNER') {
+                            PartnerOrgInfoService.getUserOrgId(user)
+                                .then(function(response){
+                                    console.log("line 55 update the Org Id", +response.data+"---response.orgId ---"+response.data.orgId);
+                                    // $location.url("/partner");
+                                    response.data.status = status;
+                                    OrgInfoService.updateOrgById(response.data).then(
+                                        function(res) {
+                                            console.log('--updated the Org ID for the Partner '+res);
+                                        } ,
+                                        function (err) {
+                                            console.log('--updated the Org ID for the Partner Err '+err);
+                                        })
+                                }, function(err){
+                                    console.log(err);
+                                });
+                        }
                         vm.users = [];
                         var user = {status:"NoStatus"};
                         UserService.getAllUsers(user)
