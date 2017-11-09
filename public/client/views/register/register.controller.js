@@ -58,8 +58,10 @@
                 newPartner.role="ADMIN";
             }
 
+            console.log('--Method :: registerPartner :: 61');
             UserService.register(newPartner)
                 .then(function(user){
+                    console.log('--Method :: user :: 64'+user);
                         if(user)
                         {
                             $rootScope.currentUser = user.data;
