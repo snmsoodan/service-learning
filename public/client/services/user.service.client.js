@@ -7,7 +7,9 @@
 
         var model = {
             login:login,
-            register:register
+            register:register,
+            getAllUsers:getAllUsers,
+            activateRejectUser:activateRejectUser
         };
 
         return model;
@@ -19,6 +21,14 @@
 
         function register(newUser) {
             return $http.post("/api/register",newUser);
+        }
+
+        function activateRejectUser(user){
+            return  $http.post("/api/getRegisterReject",user);
+        }
+
+        function getAllUsers(user){
+            return  $http.post("/api/getAllUsers",user);
         }
     }
 })();

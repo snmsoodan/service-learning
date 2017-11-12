@@ -23,12 +23,16 @@
 
 
         function init(){
-            PartnerOrgInfoService.getUserOrgId($rootScope.currentUser._id)
+            console.log('Method init:: 26  getUserOrgId --'+$rootScope.currentUser._id);
+            if ($rootScope.currentUser !== undefined && $rootScope.currentUser._id !== undefined) {
+            PartnerOrgInfoService.getUserOrgId($rootScope.currentUser)
                 .then(function(response){
+                    console.log('Method init:: 29  getUserOrgId :: response--'+response.data.orgId);
                     $rootScope.currentUser.orgId = response.data.orgId;
 
                     OrgInfoService.getOrgById($rootScope.currentUser.orgId)
                         .then(function (res) {
+                            console.log('Method init:: 34  getOrgById --'+res.data);
                             vm.userOrgInfo = res.data;
                             if(vm.userOrgInfo.status === 'NoStatus')
                                 $location.url("/OrgNotYetApproved");
@@ -36,6 +40,7 @@
                                 $location.url("/OrgRejected");
                         })
                 })
+            }
         }init();
 
     }

@@ -7,13 +7,13 @@
 
 
 
-    function TryController($rootScope,$location,$routeParams,$scope,$http,OrganizationInfoService) {
+    function TryController($rootScope,$location,$routeParams,$scope,$http,OrgInfoService) {
         var vm = this;
         vm.aid = $routeParams.aid;
 
 
         vm.sendMail=function () {
-            OrganizationInfoService.sendMail()
+            OrgInfoService.sendMail()
                 .then(
                     function (response) {
                         console.log(response.data)

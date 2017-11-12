@@ -9,11 +9,10 @@
             addNewOrgInfo:addNewOrgInfo,
             getAllOrg:getAllOrg,
             getOrgById:getOrgById,
-
             getAllPartnerNamesApplicationsSubmitted:getAllPartnerNamesApplicationsSubmitted,
             getAllPartnerNamesApplicationsInProgress:getAllPartnerNamesApplicationsInProgress,
-
-            sendMail:sendMail
+            sendMail:sendMail,
+            updateOrgById:updateOrgById
         };
 
         return model;
@@ -46,5 +45,9 @@
             return $http.get("/api/sendMail");
         }
 
+        function updateOrgById(orgId) {
+            console.log('Method :: updateOrgById :: orgId '+orgId);
+            return $http.post("/api/organization/updateOrg",orgId);
+        }
     }
 })();

@@ -38,6 +38,7 @@
 
             org.status = 'NoStatus';
             partner.role = 'PARTNER';
+            partner.status = 'NoStatus';
 
             console.log(org);
 
@@ -48,17 +49,19 @@
 
                         UserService.register(partner) //registering partner
                             .then(function(partnerInfo) {
+                                console.log('----orgRes--'+orgRes.data._id);
                                 $rootScope.currentUser = partnerInfo.data;
                                 $rootScope.currentUser.orgId = orgRes.data._id;
                                 var userOrgInfo = {
                                     userId : partnerInfo.data._id,
-                                    organizationId : orgRes.data._id
+                                    orgId : orgRes.data._id
                                 };
 
                                 PartnerOrgInfoService.addUserOrgInfo(userOrgInfo) //entering partner and organization relation
                                     .then(function(response){
                                         console.log("after add User Org",+response);
-                                        $location.url("/partner");
+                                        //$location.url("/partner");
+                                        vm.message = "Partner has been registered successfully , awaiting approval";
                                     }, function(err){
                                         console.log(err);
                                     });
@@ -67,13 +70,6 @@
                     }
 
                 });
-
-
-
-
-
-
         }
-
     }
 })();

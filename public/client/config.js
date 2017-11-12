@@ -10,9 +10,9 @@
         $routeProvider
 
             .when("/login", {
-                    templateUrl: "client/views/login/login.view.html",
-                    controller: "LoginController",
-                    controllerAs: "model"
+                templateUrl: "client/views/login/login.view.html",
+                controller: "LoginController",
+                controllerAs: "model"
             })
             .when("/register", {
                 templateUrl: "client/views/register/register.view.html",
@@ -32,7 +32,7 @@
             })
 
             //admin start
-            .when("/admin/:aid", {
+            .when("/admin/", {
                 templateUrl: "client/views/admin/admin.view.html",
                 controller: "AdminController",
                 controllerAs: "model"
@@ -101,7 +101,7 @@
             })
 
             //faculty start
-            .when("/faculty", {
+            .when("/faculty/:fid", {
                 templateUrl: "client/views/faculty/faculty.view.html",
                 controller: "FacultyController",
                 controllerAs: "model"
@@ -136,6 +136,6 @@
             });
 
 
-            }
+    }
 
 })();
