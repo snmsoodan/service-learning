@@ -16,7 +16,7 @@ module.exports = function(app,orgInfoModel) {
             service: 'gmail',
             auth: {
                 user: 'sanamsoodan@gmail.com',
-                pass: 'harman587'
+                pass: ''
             }
         });
 
