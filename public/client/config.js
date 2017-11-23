@@ -18,7 +18,11 @@
                 templateUrl: "client/views/register/register.view.html",
                 controller: "RegisterController",
                 controllerAs: "model"
-            })
+            }).when("/forgotpassword", {
+            templateUrl: "client/views/forgotpwd/forgotpwd.view.html",
+            controller: "ForgotPwdController",
+            controllerAs: "model"
+        })
             .when("/newOrg",{
                 templateUrl: "client/views/register/orgRegister.view.html",
                 controller: "OrgRegisterController",

@@ -9,7 +9,9 @@
             login:login,
             register:register,
             getAllUsers:getAllUsers,
-            activateRejectUser:activateRejectUser
+            activateRejectUser:activateRejectUser,
+            findUser:findUser,
+            updateUser:updateUser
         };
 
         return model;
@@ -30,5 +32,14 @@
         function getAllUsers(user){
             return  $http.post("/api/getAllUsers",user);
         }
+
+        function findUser(user){
+            return  $http.post("/api/findUser",user);
+        }
+
+        function updateUser(user){
+            return  $http.post("/api/updateUser",user);
+        }
+
     }
 })();
