@@ -11,7 +11,8 @@ module.exports = function () {
         findUserByUserName: findUserByUserName,
         findUserByCredentials: findUserByCredentials,
         fetchUser: fetchUser,
-        updateUser: updateUser
+        updateUser: updateUser,
+        updateUserPwd:updateUserPwd
     };
 
     return api;
@@ -40,6 +41,15 @@ module.exports = function () {
         return UserInfo.update({_id: newUser._id},{
             $set: {
                 status: newUser.status
+            }
+        });
+    }
+
+    function updateUserPwd(newUser) {
+        console.log('Model :: updateUserPwd :: newUser --'+newUser._id+'--password --'+newUser.password);
+        return UserInfo.update({_id: newUser._id},{
+            $set: {
+                password: newUser.password
             }
         });
     }

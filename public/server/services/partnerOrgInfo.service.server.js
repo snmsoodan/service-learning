@@ -17,11 +17,10 @@ module.exports = function(app,partnerOrgInfoModel) {
 
 
     function getUserOrgId(req,res){
-        var userId = req.body;
+        var userId =req.body;
         console.log(' Method :: getUserOrgId :: userId'+userId._id);
         partnerOrgInfoModel.getUserOrgId(userId._id)
             .then(function(doc){
-                console.log(' Method :: getUserOrgId :: doc '+doc);
                     res.json(doc);
                 },
                 function (err) {

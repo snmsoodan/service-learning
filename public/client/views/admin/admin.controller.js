@@ -13,10 +13,21 @@
     function AdminController($rootScope,$location,$routeParams,$scope,$http,UserService,PartnerOrgInfoService,OrgInfoService) {
         var vm = this;
         vm.aid = $routeParams.aid;
+        vm.currentuser = $rootScope.currentUser;
         vm.activateRejectUser = activateRejectUser;
         vm.partners=partners;
+        vm.makeAuthVisible = makeAuthVisible;
+        vm.authAdmin = authAdmin;
+        vm.registerAdmin = registerAdmin;
+        vm.authenticateAdmin = 'false';
+        vm.adminAuthenticateMD = true;
+        vm.adminAuthenticateMDGrid = false;
+        vm.makeApproveVisible =makeApproveVisible
 
         function init(){
+            if(vm.currentuser === undefined) {
+                $location.url("/login");
+            }
             var user = {status:"NoStatus"};
             UserService.getAllUsers(user)
                 .then(function (success) {
@@ -30,6 +41,17 @@
 
         }init();
 
+        function makeAuthVisible () {
+            vm.adminAuthenticateMD = false;
+            vm.adminAuthenticateMDGrid = false;
+        }
+
+        function makeApproveVisible () {
+            vm.adminAuthenticateMD = true;
+            vm.adminAuthenticateMDGrid = true;
+        }
+
+
         function activateRejectUser(user,status,type) {
 
             if (type === '0') {
@@ -42,26 +64,36 @@
                 user.reject = false;
                 user.status = status;
             }
-
+            var stat = status;
 
             UserService.activateRejectUser(user)
                 .then(
                     function(success){
-                        vm.message = success.data;
+                        //vm.message = success.data;
                         var user = success.data;
+                        var obj =  success.data;
                         if (user.role === 'PARTNER') {
                             PartnerOrgInfoService.getUserOrgId(user)
                                 .then(function(response){
                                     console.log("line 55 update the Org Id", +response.data+"---response.orgId ---"+response.data.orgId);
                                     // $location.url("/partner");
                                     response.data.status = status;
+                                    var stat = status;
                                     OrgInfoService.updateOrgById(response.data).then(
                                         function(res) {
                                             console.log('--updated the Org ID for the Partner '+res);
                                         } ,
                                         function (err) {
                                             console.log('--updated the Org ID for the Partner Err '+err);
-                                        })
+                                        });
+                                    var mailData = {'username':obj.username,'status':stat};
+                                    OrgInfoService.sendMailAp(mailData).then(function (response) {
+                                        var user = success.data;
+                                        console.log('Mail has been sent for the user '+user.username);
+                                        vm.message = "User has been "+user.status+" ...Mail has been sent to user ";
+                                    },function (error) {
+                                        console.log('Mail Sending Failed'+error);
+                                    });
                                 }, function(err){
                                     console.log(err);
                                 });
@@ -107,6 +139,71 @@
                 }
             }
             return trimmedArray;
+        }
+
+        function authAdmin(admin) {
+            if(!admin.username){
+                vm.message = "Please enter a user name";
+                return;
+            }
+            if(!admin.password){
+                vm.message = "Please enter a password";
+                return;
+            }
+
+
+            UserService.login(admin)
+                .then(function (response) {
+                        $rootScope.currentUser = response.data;
+                        if ($rootScope.currentUser.role === "ADMIN" && $rootScope.currentUser.status === "Approved") {
+                            vm.authenticateAdmin = 'true';
+                        } else {
+                            vm.message = "User is not Active";
+                        }
+                    },
+                    function (err) {
+                        vm.message = "username or password not found";
+                    });
+
+        }
+
+        function registerAdmin(admin) {
+
+            vm.message = null;
+
+            if(!admin.firstName){
+                vm.message = "Please enter a first name";
+                return;
+            }
+            if(!admin.lastName){
+                vm.message = "Please enter a last name";
+                return;
+            }
+
+            if(!admin.username || admin.username.indexOf("@northeastern.edu") === -1){
+                vm.message = "Please enter your northeastern email id";
+                return;
+            }
+
+            if(!admin.password){
+                vm.message = "Please enter a password";
+                return;
+            }
+            admin.role = "ADMIN";
+            admin.status = "Approved";
+
+            UserService.register(admin)
+                .then(function(user){
+                        console.log("returned from registering faculty",user);
+                        //$rootScope.currentUser = null;
+                        //$location.url("/login?message=Admin has been created successfully...");
+                        vm.message = "Admin has been created successfully... kindly login...";
+                        vm.adminAuthenticateMD = true;
+                        vm.adminAuthenticateMDGrid = false;
+                    },function(err){
+                        console.log(err);
+                    }
+                );
         }
     }
 })();

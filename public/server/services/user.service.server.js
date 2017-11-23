@@ -11,7 +11,8 @@ module.exports = function(app,userModel) {
     app.post('/api/register', register);
     app.post('/api/getRegisterReject',activateRejectUser);
     app.post('/api/getAllUsers',fetchUser);
-
+    app.post('/api/findUser',findUser);
+    app.post('/api/updateUser',updateUser);
 
     passport.use('local', new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
@@ -138,6 +139,33 @@ module.exports = function(app,userModel) {
             res.status(400).send(err);
         });
 
+    }
+
+    function findUser(req,res) {
+        var newUser = req.body;
+        userModel
+            .findUserByUserName(newUser.username)
+            .then(function (obj) {
+                    console.log('---findUser---'+obj);
+                    res.json(obj);
+                },
+                function (err) {
+                    console.log('---err---'+err);
+                    res.status(400).send(err);
+                });
+    }
+
+    function updateUser(req,res) {
+        var newUser = req.body;
+        console.log('----In updateUser = '+newUser._id);
+        newUser.password = bcrypt.hashSync(newUser.password);
+        userModel.updateUserPwd(newUser).then(
+            function(success) {
+                console.log('---updateOne---'+success+' ---- updated user = '+success);
+                res.json(success);
+            } , function(err) {
+                res.status(400).send(err);
+            });
     }
 };
 

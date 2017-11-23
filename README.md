@@ -2,7 +2,7 @@
 1. npm install
 2. Run mongod
 3. node server.js ( I do npm start which starts node server)
-4. browse to localhost:3000
+4. browse to localhost:3000n
 
 
 
