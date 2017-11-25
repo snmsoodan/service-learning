@@ -1,89 +1,111 @@
+<div align="center" class="header-padding" ng-controller="AdminController">
 
-<p align="center" class="login-padding">
+    <h4  class="form-signin-heading" style="color:#e21a2d">Welcome Admin :: {{model.currentuser.firstName}}</h4>
 
-<p align="center" class="header-padding">
+     <div>
+         <a class="btn btn-primary" type="button" ng-click="model.changeView('Partner')">
+            Partner
+         </a>
+         <a class="btn btn-primary" type="button" ng-click="model.changeView('Faculty')">
+             Faculty
+         </a>
+         <a class="btn btn-primary" type="button" ng-click="model.changeView('Forms')">
+             Forms
+         </a>
+         <a class="btn btn-primary" type="button" ng-click="model.changeView('CreateAdmin')">
+             Create Admin
+         </a>
+         <a class="btn btn-primary" type="button" ng-click="model.changeView('Approve/Reject')">
+             Approve/Reject
+         </a>
+     </div>
 
-    <a class="btn btn-primary" type="button" href="#/admin/{{model.aid}}/adminPartnerList">
-        Partner
-    </a>
-    <a class="btn btn-primary" type="button" href="#/admin/{{model.aid}}/facultyList">
-        Faculty
-    </a>
-    <a class="btn btn-primary" type="button" ng-click="model.makeAuthVisible()">
-        Create Admin
-    </a>
-    <a class="btn btn-primary" type="button" ng-click="model.makeApproveVisible()">
-        Approve/Reject
-    </a>
-</p>
-<h4  align="center"  class="form-signin-heading" style="color:#e21a2d">Welcome Admin :: {{model.currentuser.firstName}} <br>{{model.message}}</h4>
 
+<div ng-show="model.alertMessage" class="alert alert-danger" role="alert">{{model.message}}</div>
 
 <div class="container">
     <div class="row">
-        <div style="background-color: white;width:110%" ng-if="model.adminAuthenticateMD && model.adminAuthenticateMDGrid">
-            <h2 style="color:green;font-weight: 100">{{model.message.note}}</h2>
-            <h5 class="form-signin-heading" style="color:#e21a2d">{{model.message}}</h5>
-            <h2>Registration Requests</h2>
-            <div class="table-responsive">
-                <table class="table table-hover" border="1">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Username</th>
-                        <th>Role</th>
-                        <th>Status</th>
-                        <th>Created Date</th>
-                        <th>Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="user in model.users track by $index">
-                        <th scope="row">{{$index+1}}</th>
-                        <td>{{user.firstName}}</td>
-                        <td>{{user.lastName}}</td>
-                        <td>{{user.username}}</td>
-                        <td><span>{{user.role}}</span>
-                        <td><span>{{user.status}}</span>
-                        <td>{{user.createdDate}}</td>
-                        <td><button ng-if="user.status =='NoStatus'" ng-click="model.activateRejectUser(user,'Approved','0')">Activate</button>
-                            <button ng-if="user.status =='NoStatus'" ng-click="model.activateRejectUser(user,'Rejected','1')">Reject</button>
-                            <span ng-if="user.status =='Rejected' && !user.reject"></span>
-                            <button ng-if="user.status =='Rejected'" ng-show="user.reject" ng-click="model.activateRejectUser(user,'Rejected','2')">Submit</button>
-                            <button ng-if="user.status =='Rejected'" ng-show="user.reject" ng-click="model.rejectUserCancel(user,'Rejected','2')">Cancel</button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
 
-        <div ng-if="!model.adminAuthenticateMD">
-            <div style="padding-top: 20px;padding-left: 438px;width: 777px;" ng-if="model.authenticateAdmin == 'false'">
-                <h2 class="form-signin-heading" style="color:#e21a2d">Login as Admin</h2>
+        <div ng-switch="model.currentView">
 
-                <input type="text" ng-model="model.user.username"
-                       class="form-control" name="username" placeholder="Email Address"
-                       required="" autofocus="" />
-                <input type="password" class="form-control"
-                       name="password" placeholder="Password"
-                       ng-model="model.user.password" required=""/>
-
-                <a ng-click="model.authAdmin(model.user)" class="btn redBG btn-danger btn-block">Authenticate Admin</a>
+            <div ng-switch-when="Partner">
+                <!---url - #/admin/{{model.aid}}/adminPartnerList-->
             </div>
 
-            <div style="padding-top: 20px;padding-left: 438px;width: 777px;" ng-if="model.authenticateAdmin == 'true'">
+            <div ng-switch-when="Faculty">
+                <!--url - #/admin/{{model.aid}}/facultyList -->
+            </div>
+
+           <div ng-switch-when="Forms">
+               <div ng-include="'client/views/admin/forms/forms.view.html'"></div>
+           </div>
+
+
+            <div ng-switch-when="Approve/Reject" style="background-color: white;width:110%">
+                <h2 style="color:green;font-weight: 100">{{model.message.note}}</h2>
                 <h5 class="form-signin-heading" style="color:#e21a2d">{{model.message}}</h5>
-                <input type="text" class="form-control" name="firstName" placeholder="firstName" ng-model="model.admin.firstName" required="" autofocus="" />
-                <input type="text" class="form-control" name="lastname" placeholder="LastName" ng-model="model.admin.lastName" required="" autofocus="" />
-                <input type="text" class="form-control" name="username" placeholder="Email Address" ng-model="model.admin.username" required="" autofocus="" />
-                <input type="password" class="form-control" name="password" placeholder="Password" ng-model="model.admin.password" required=""/>
+                <h2>Registration Requests</h2>
+                <div class="table-responsive">
+                    <table class="table table-hover" border="1">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Username</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Created Date</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="user in model.users track by $index">
+                            <th scope="row">{{$index+1}}</th>
+                            <td>{{user.firstName}}</td>
+                            <td>{{user.lastName}}</td>
+                            <td>{{user.username}}</td>
+                            <td><span>{{user.role}}</span>
+                            <td><span>{{user.status}}</span>
+                            <td>{{user.createdDate}}</td>
+                            <td><button ng-if="user.status =='NoStatus'" ng-click="model.activateRejectUser(user,'Approved','0')">Activate</button>
+                                <button ng-if="user.status =='NoStatus'" ng-click="model.activateRejectUser(user,'Rejected','1')">Reject</button>
+                                <span ng-if="user.status =='Rejected' && !user.reject"></span>
+                                <button ng-if="user.status =='Rejected'" ng-show="user.reject" ng-click="model.activateRejectUser(user,'Rejected','2')">Submit</button>
+                                <button ng-if="user.status =='Rejected'" ng-show="user.reject" ng-click="model.rejectUserCancel(user,'Rejected','2')">Cancel</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-                <a ng-click="model.registerAdmin(model.admin)" class="btn redBG btn-danger btn-block">Register</a>
+            <div ng-switch-when="CreateAdmin">
+                <div style="padding-top: 20px;padding-left: 438px;width: 777px;" ng-if="model.authenticateAdmin == 'false'">
+                    <h2 class="form-signin-heading" style="color:#e21a2d">Login as Admin</h2>
+
+                    <input type="text" ng-model="model.user.username"
+                           class="form-control" name="username" placeholder="Email Address"
+                           required="" autofocus="" />
+                    <input type="password" class="form-control"
+                           name="password" placeholder="Password"
+                           ng-model="model.user.password" required=""/>
+
+                    <a ng-click="model.authAdmin(model.user)" class="btn redBG btn-danger btn-block">Authenticate Admin</a>
+                </div>
+
+                <div style="padding-top: 20px;padding-left: 438px;width: 777px;" ng-if="model.authenticateAdmin == 'true'">
+                    <h5 class="form-signin-heading" style="color:#e21a2d">{{model.message}}</h5>
+                    <input type="text" class="form-control" name="firstName" placeholder="firstName" ng-model="model.admin.firstName" required="" autofocus="" />
+                    <input type="text" class="form-control" name="lastname" placeholder="LastName" ng-model="model.admin.lastName" required="" autofocus="" />
+                    <input type="text" class="form-control" name="username" placeholder="Email Address" ng-model="model.admin.username" required="" autofocus="" />
+                    <input type="password" class="form-control" name="password" placeholder="Password" ng-model="model.admin.password" required=""/>
+
+                    <a ng-click="model.registerAdmin(model.admin)" class="btn redBG btn-danger btn-block">Register</a>
+                </div>
             </div>
         </div>
     </div>
+  </div>
 </div>
 

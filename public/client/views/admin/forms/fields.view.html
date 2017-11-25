@@ -1,0 +1,128 @@
+<div ng-controller="FieldController as model">
+
+
+    <div ng-show="model.viewForm">
+        <div ng-include="'client/views/admin/forms/forms.view.html'"></div>
+    </div>
+
+    <div ng-hide="model.viewForm">
+
+
+        <ul class="nav nav-tabs">
+            <li role="presentation"><a href="" ng-click="model.FormView()">Forms</a></li>
+            <li role="presentation" class="active"><a>Fields</a></li>
+        </ul>
+
+        <h1>{{model.form.title}}</h1>
+
+        <hr style="border-color: red">
+
+        <div class="form-horizontal">
+
+            <div ng-model="model.fields" jga-sortable jga-sortable-callback = "model.sortField(start,end)" style="cursor: pointer">
+
+                <div ng-repeat="field in model.fields">
+
+
+                    <label ng-style="{'font-size' : field.type == 'LABEL' ? '22px' : '18px'}">{{field.title}}</label><br>
+                    <label ng-style="{'font-size' : field.type == 'LABEL' ? '14px' : '12px', 'font-weight': 'normal'}">{{field.subTitle}}</label>
+
+                    <div class="input-group">
+
+                        <div ng-switch on="field.type" >
+
+                            <input ng-switch-when="TEXT" type="text" class="form-control">
+
+                            <textarea ng-switch-when="TEXTAREA"  class="form-control"></textarea>
+
+                            <select ng-switch-when="OPTIONS" class="form-control">
+                                <option ng-repeat="option in field.options track by $index">{{option.label}}</option>
+                            </select>
+
+                            <div ng-switch-when="CHECKBOXES">
+                                <div ng-repeat="option in field.options track by $index">
+                                    <input type="checkbox" value="{{option.value}}">{{option.label}}
+                                </div>
+                            </div>
+
+                            <div ng-switch-when="RADIOS">
+                                <div ng-repeat="option in field.options track by $index">
+                                    <input type="radio" value="{{option.value}}">{{option.label}}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-group-btn">
+
+                            <button ng-click ="model.editField(field)"  class="btn btn-warning" data-toggle="modal" data-target="#editField" title="Edit field">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+
+                            <button ng-click ="model.repeatField(field)" class="btn btn-success" title="Clone field">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+
+                            <button ng-click ="model.deleteField(field._id)" class="btn btn-danger" title="Delete field">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+
+                            <!--<a class="btn btn-info"><span class="glyphicon glyphicon-menu-hamburger"></span></a>-->
+                        </div>
+                    </div>
+                    <hr style="border-color: red">
+                </div>
+            </div>
+            <label>Add New Field</label>
+            <div class="input-group">
+                <select ng-model = "model.fieldType" class="form-control">
+                    <option value="LABEL">Title and Subtitle</option>
+                    <option value="TEXT">Single Line Text Field</option>
+                    <option value="TEXTAREA">Multi Line Text Field</option>
+                    <option value="CHECKBOXES">Checkboxes Field</option>
+                    <option value="RADIOS">Radio Buttons Field</option>
+                </select>
+                <div class="input-group-btn">
+                    <button ng-click="model.addField(model.fieldType)" type ="button" class = "btn btn-success">
+                        <span class="glyphicon glyphicon-plus"></span></button>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div id="editField" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss ="modal">&times;</button>
+                        <h4 class="modal-title">{{model.fieldEdit.title}}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label>Title</label>
+                                <input ng-model = "model.title" class="form-control" type="text" placeholder="Edit Title">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Sub Title</label>
+                                <input ng-model = "model.subTitle" class="form-control" type="text" placeholder="Edit subTitle">
+                            </div>
+
+                            <div class="form-group" ng-show= "model.fieldEdit.type == 'RADIOS' || model.fieldEdit.type == 'CHECKBOXES' || model.fieldEdit.type == 'OPTIONS'">
+                                <label>Options</label>
+                                <textarea ng-model="model.options" class="form-control" placeholder="Edit Options"></textarea>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button  type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button ng-click="model.commitEdit()" type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
