@@ -1,7 +1,11 @@
 var nodemailer = require('nodemailer');
+<<<<<<< HEAD
 
 var fs    = require("fs");
 
+=======
+var bcrypt = require("bcrypt-nodejs");
+>>>>>>> 4946f79424120b9e60a2a4854c27e7e195840100
 module.exports = function(app,orgInfoModel) {
 
     app.post('/api/addOrgInfo',addOrgInfo);
@@ -11,6 +15,7 @@ module.exports = function(app,orgInfoModel) {
     app.get('/api/organization/organizationNames/applicationInProgress/:id',getAllPartnerNamesApplicationsInProgress);
     app.post('/api/organization/updateOrg',updateOrg);
 
+<<<<<<< HEAD
     app.get('/api/sendMail',sendMail);
 
     //try export
@@ -18,33 +23,47 @@ module.exports = function(app,orgInfoModel) {
     //////////////
 
 
-    function sendMail(req,res) {
 
+    app.post('/api/sendMail',sendMail);
+    app.post('/api/sendMailAp',sendMailAp);
+
+    function sendMail(req,res) {
+        console.log('----body-'+req.body);
+
+        var user = req.body;
+        user.password = 'Welcome@123';
+        //user.password = bcrypt.hashSync(user.password);
         var transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: 'sanamsoodan@gmail.com',
-                pass: ''
+                user: 'serviceLearningNorthEdu@gmail.com',
+                pass: 'serviceLearningNorthEdu@123'
             }
         });
 
 
 
-        var mailOptions = {
-            from: 'sanamsoodan@gmail.com',
-            to: 'raju.al@husky.neu.edu',
-            subject: 'Sending Email using Node.js',
-            text: 'That was easy!'
-        };
 
+
+        console.log('----mailOptions---user.username--'+user.username+'--password--'+user.password);
+
+        var mailOptions = {
+            from: 'passwordrecovery@northeastern.edu',
+            to: user.username,
+            subject: 'Service Learning :: New Password for Service Learning App',
+            text: 'Dear User , \n As regards to your request for forgot password , kindly find new Credentials below .\n' +
+            'UserName : '+user.username+' \n'+
+            'Password : Welcome@123'};
+        console.log('----mailOptions--'+mailOptions);
         transporter.sendMail(mailOptions, function(error, info){
             if (error) {
                 console.log(error);
+                res.status(400).send(error);
             } else {
                 console.log('Email sent: ' + info.response);
+                res.json(user);
             }
         });
-
     }
 
 
@@ -142,16 +161,51 @@ module.exports = function(app,orgInfoModel) {
                 console.log(' Method :: updateOrg ::  orgInfoModel.findById '+res);
                 var OrgInfoUpdate = res;
                 OrgInfoUpdate.status = id.status;
+                console.log(' Method :: updateOrg ::  orgInfoModel.updateOrgById '+OrgInfoUpdate);
                 orgInfoModel.updateOrgById(OrgInfoUpdate).then(
                     function(res){
-                        res.json(res);
+                        console.log(' Method :: updateOrg ::  orgInfoModel.updateOrgById Success '+res);
+                        res.json(OrgInfoUpdate);
                     },function(err){
+                        console.log(' Method :: updateOrg ::  orgInfoModel.updateOrgById Error '+err);
                         res.sendStatus(400);
-                    })
+                    });
+
             } , function(err) {
                 res.sendStatus(400);
             });
 
+    }
+
+    function sendMailAp (req,res) {
+
+        console.log('--Method :: sendMailAp --body-'+req.body);
+        var user = req.body;
+        var transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'serviceLearningNorthEdu@gmail.com',
+                pass: 'serviceLearningNorthEdu@123'
+            }
+        });
+        console.log('----sendMailAp :: mailOptions---user.username--'+user.username+'--password--'+user.password);
+
+        var mailOptions = {
+            from: 'alerts@northeastern.edu',
+            to: user.username,
+            subject: 'Service Learning :: Authentication Alerts for Service Learning App',
+            text: 'Dear User , \n With regards to your request for new Login , your request has been '+user.status+' \n' +
+            +'contact the admin --provide admin email id-- if any further information is needed'};
+        console.log('----mailOptions--'+mailOptions);
+        transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+                console.log(error);
+                res.status(400).send(error);
+            } else {
+                console.log('Email sent: ' + info.response);
+                res.json(user);
+            }
+        });
     }
 
 

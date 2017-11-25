@@ -8,6 +8,7 @@
         var vm = this;
         vm.registerPartner = registerPartner;
         vm.registerFaculty = registerFaculty;
+        vm.authenticateAdmin = 'false';
 
         function init(){
             OrgInfoService.getAllOrg()
@@ -58,10 +59,8 @@
                 newPartner.role="ADMIN";
             }
 
-            console.log('--Method :: registerPartner :: 61');
             UserService.register(newPartner)
                 .then(function(user){
-                    console.log('--Method :: user :: 64'+user);
                         if(user)
                         {
                             $rootScope.currentUser = user.data;
@@ -107,7 +106,7 @@
                 return;
             }
 
-            if(!faculty.username || faculty.username.indexOf("@northeastern.edu") === -1){
+            if(!faculty.username ){
                 vm.message = "Please enter your northeastern email id";
                 return;
             }
@@ -137,5 +136,9 @@
                     }
                 );
         }
+
+
+
+
     }
 })();

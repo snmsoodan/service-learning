@@ -13,7 +13,11 @@
             getAllPartnerNamesApplicationsInProgress:getAllPartnerNamesApplicationsInProgress,
             sendMail:sendMail,
             updateOrgById:updateOrgById,
+
             testExport:testExport
+
+            sendMailAp:sendMailAp
+
         };
 
         return model;
@@ -42,8 +46,8 @@
             return $http.get("/api/organization/organizationNames/applicationInProgress/"+id);
         }
 
-        function sendMail() {
-            return $http.get("/api/sendMail");
+        function sendMail(user) {
+            return $http.post("/api/sendMail",user);
         }
 
         //export try
@@ -57,6 +61,11 @@
         function updateOrgById(orgId) {
             console.log('Method :: updateOrgById :: orgId '+orgId);
             return $http.post("/api/organization/updateOrg",orgId);
+        }
+
+
+        function sendMailAp(user) {
+            return $http.post("/api/sendMailAp",user);
         }
     }
 })();

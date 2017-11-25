@@ -1,0 +1,12 @@
+<div class="header-padding" ng-controller="ForgotPwdController as model">
+
+    <form class="form-signin">
+        <h6 style="color: #e21a2d;font-weight:bold;padding-left:5px">{{model.message}}</h6>
+        <h2 class="form-signin-heading" style="color:#e21a2d">Reset your password</h2>
+        <input type="text" ng-model="model.user.username" class="form-control" name="username" placeholder="username" required="" autofocus="" />
+        <input type="text" ng-model="model.user.firstName" class="form-control" name="firstName" placeholder="firstname" required="" autofocus="" />
+        <input type="text" ng-model="model.user.lastName" class="form-control" name="lastName" placeholder="lastname" required="" autofocus="" />
+        <button ng-click="model.forgotPwd(model.user)" class="btn redBG btn-danger btn-block">Submit</button>
+    </form>
+
+</div>
