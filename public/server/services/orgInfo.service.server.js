@@ -1,4 +1,7 @@
 var nodemailer = require('nodemailer');
+
+var fs    = require("fs");
+
 module.exports = function(app,orgInfoModel) {
 
     app.post('/api/addOrgInfo',addOrgInfo);
@@ -10,6 +13,11 @@ module.exports = function(app,orgInfoModel) {
 
     app.get('/api/sendMail',sendMail);
 
+    //try export
+    app.get('/api/testExport',testExport);
+    //////////////
+
+
     function sendMail(req,res) {
 
         var transporter = nodemailer.createTransport({
@@ -19,6 +27,8 @@ module.exports = function(app,orgInfoModel) {
                 pass: ''
             }
         });
+
+
 
         var mailOptions = {
             from: 'sanamsoodan@gmail.com',
@@ -36,6 +46,33 @@ module.exports = function(app,orgInfoModel) {
         });
 
     }
+
+
+    //test export
+
+    function testExport(req,res) {
+
+        console.log("reached in service server for testExports")
+
+        var fileId = '1j3uvKWN9IUj_scJ1ilBzDnbcMQkVpea2SDyXECkqMKY';
+        var dest = fs.createWriteStream('./resume.pdf');
+        console.log(dest)
+
+        drive.files.export({
+            fileId: fileId,
+            mimeType: 'application/pdf'
+        })
+            .on('end', function () {
+                console.log('Done');
+            })
+            .on('error', function (err) {
+                console.log('Error during download', err);
+            })
+            .pipe(dest);
+    }
+
+
+    ////////////////////////////////////
 
 
     function addOrgInfo(req,res){

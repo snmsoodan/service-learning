@@ -12,9 +12,12 @@
 
     function AdminController($rootScope,$location,$routeParams,$scope,$http,UserService,PartnerOrgInfoService,OrgInfoService) {
         var vm = this;
-        vm.aid = $routeParams.aid;
+        // vm.aid = $routeParams.aid;
+        // console.log($rootScope.currentUser._id)
         vm.activateRejectUser = activateRejectUser;
         vm.partners=partners;
+        console.log($rootScope.currentUser._id)
+        vm.aid=$rootScope.currentUser._id;
 
         function init(){
             var user = {status:"NoStatus"};
@@ -23,7 +26,6 @@
                     vm.users = success.data;
                     vm.users = JSON.parse(JSON.stringify(vm.users));
                     removeDuplicates(vm.users,'username');
-                    console.log(vm.aid)
                 } ,function (error){
 
                 });
