@@ -8,6 +8,8 @@
         vm.message = null;
         vm.pid = $rootScope.currentUser._id;
         vm.currentView = "CS";
+        vm.changeView = changeView;
+
 
         vm.currentSemData = [
             {id:1,appName:'App1',status:'In Progress',editBy:'xxx@gmail.com',editAt:'2017-10-16 16:55'},
@@ -37,6 +39,10 @@
                         })
                 })
         }init();
+
+        function changeView(view) {
+            vm.currentView = view;
+        }
 
     }
 })();

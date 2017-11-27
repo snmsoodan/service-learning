@@ -1,5 +1,7 @@
 // var nodemailer = require('nodemailer');
 
+// var fs    = require("fs");
+
 (function() {
     "use strict";
     angular.module("ServiceLearningApp")
@@ -14,6 +16,19 @@
 
         vm.sendMail=function () {
             OrgInfoService.sendMail()
+                .then(
+                    function (response) {
+                        console.log(response.data)
+                    },function (err) {
+                        console.log(err);
+                    }
+                )
+        }
+
+
+        vm.testExport=function()
+        {
+            OrgInfoService.testExport()
                 .then(
                     function (response) {
                         console.log(response.data)

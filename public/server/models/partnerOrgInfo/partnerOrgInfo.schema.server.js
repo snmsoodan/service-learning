@@ -7,6 +7,5 @@ module.exports = function () {
         orgId: String
 
     }, {collection: "PartnerOrgInfo"});
-
     return PartnerOrgInfoSchema;
 };

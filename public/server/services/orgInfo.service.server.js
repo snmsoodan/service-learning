@@ -1,5 +1,11 @@
 var nodemailer = require('nodemailer');
+<<<<<<< HEAD
+
+var fs    = require("fs");
+
+=======
 var bcrypt = require("bcrypt-nodejs");
+>>>>>>> 4946f79424120b9e60a2a4854c27e7e195840100
 module.exports = function(app,orgInfoModel) {
 
     app.post('/api/addOrgInfo',addOrgInfo);
@@ -9,8 +15,18 @@ module.exports = function(app,orgInfoModel) {
     app.get('/api/organization/organizationNames/applicationInProgress/:id',getAllPartnerNamesApplicationsInProgress);
     app.post('/api/organization/updateOrg',updateOrg);
 
+<<<<<<< HEAD
+    app.get('/api/sendMail',sendMail);
+
+    //try export
+    app.get('/api/testExport',testExport);
+    //////////////
+
+
+
     app.post('/api/sendMail',sendMail);
     app.post('/api/sendMailAp',sendMailAp);
+
     function sendMail(req,res) {
         console.log('----body-'+req.body);
 
@@ -24,7 +40,13 @@ module.exports = function(app,orgInfoModel) {
                 pass: 'serviceLearningNorthEdu@123'
             }
         });
+
+
+
+
+
         console.log('----mailOptions---user.username--'+user.username+'--password--'+user.password);
+
         var mailOptions = {
             from: 'passwordrecovery@northeastern.edu',
             to: user.username,
@@ -43,6 +65,33 @@ module.exports = function(app,orgInfoModel) {
             }
         });
     }
+
+
+    //test export
+
+    function testExport(req,res) {
+
+        console.log("reached in service server for testExports")
+
+        var fileId = '1j3uvKWN9IUj_scJ1ilBzDnbcMQkVpea2SDyXECkqMKY';
+        var dest = fs.createWriteStream('./resume.pdf');
+        console.log(dest)
+
+        drive.files.export({
+            fileId: fileId,
+            mimeType: 'application/pdf'
+        })
+            .on('end', function () {
+                console.log('Done');
+            })
+            .on('error', function (err) {
+                console.log('Error during download', err);
+            })
+            .pipe(dest);
+    }
+
+
+    ////////////////////////////////////
 
 
     function addOrgInfo(req,res){

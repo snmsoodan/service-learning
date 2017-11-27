@@ -18,7 +18,16 @@ body{
 }
 
 .header-padding{
-    margin-top: 100px;
+    margin-top: 80px;
+}
+
+.large-label{
+    font-size: 14px;
+    font-weight : 900;
+}
+
+.normal-label{
+    font-weight : 700;
 }
 
 /************************Header styling****************************/

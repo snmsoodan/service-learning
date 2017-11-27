@@ -12,6 +12,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 var connectionString = process.env.MONGODB_URI ||'mongodb://127.0.0.1:27017/serviceLearning';
 
+//try file export///
+var fs    = require("fs");
+///////////////////
+
 var db = mongoose.connect(connectionString);
 // var ipaddress = '127.0.0.1';
 

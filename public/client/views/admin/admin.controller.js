@@ -12,17 +12,25 @@
 
     function AdminController($rootScope,$location,$routeParams,$scope,$http,UserService,PartnerOrgInfoService,OrgInfoService) {
         var vm = this;
+
+        // vm.aid = $routeParams.aid;
+        // console.log($rootScope.currentUser._id)
+        vm.activateRejectUser = activateRejectUser;
+        vm.partners=partners;
+        console.log($rootScope.currentUser._id)
+        vm.aid=$rootScope.currentUser._id;
+
         vm.aid = $routeParams.aid;
         vm.currentuser = $rootScope.currentUser;
         vm.activateRejectUser = activateRejectUser;
         vm.partners=partners;
-        vm.makeAuthVisible = makeAuthVisible;
         vm.authAdmin = authAdmin;
         vm.registerAdmin = registerAdmin;
         vm.authenticateAdmin = 'false';
         vm.adminAuthenticateMD = true;
         vm.adminAuthenticateMDGrid = false;
-        vm.makeApproveVisible =makeApproveVisible
+        vm.changeView = changeView;
+
 
         function init(){
             if(vm.currentuser === undefined) {
@@ -34,21 +42,16 @@
                     vm.users = success.data;
                     vm.users = JSON.parse(JSON.stringify(vm.users));
                     removeDuplicates(vm.users,'username');
-                    console.log(vm.aid)
                 } ,function (error){
 
                 });
 
         }init();
 
-        function makeAuthVisible () {
-            vm.adminAuthenticateMD = false;
-            vm.adminAuthenticateMDGrid = false;
-        }
 
-        function makeApproveVisible () {
-            vm.adminAuthenticateMD = true;
-            vm.adminAuthenticateMDGrid = true;
+        function changeView(view) {
+            vm.message = null;
+            vm.currentView = view;
         }
 
 
@@ -170,6 +173,11 @@
         function registerAdmin(admin) {
 
             vm.message = null;
+
+            if(!admin){
+                vm.message = "Please enter details";
+                return;
+            }
 
             if(!admin.firstName){
                 vm.message = "Please enter a first name";

@@ -14,26 +14,51 @@
                 controller: "LoginController",
                 controllerAs: "model"
             })
+
             .when("/register", {
                 templateUrl: "client/views/register/register.view.html",
                 controller: "RegisterController",
                 controllerAs: "model"
-            }).when("/forgotpassword", {
+            })
+
+            .when("/forgotpassword", {
             templateUrl: "client/views/forgotpwd/forgotpwd.view.html",
             controller: "ForgotPwdController",
             controllerAs: "model"
-        })
+            })
+
             .when("/newOrg",{
                 templateUrl: "client/views/register/orgRegister.view.html",
                 controller: "OrgRegisterController",
                 controllerAs: "model"
             })
+
             .when("/OrgNotYetApproved",{
                 templateUrl: "client/views/404/orgNotYetApproved.view.html"
             })
+
             .when("/OrgRejected",{
                 templateUrl: "client/views/404/orgRejected.view.html"
             })
+
+            .when("/form", {
+                templateUrl: "client/views/admin/forms/forms.view.html",
+                controller:"FormController",
+                controllerAs:"model"
+            })
+
+            .when("/field", {
+                templateUrl:"client/views/admin/forms/fields.view.html",
+                controller:"FieldController",
+                controllerAs:"model"
+            })
+
+            .when("/form/:formId/field",{
+                templateUrl: "client/views/admin/forms/fields.view.html",
+                controller: "FieldController",
+                controllerAs: "model"
+            })
+
 
             //admin start
             .when("/admin/", {
