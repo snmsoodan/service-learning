@@ -1,11 +1,11 @@
 var nodemailer = require('nodemailer');
-<<<<<<< HEAD
+
 
 var fs    = require("fs");
 
-=======
+
 var bcrypt = require("bcrypt-nodejs");
->>>>>>> 4946f79424120b9e60a2a4854c27e7e195840100
+
 module.exports = function(app,orgInfoModel) {
 
     app.post('/api/addOrgInfo',addOrgInfo);
@@ -15,7 +15,7 @@ module.exports = function(app,orgInfoModel) {
     app.get('/api/organization/organizationNames/applicationInProgress/:id',getAllPartnerNamesApplicationsInProgress);
     app.post('/api/organization/updateOrg',updateOrg);
 
-<<<<<<< HEAD
+
     app.get('/api/sendMail',sendMail);
 
     //try export

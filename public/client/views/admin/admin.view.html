@@ -4,6 +4,7 @@
 
      <div>
          <a class="btn btn-primary" type="button" ng-click="model.changeView('Partner')">
+         <!--<a class="btn btn-primary" type="button" href="#/admin/{{model.aid}}/adminPartnerList">-->
             Partner
          </a>
          <a class="btn btn-primary" type="button" ng-click="model.changeView('Faculty')">
@@ -30,6 +31,8 @@
 
             <div ng-switch-when="Partner">
                 <!---url - #/admin/{{model.aid}}/adminPartnerList-->
+                <div ng-include="'client/views/admin/partnerList.view.html'"></div>
+
             </div>
 
             <div ng-switch-when="Faculty">

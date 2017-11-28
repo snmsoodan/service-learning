@@ -14,7 +14,7 @@
             sendMail:sendMail,
             updateOrgById:updateOrgById,
 
-            testExport:testExport
+            testExport:testExport,
 
             sendMailAp:sendMailAp
 

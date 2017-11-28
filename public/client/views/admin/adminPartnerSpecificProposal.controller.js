@@ -24,6 +24,11 @@
         vm.aid = $routeParams.aid;
         vm.pid = $routeParams.pid;
         vm.pApplications=[];
+        vm.partners=[];
+
+        vm.partners=partners
+        vm.pApplications=partnerApps
+
         function init(){
             // vm.partners=partners;
             ApplicationInfoService.getAllOrganizationIdApplicationSubmitted()
@@ -32,7 +37,7 @@
 
                         var applicationData=response.data;
                         var organizationIds=[];
-                        vm.partners=[];
+
                         for(var i in applicationData)
                         {
                             OrgInfoService.getAllPartnerNamesApplicationsSubmitted(applicationData[i].organizationId)

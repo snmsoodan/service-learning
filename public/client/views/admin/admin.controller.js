@@ -3,12 +3,12 @@
     angular.module("ServiceLearningApp")
         .controller("AdminController",AdminController);
 
-    var partners=[
-        {_id: "123", name: "alice", applicationId:"1" },
-        {_id: "234", name: "bob", applicationId:"2" },
-        {_id: "345", name: "charly", applicationId:"3"  },
-        {_id: "456", name: "jannunzi", applicationId:"4" }
-    ]
+    // var partners=[
+    //     {_id: "123", name: "alice", applicationId:"1" },
+    //     {_id: "234", name: "bob", applicationId:"2" },
+    //     {_id: "345", name: "charly", applicationId:"3"  },
+    //     {_id: "456", name: "jannunzi", applicationId:"4" }
+    // ]
 
     function AdminController($rootScope,$location,$routeParams,$scope,$http,UserService,PartnerOrgInfoService,OrgInfoService) {
         var vm = this;
@@ -16,14 +16,14 @@
         // vm.aid = $routeParams.aid;
         // console.log($rootScope.currentUser._id)
         vm.activateRejectUser = activateRejectUser;
-        vm.partners=partners;
-        console.log($rootScope.currentUser._id)
+        // vm.partners=partners;
+        // console.log($rootScope.currentUser._id)
         vm.aid=$rootScope.currentUser._id;
-
+        console.log(vm.aid)
         vm.aid = $routeParams.aid;
         vm.currentuser = $rootScope.currentUser;
         vm.activateRejectUser = activateRejectUser;
-        vm.partners=partners;
+        // vm.partners=partners;
         vm.authAdmin = authAdmin;
         vm.registerAdmin = registerAdmin;
         vm.authenticateAdmin = 'false';
