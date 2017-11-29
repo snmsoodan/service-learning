@@ -13,3 +13,10 @@ Working features :
 3. Register new user as Admin ( by selecting service learning as drop down option and using admin@test.com as user id)
 4. Admin authentication for faculty and partner(pending peer approval)
 5. Application form (sill in progress)
+
+
+
+Fixes needed
+1. using ng-switch instead of ng-if for user info and add org/partner/faculty
+2. Session is managed only for admin (as of now) and on refresh the header is getting changed.
+3.

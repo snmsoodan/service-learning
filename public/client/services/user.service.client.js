@@ -17,7 +17,6 @@
         };
 
         return model;
-
         function login(user) {
             console.log("client server login",user);
             return $http.post("/api/login",user);
