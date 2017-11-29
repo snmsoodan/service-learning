@@ -13,6 +13,8 @@ module.exports = function(app,userModel) {
     app.post('/api/getAllUsers',fetchUser);
     app.post('/api/findUser',findUser);
     app.post('/api/updateUser',updateUser);
+    app.post('/api/deleteUser',deleteUser);
+    app.post('/api/fetchAll',fetchAll);
 
     passport.use('local', new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
@@ -167,5 +169,31 @@ module.exports = function(app,userModel) {
                 res.status(400).send(err);
             });
     }
+
+    function deleteUser(req,res) {
+        var newUser = req.body;
+        console.log('----In deleteUser = '+newUser._id);
+        userModel.deleteUser(newUser).then(
+            function(success) {
+                console.log('---Delete---'+success+' ---- deleted user = '+success);
+                res.json(success);
+            } , function(err) {
+                res.status(400).send(err);
+            });
+    }
+
+
+    function fetchAll(req,res) {
+        var newUser = req.body;
+        userModel.fetchAll().then(function (obj) {
+            res.json(obj);
+        } , function(err) {
+            res.status(400).send(err);
+        });
+
+    }
+
+
+
 };
 

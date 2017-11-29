@@ -191,12 +191,12 @@ module.exports = function(app,orgInfoModel) {
         console.log('----sendMailAp :: mailOptions---user.username--'+user.username+'--password--'+user.password);
 
         var mailOptions = {
-            from: 'alerts@northeastern.edu',
+            from: 'servicelearningnorthedu@gmail.com',
             to: user.username,
             subject: 'Service Learning :: Authentication Alerts for Service Learning App',
-            text: 'Dear User , \n With regards to your request for new Login , your request has been '+user.status+' \n' +
-            +'contact the admin --provide admin email id-- if any further information is needed'};
-        console.log('----mailOptions--'+mailOptions);
+            text: 'Dear User , \n With regards to your request for new Login , your request has been '+user.status+' \n'+
+            'Please login using the Credentials you have given at the time of registration '};
+        console.log('----mailOptions--'+JSON.stringify(mailOptions));
         transporter.sendMail(mailOptions, function(error, info){
             if (error) {
                 console.log(error);

@@ -18,10 +18,9 @@
         vm.activateRejectUser = activateRejectUser;
         // vm.partners=partners;
         // console.log($rootScope.currentUser._id)
-        vm.aid=$rootScope.currentUser._id;
-        console.log(vm.aid)
-        vm.aid = $routeParams.aid;
-        vm.currentuser = $rootScope.currentUser;
+        vm.aid=JSON.parse(sessionStorage.getItem('currentUser'))._id;
+        console.log(vm.aid);
+        vm.currentuser = JSON.parse(sessionStorage.getItem('currentUser'));
         vm.activateRejectUser = activateRejectUser;
         // vm.partners=partners;
         vm.authAdmin = authAdmin;
@@ -30,6 +29,18 @@
         vm.adminAuthenticateMD = true;
         vm.adminAuthenticateMDGrid = false;
         vm.changeView = changeView;
+        vm.makeApproveVisible =makeApproveVisible;
+        vm.makeCreateUserVisible = makeCreateUserVisible;
+        vm.makeCreateUserVisibleFlag = true;
+        vm.registerPartner = registerPartner;
+        vm.orgRegister = orgRegister;
+        vm.registerFaculty = registerFaculty;
+        vm.registerEnableOrf =registerEnableOrf;
+        vm.orgInfoClass = 'partner';
+        vm.makeUserInfoVisible = makeUserInfoVisible;
+        vm.userInfoGrid = false;
+        vm.deleteUserCancel =deleteUserCancel;
+        vm.makeAuthVisible = makeAuthVisible;
 
 
         function init(){
@@ -54,6 +65,45 @@
             vm.currentView = view;
         }
 
+        function makeAuthVisible () {
+            vm.adminAuthenticateMD = false;
+            vm.adminAuthenticateMDGrid = false;
+            vm.makeCreateUserVisibleFlag = true;
+        }
+
+        function makeApproveVisible () {
+            vm.adminAuthenticateMD = true;
+            vm.adminAuthenticateMDGrid = true;
+            vm.makeCreateUserVisibleFlag = true;
+        }
+
+        function makeCreateUserVisible() {
+            vm.makeCreateUserVisibleFlag = false;
+            vm.adminAuthenticateMDGrid = false;
+            vm.userInfoGrid = false;
+            OrgInfoService.getAllOrg()
+                .then(function(allOrg){
+                    vm.OrgsInfo = allOrg.data;
+                });
+        }
+
+        function makeUserInfoVisible() {
+            vm.adminAuthenticateMD = true;
+            vm.adminAuthenticateMDGrid = false;
+            vm.makeCreateUserVisibleFlag = true;
+            vm.userInfoGrid = true;
+            vm.user = {};
+            vm.users = [];
+            UserService.fetchAll(vm.user)
+                .then(function (success) {
+                    vm.users = success.data;
+                    vm.users = JSON.parse(JSON.stringify(vm.users));
+                    removeDuplicates(vm.users,'username');
+                    console.log(vm.aid);
+                } ,function (error){
+                    console.log(':: makeUserInfoVisible :: error --'+error);
+                });
+        }
 
         function activateRejectUser(user,status,type) {
 
@@ -213,5 +263,223 @@
                     }
                 );
         }
+
+        function registerPartner(partner) {
+
+            vm.message = null;
+
+            if(!partner.orgId){
+                vm.message = "Please select an organization";
+                return;
+            }
+
+            if(!partner.firstName){
+                vm.message = "Please enter a first name";
+                return;
+            }
+            if(!partner.lastName){
+                vm.message = "Please enter a last name";
+                return;
+            }
+
+            if(!partner.username){
+                vm.message = "Please enter an email address";
+                return;
+            }
+
+            if(!partner.password){
+                vm.message = "Please enter a password";
+                return;
+            }
+
+
+            var newPartner = {
+                "firstName":partner.firstName,
+                "lastName":partner.lastName,
+                "username":partner.username,
+                "password":partner.password,
+                "role":"PARTNER"
+            };
+
+            if(partner.orgId === "0" && partner.username === "admin@test.com"){
+                newPartner.role="ADMIN";
+            }
+
+            UserService.register(newPartner)
+                .then(function(user){
+                        if(user)
+                        {
+                            $rootScope.currentUser = user.data;
+                            $rootScope.currentUser.orgId = partner.orgId;
+                            console.log("user data"+user);
+
+                            if($rootScope.currentUser.role === "PARTNER"){
+                                var info = {
+                                    userId : user.data._id,
+                                    orgId : partner.orgId
+                                };
+                                var userName = partner.username;
+                                PartnerOrgInfoService.addUserOrgInfo(info)
+                                    .then(function(response){
+                                        console.log("after add User Org", +response);
+                                        //$location.url("/partner");
+                                        var mailData = {'username':userName,'status':'Approved'};
+                                        OrgInfoService.sendMailAp(mailData).then(function (response) {
+                                            var user = response.data;
+                                            console.log('Mail has been sent for the user '+user.username);
+                                            vm.message = "User has been approved , Mail has been sent to user ";
+                                        },function (error) {
+                                            console.log('Mail Sending Failed'+error);
+                                        });
+                                        vm.message = 'Partner Has been Successfully added';
+                                        partner = {};
+                                    }, function(err){
+                                        console.log(err);
+                                    });
+                            }
+                            else if($rootScope.currentUser.role === "ADMIN")
+                                $location.url("/admin");
+                        }else {
+                            vm.message = "email id already exists";
+                        }
+                    },function(err){
+                        vm.message = err.data;
+                        console.log(err);
+                    }
+                );
+        }
+
+        function orgRegister(partner,org){
+
+            console.log("click worked");
+
+            if(!partner.firstName){
+                vm.message = "Please enter a first name";
+                return;
+            }
+            if(!partner.lastName){
+                vm.message = "Please enter a last name";
+                return;
+            }
+
+            if(!partner.username){
+                vm.message = "Please enter an email address";
+                return;
+            }
+
+            if(!org.name){
+                vm.message = "Please enter organization name";
+                return;
+            }
+
+            if(!org.mission){
+                vm.message = "Please enter organization mission";
+                return;
+            }
+
+            org.status = 'NoStatus';
+            partner.role = 'PARTNER';
+            partner.status = 'NoStatus';
+
+            console.log(org);
+
+            OrgInfoService.addNewOrgInfo(org)
+                .then(function(orgRes){
+
+                    if(orgRes){
+
+                        UserService.register(partner) //registering partner
+                            .then(function(partnerInfo) {
+                                console.log('----orgRes--'+orgRes.data._id);
+                                $rootScope.currentUser = partnerInfo.data;
+                                $rootScope.currentUser.orgId = orgRes.data._id;
+                                var userOrgInfo = {
+                                    userId : partnerInfo.data._id,
+                                    orgId : orgRes.data._id
+                                };
+
+                                PartnerOrgInfoService.addUserOrgInfo(userOrgInfo) //entering partner and organization relation
+                                    .then(function(response){
+                                        console.log("after add User Org",+response);
+                                        vm.message = "Partner has been registered successfully , awaiting approval";
+                                    }, function(err){
+                                        console.log(err);
+                                    });
+
+                            })
+                    }
+
+                });
+
+        }
+
+        function registerEnableOrf(value) {
+            vm.orgInfoClass = value;
+        }
+
+        function registerFaculty(faculty) {
+
+            vm.message = null;
+
+            if(!faculty.firstName){
+                vm.message = "Please enter a first name";
+                return;
+            }
+            if(!faculty.lastName){
+                vm.message = "Please enter a last name";
+                return;
+            }
+
+            if(!faculty.username || faculty.username.indexOf("@northeastern.edu") === -1){
+                vm.message = "Please enter your northeastern email id";
+                return;
+            }
+
+            if(!faculty.password){
+                vm.message = "Please enter a password";
+                return;
+            }
+
+            var newFaculty = {
+                "firstName":faculty.firstName,
+                "lastName":faculty.lastName,
+                "username":faculty.username,
+                "password":faculty.password,
+                "role":"FACULTY",
+                "status":"NoStatus"
+            };
+
+            UserService.register(newFaculty)
+                .then(function(user){
+                        console.log("returned from registering faculty",user);
+                        $rootScope.currentUser = user.data;
+                        //$location.url("/login?message=Request for approval has been sent to ADMIN successfully...");
+                        vm.message = "Request for approval has been sent to ADMIN successfully...";
+                    },function(err){
+                        console.log(err);
+                    }
+                );
+        }
+
+        function deleteUserCancel(user){
+
+            UserService.deleteUser(user)
+                .then(function (success) {
+                    vm.users = console.log('---success User Deletion --'+success.data);
+                    vm.message = "User has been successfully deleted";
+                    UserService.fetchAll(user)
+                        .then(function (success) {
+                            vm.users = success.data;
+                            vm.users = JSON.parse(JSON.stringify(vm.users));
+                            removeDuplicates(vm.users,'username');
+                            console.log(vm.aid);
+                        } ,function (error){
+                            console.log(':: deleteUserCancel :: error --'+error);
+                        });
+                } ,function (error){
+                    console.log(':: makeUserInfoVisible :: error --'+error);
+                });
+        }
+
     }
 })();

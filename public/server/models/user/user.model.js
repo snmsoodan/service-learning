@@ -12,7 +12,9 @@ module.exports = function () {
         findUserByCredentials: findUserByCredentials,
         fetchUser: fetchUser,
         updateUser: updateUser,
-        updateUserPwd:updateUserPwd
+        updateUserPwd:updateUserPwd,
+        deleteUser:deleteUser,
+        fetchAll:fetchAll
     };
 
     return api;
@@ -51,6 +53,20 @@ module.exports = function () {
             $set: {
                 password: newUser.password
             }
+        });
+    }
+
+    function fetchAll(status) {
+        return UserInfo.find();
+    }
+
+    function deleteUser(newUser) {
+        return UserInfo.remove({_id:newUser._id},function(success){
+            console.log('deleteUser :: newUser '+newUser+' :: success:: '+success);
+            return success;
+        } ,function(err){
+            return err;
+            if(err) throw err;
         });
     }
 };
