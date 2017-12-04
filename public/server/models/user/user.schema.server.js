@@ -14,7 +14,13 @@ module.exports = function () {
         createdDate : {type: Date, default : Date.now},
         status : String,
         reason: String,
-        reject: Boolean
+        reject: Boolean,
+        alerts: {
+        alertDate:{type: Date, default : Date.now},
+        alertBy: String,
+            alertText:String,
+            alertStatus:String
+    }
     }, {collection: "UserInfo"});
 
     return UserSchema;

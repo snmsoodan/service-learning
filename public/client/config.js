@@ -160,11 +160,14 @@
                 controller: "FacultyController",
                 controllerAs: "model"
             })
+            .when("/passwordChange", {
+                templateUrl: "client/views/passwordChange/passwordChange.view.html",
+                controller: "PasswordChangeController",
+                controllerAs: "model"
+            })
             .otherwise({
                 redirectTo: "login"
             });
-
-
     }
 
 })();

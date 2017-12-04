@@ -11,11 +11,12 @@
             getAllUsers:getAllUsers,
             activateRejectUser:activateRejectUser,
             findUser:findUser,
-            updateUser:updateUser
+            updateUser:updateUser,
+            deleteUser:deleteUser,
+            fetchAll:fetchAll
         };
 
         return model;
-
         function login(user) {
             console.log("client server login",user);
             return $http.post("/api/login",user);
@@ -39,6 +40,13 @@
 
         function updateUser(user){
             return  $http.post("/api/updateUser",user);
+        }
+        function deleteUser(user) {
+            return  $http.post("/api/deleteUser",user);
+        }
+
+        function fetchAll(user){
+            return  $http.post("/api/fetchAll",user);
         }
 
     }

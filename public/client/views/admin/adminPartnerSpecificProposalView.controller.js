@@ -19,30 +19,27 @@
     ]
 
 
-    function AdminPartnerSpecificProposalViewController($rootScope,$location,$routeParams,$scope,$http,ApplicationInfoService,OrgInfoService) {
+    function AdminPartnerSpecificProposalViewController($rootScope,$location,$routeParams,$scope,$http,ApplicationInfoService,OrgInfoService,FieldService,FormService) {
         var vm = this;
         vm.aid = $routeParams.aid;
         vm.pid = $routeParams.pid;
         vm.prid=$routeParams.prid;
         vm.pApplications=[];
-        function init(){
-            // vm.partners=partners;
-            //
-            // for (var i in partnerApps)
-            // {
-            //     if(partnerApps[i]._id===vm.pid)
-            //     {
-            //         vm.pApplications.push(partnerApps[i]);
-            //     }
-            // }
+        vm.partners=[];
 
+        vm.partners=partners
+        vm.pApplications=partnerApps
+
+
+
+        function init(){
             ApplicationInfoService.getAllOrganizationIdApplicationSubmitted()
                 .then(
                     function (response) {
 
                         var applicationData=response.data;
                         var organizationIds=[];
-                        vm.partners=[];
+
                         for(var i in applicationData)
                         {
                             OrgInfoService.getAllPartnerNamesApplicationsSubmitted(applicationData[i].organizationId)
@@ -72,6 +69,27 @@
                         vm.Application=response.data;
                     }
                 )
+
+
+
+
+            FieldService.findFieldByForm("5a19beb89a75f11ac881e868")
+                .then(function(response){
+                        vm.fields = response.data;
+                        console.log("hrrer");
+                    },
+                    function(err){
+                        console.log(err);
+                    });
+
+            FormService.findFormById("5a19beb89a75f11ac881e868")
+                .then(function(response){
+                        vm.form = response.data;
+                    },
+                    function(err){
+                        console.log(err);
+                    })
+
 
 
         }init();

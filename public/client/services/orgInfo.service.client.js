@@ -13,7 +13,11 @@
             getAllPartnerNamesApplicationsInProgress:getAllPartnerNamesApplicationsInProgress,
             sendMail:sendMail,
             updateOrgById:updateOrgById,
+
+            testExport:testExport,
+
             sendMailAp:sendMailAp
+
         };
 
         return model;
@@ -45,6 +49,14 @@
         function sendMail(user) {
             return $http.post("/api/sendMail",user);
         }
+
+        //export try
+
+        function testExport() {
+            return $http.get("/api/testExport");
+        }
+
+        /////////////
 
         function updateOrgById(orgId) {
             console.log('Method :: updateOrgById :: orgId '+orgId);

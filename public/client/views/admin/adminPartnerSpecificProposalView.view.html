@@ -54,29 +54,71 @@
 
     </div>
 
+    <!--<div class="col-md-6 right-line1">-->
+        <!--<div class="card" align="center" style="margin: auto">-->
+            <!--<div class="card-header">-->
+              <!--<h3> Organization Name</h3>-->
+                <!--<label>Girl Scout Cookies</label>-->
+                <!--<h3> Organization Address</h3>-->
+                <!--<label>230 Huntington</label>-->
+                <!--<h3> Organization website</h3>-->
+                <!--<label>www.fakewebsite.com</label>-->
+            <!--</div>-->
+            <!--<div class="card-block">-->
+                <!--&lt;!&ndash;<h4 class="card-title">Special title treatment</h4>&ndash;&gt;-->
+                <!--&lt;!&ndash;<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>&ndash;&gt;-->
+                <!--<div>-->
+
+
+                 <!--<a href="#" class="btn btn-primary">Approve</a>-->
+                 <!--<a href="#" class="btn btn-primary">Reject</a>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+    <!--</div>-->
+
     <div class="col-md-6 right-line1">
-        <div class="card" align="center" style="margin: auto">
-            <div class="card-header">
-              <h3> Organization Name</h3>
-                <label>Girl Scout Cookies</label>
-                <h3> Organization Address</h3>
-                <label>230 Huntington</label>
-                <h3> Organization website</h3>
-                <label>www.fakewebsite.com</label>
-            </div>
-            <div class="card-block">
-                <!--<h4 class="card-title">Special title treatment</h4>-->
-                <!--<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>-->
-                <div>
+        <h1>{{model.form.title}}</h1>
+
+        <div ng-repeat="field in model.fields">
 
 
-                 <a href="#" class="btn btn-primary">Approve</a>
-                 <a href="#" class="btn btn-primary">Reject</a>
+            <label ng-style="{'font-size' : field.type == 'LABEL' ? '22px' : '18px'}">{{field.title}}</label><br>
+            <label ng-style="{'font-size' : field.type == 'LABEL' ? '14px' : '12px', 'font-weight': 'normal'}">{{field.subTitle}}</label>
+
+            <div class="input-group">
+
+                <div ng-switch on="field.type" >
+
+                    <input ng-switch-when="TEXT" type="text" class="form-control">
+
+                    <textarea ng-switch-when="TEXTAREA"  class="form-control"></textarea>
+
+                    <select ng-switch-when="OPTIONS" class="form-control">
+                        <option ng-repeat="option in field.options track by $index">{{option.label}}</option>
+                    </select>
+
+                    <div ng-switch-when="CHECKBOXES">
+                        <div ng-repeat="option in field.options track by $index">
+                            <input type="checkbox" value="{{option.value}}">{{option.label}}
+                        </div>
+                    </div>
+
+                    <div ng-switch-when="RADIOS">
+                        <div ng-repeat="option in field.options track by $index">
+                            <input type="radio" value="{{option.value}}">{{option.label}}
+                        </div>
+                    </div>
                 </div>
+
+
             </div>
+            <hr style="border-color: red">
         </div>
+
 
     </div>
 
 
-</div>
+    </div>
