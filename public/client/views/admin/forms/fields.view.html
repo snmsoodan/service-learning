@@ -21,15 +21,21 @@
 
             <div ng-model="model.fields" jga-sortable jga-sortable-callback = "model.sortField(start,end)" style="cursor: pointer">
 
-                <div ng-repeat="field in model.fields">
+                <div ng-repeat="field in model.fields" style="">
 
 
-                    <label ng-style="{'font-size' : field.type == 'LABEL' ? '22px' : '18px'}">{{field.title}}</label><br>
-                    <label ng-style="{'font-size' : field.type == 'LABEL' ? '14px' : '12px', 'font-weight': 'normal'}">{{field.subTitle}}</label>
+                    <label ng-style="{'font-size' : field.type == 'LABEL' ? '22px' : '18px','float': 'left'}">{{field.title}}</label>
+                    <br><br>
+
+                    <label ng-if="field.subTitle" ng-style="{'font-size' : field.type == 'LABEL' ? '14px' : '12px', 'font-weight': 'normal','float': 'left'}">
+                        {{field.subTitle}}
+                    </label>
+
+                    <div ng-if="field.subTitle"><br><br></div>
 
                     <div class="input-group">
 
-                        <div ng-switch on="field.type" >
+                        <div ng-switch on="field.type" class="pull-left">
 
                             <input ng-switch-when="TEXT" type="text" class="form-control">
 
@@ -90,7 +96,7 @@
 
 
 
-        <div id="editField" class="modal fade" role="dialog">
+        <div id="editField" class="modal fade" data-keyboard="false" data-backdrop="static">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">

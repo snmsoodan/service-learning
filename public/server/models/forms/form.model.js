@@ -24,6 +24,7 @@ module.exports = function(app){
         var formObj = {
             "userId": userid,
             "title": newForm.title,
+            "status":newForm.status,
             "fields": [],
             "created": new Date(),
             "updated": new Date()

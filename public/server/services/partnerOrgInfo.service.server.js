@@ -1,7 +1,7 @@
 module.exports = function(app,partnerOrgInfoModel) {
 
     app.post('/api/userOrgInfo',addUserOrgInfo);
-    app.post('/api/getUserOrgId',getUserOrgId);
+    app.get('/api/getUserOrgId/:userId',getUserOrgId);
 
     function addUserOrgInfo(req,res){
 
@@ -14,12 +14,10 @@ module.exports = function(app,partnerOrgInfoModel) {
     }
 
 
-
-
     function getUserOrgId(req,res){
-        var userId =req.body;
-        console.log(' Method :: getUserOrgId :: userId'+userId._id);
-        partnerOrgInfoModel.getUserOrgId(userId._id)
+        var userId =req.params.userId;
+        //console.log(' Method :: getUserOrgId :: userId'+userId);
+        partnerOrgInfoModel.getUserOrgId(userId)
             .then(function(doc){
                     res.json(doc);
                 },

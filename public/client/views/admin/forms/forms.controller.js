@@ -32,11 +32,11 @@
             $rootScope.formId = formId;
         }
 
-        function addForm(form){
+        function addForm(form){ // should make other forms inactive
             if(form.formName !== null){
                 console.log("add form - controller");
                 console.log(form);
-                var newForm = {"title": form.formName};
+                var newForm = {"title": form.formName, "status": "Active"};
                 FormService.createFormForUser(currentUser._id,newForm)
                     .then(init(),function(err){
                         console.log(err);

@@ -1,8 +1,11 @@
 var express = require('express');
 var app = express();
-var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var passport = require('passport');
+var cookieParser  = require('cookie-parser');
+var session = require('express-session');
+var mongoose = require('mongoose');
+
 
 var port = process.env.PORT || 3000;
 app.use(express.static(__dirname + '/public'));
@@ -17,10 +20,14 @@ var fs    = require("fs");
 ///////////////////
 
 var db = mongoose.connect(connectionString);
-// var ipaddress = '127.0.0.1';
 
-//app.use(express.static(__dirname + '/public'));
+app.use(session({
+    secret: 'serviceLearning',
+    resave: true,
+    saveUninitialized: true
+}));
 
+app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
 require("./public/server/app.js")(app);
