@@ -19,10 +19,10 @@
          <a class="btn btn-primary" type="button" ng-click="model.changeView('Approve/Reject')">
              Approve/Reject
          </a>
-         <a class="btn btn-primary" type="button" ng-click="model.makeCreateUserVisible()">
+         <a class="btn btn-primary" type="button" ng-click="model.changeView('NewUser')">
              New Partner/Faculty/Org
          </a>
-         <a class="btn btn-primary" type="button" ng-click="model.makeUserInfoVisible()">
+         <a class="btn btn-primary" type="button" ng-click="model.changeView('UserInfo')">
              User Info
          </a>
      </div>
@@ -115,79 +115,74 @@
             </div>
 
 
+            <div ng-switch-when="NewUser">
 
+                <form class="form-signin" style="max-width: 457px !important;">
+                    <h4 class="form-signin-heading" style="color:green">{{model.message}}</h4>
 
-        </div>
+                    <ul class="nav nav-tabs">
+                        <li ng-class="{'active': model.orgInfoClass == 'partner'}">
+                            <a href data-target="#partnerInfo" ng-click="model.registerEnableOrf('partner')" data-toggle="tab">Partner</a>
+                        </li>
 
+                        <li ng-class="{'active': model.orgInfoClass == 'faculty'}">
+                            <a href data-target="#facultyInfo" ng-click="model.registerEnableOrf('faculty')" data-toggle="tab">Faculty</a>
+                        </li>
+                        <li ng-class="{'active': model.orgInfoClass == 'org'}">
+                            <a href data-target="#orgInfo" ng-click="model.registerEnableOrf('org')" data-toggle="tab">Organization</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
 
-        <div ng-if="!model.makeCreateUserVisibleFlag">
+                        <div ng-class="{'tab-pane active': model.orgInfoClass == 'partner'}" id="partnerInfo" ng-if="model.orgInfoClass == 'partner'">
+                            <h2 class="form-signin-heading" style="color:#e21a2d">Enter Partner information</h2>
+                            <div class="form-group" style="padding-top: 20px">
+                                <select class="form-control" ng-model="model.partner.orgId">
+                                    <option value="" disabled selected>Please select your Organization</option>
+                                    <option value="0">Service-Learning</option>
+                                    <option ng-repeat="org in model.OrgsInfo" value="{{org._id}}">{{org.name}}</option>
+                                </select>
+                            </div>
+                            <h5 style="padding-top: 5px;padding-bottom: 5px">
+                                Don't see your organization? <a ng-click="model.registerEnableOrf('org')">Create</a></h5>
+                            <input type="text" class="form-control" placeholder="FirstName" ng-model="model.partner.firstName" required="" autofocus="" />
+                            <input type="text" class="form-control" placeholder="LastName" ng-model="model.partner.lastName" required="" autofocus="" />
 
-            <form class="form-signin" style="max-width: 457px !important;">
-                <h4 class="form-signin-heading" style="color:green">{{model.message}}</h4>
+                            <input type="text" class="form-control" placeholder="Email Address" ng-model="model.partner.username" required="" autofocus="" />
+                            <input type="password" class="form-control" name="Password" placeholder="Password" ng-model="model.partner.password" required=""/>
 
-                <ul class="nav nav-tabs">
-                    <li ng-class="{'active': model.orgInfoClass == 'partner'}">
-                        <a href data-target="#partnerInfo" ng-click="model.registerEnableOrf('partner')" data-toggle="tab">Partner</a>
-                    </li>
-
-                    <li ng-class="{'active': model.orgInfoClass == 'faculty'}">
-                        <a href data-target="#facultyInfo" ng-click="model.registerEnableOrf('faculty')" data-toggle="tab">Faculty</a>
-                    </li>
-                    <li ng-class="{'active': model.orgInfoClass == 'org'}">
-                        <a href data-target="#orgInfo" ng-click="model.registerEnableOrf('org')" data-toggle="tab">Organization</a>
-                    </li>
-                </ul>
-                <div class="tab-content">
-
-                    <div ng-class="{'tab-pane active': model.orgInfoClass == 'partner'}" id="partnerInfo" ng-if="model.orgInfoClass == 'partner'">
-                        <h2 class="form-signin-heading" style="color:#e21a2d">Enter Partner information</h2>
-                        <div class="form-group" style="padding-top: 20px">
-                            <select class="form-control" ng-model="model.partner.orgId">
-                                <option value="" disabled selected>Please select your Organization</option>
-                                <option value="0">Service-Learning</option>
-                                <option ng-repeat="org in model.OrgsInfo" value="{{org._id}}">{{org.name}}</option>
-                            </select>
-                        </div>
-                        <h5 style="padding-top: 5px;padding-bottom: 5px">
-                            Don't see your organization? <a ng-click="model.registerEnableOrf('org')">Create</a></h5>
-                        <input type="text" class="form-control" placeholder="FirstName" ng-model="model.partner.firstName" required="" autofocus="" />
-                        <input type="text" class="form-control" placeholder="LastName" ng-model="model.partner.lastName" required="" autofocus="" />
-
-                        <input type="text" class="form-control" placeholder="Email Address" ng-model="model.partner.username" required="" autofocus="" />
-                        <input type="password" class="form-control" name="Password" placeholder="Password" ng-model="model.partner.password" required=""/>
-
-                        <a ng-click="model.registerPartner(model.partner)" class="btn redBG btn-danger btn-block">Register</a>
-                    </div>
-
-                    <div ng-class="{'tab-pane active': model.orgInfoClass == 'faculty'}" id="facultyInfo"  ng-if="model.orgInfoClass == 'faculty'">
-                        <h2 class="form-signin-heading" style="color:#e21a2d">Enter Faculty information</h2>
-                        <div style="padding-top: 20px">
-                            <input type="text" class="form-control" name="firstname" placeholder="FirstName" ng-model="model.faculty.firstName" required="" autofocus="" />
-                            <input type="text" class="form-control" name="lastname" placeholder="LastName" ng-model="model.faculty.lastName" required="" autofocus="" />
-                            <input type="text" class="form-control" name="username" placeholder="Email Address" ng-model="model.faculty.username" required="" autofocus="" />
-                            <input type="password" class="form-control" name="password" placeholder="Password" ng-model="model.faculty.password" required=""/>
-
-                            <a ng-click="model.registerFaculty(model.faculty)" class="btn redBG btn-danger btn-block">Register</a>
+                            <a ng-click="model.registerPartner(model.partner)" class="btn redBG btn-danger btn-block">Register</a>
                         </div>
 
-                    </div>
+                        <div ng-class="{'tab-pane active': model.orgInfoClass == 'faculty'}" id="facultyInfo"  ng-if="model.orgInfoClass == 'faculty'">
+                            <h2 class="form-signin-heading" style="color:#e21a2d">Enter Faculty information</h2>
+                            <div style="padding-top: 20px">
+                                <input type="text" class="form-control" name="firstname" placeholder="FirstName" ng-model="model.faculty.firstName" required="" autofocus="" />
+                                <input type="text" class="form-control" name="lastname" placeholder="LastName" ng-model="model.faculty.lastName" required="" autofocus="" />
+                                <input type="text" class="form-control" name="username" placeholder="Email Address" ng-model="model.faculty.username" required="" autofocus="" />
+                                <input type="password" class="form-control" name="password" placeholder="Password" ng-model="model.faculty.password" required=""/>
 
-                    <div ng-class="{'tab-pane active': model.orgInfoClass == 'org'}" id="orgInfo" ng-if="model.orgInfoClass == 'org'">
+                                <a ng-click="model.registerFaculty(model.faculty)" class="btn redBG btn-danger btn-block">Register</a>
+                            </div>
 
-                        <div class="container" style="width:436px">
-                            <div class="row" style="width:361px">
-                                <div class="col-md-6">
-                                    <h2 class="form-signin-heading" style="color:#e21a2d">Partner info</h2>
+                        </div>
 
-                                    <input type="text" class="form-control" placeholder="FirstName" ng-model="model.partner.firstName" required="" autofocus="" />
-                                    <input type="text" class="form-control" placeholder="LastName" ng-model="model.partner.lastName" required="" autofocus="" />
+                        <div ng-class="{'tab-pane active': model.orgInfoClass == 'org'}" id="orgInfo" ng-if="model.orgInfoClass == 'org'">
 
-                                    <input type="text" class="form-control" placeholder="Email Address" ng-model="model.partner.username" required="" autofocus="" />
-                                    <input type="password" class="form-control" name="Password" placeholder="Password" ng-model="model.partner.password" required=""/>
+                            <div class="container" style="width:436px">
+                                <div class="row" style="width:361px">
+                                    <div class="col-md-6">
+                                        <h2 class="form-signin-heading" style="color:#e21a2d">Partner info</h2>
+
+                                        <input type="text" class="form-control" placeholder="FirstName" ng-model="model.partner.firstName" required="" autofocus="" />
+                                        <input type="text" class="form-control" placeholder="LastName" ng-model="model.partner.lastName" required="" autofocus="" />
+
+                                        <input type="text" class="form-control" placeholder="Email Address" ng-model="model.partner.username" required="" autofocus="" />
+                                        <input type="password" class="form-control" name="Password" placeholder="Password" ng-model="model.partner.password" required=""/>
 
 
-                                </div>
-                                <div class="col-md-6"><span class="pull-right">
+                                    </div>
+                                    <div class="col-md-6"><span class="pull-right">
 
 
                         <h2 class="form-signin-heading" style="color:#e21a2d">Organization info</h2>
@@ -198,54 +193,52 @@
 
                     <textarea rows="3" cols="10" class="form-control" placeholder="Mission" ng-model="model.org.mission" required="" autofocus=""></textarea>
                         </span></div>
-                                <br>
-                                <button ng-click="model.orgRegister(model.partner,model.org)" class="btn redBG btn-danger btn-block">Submit Request and Create Account</button>
-
+                                    <br>
+                                    <button ng-click="model.orgRegister(model.partner,model.org)" class="btn redBG btn-danger btn-block">Submit Request and Create Account</button>
+                                </div>
                             </div>
                         </div>
-
                     </div>
-
-                </div>
-            </form>
-        </div>
-
-
-        <div style="background-color: white;width:110%" ng-if="model.userInfoGrid">
-            <h2 style="color:green;font-weight: 100" align="center">{{model.message.note}}</h2>
-            <h5 class="form-signin-heading" style="color:#e21a2d;padding-left:20px">{{model.message}}</h5>
-            <h2>User Details</h2>
-            <div class="table-responsive" style="padding-left: 20px;padding-right: 10px;">
-                <table class="table table-hover" border="1">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Username</th>
-                        <th>Role</th>
-                        <th>Status</th>
-                        <th>Created Date</th>
-                        <th>Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="user in model.users track by $index">
-                        <th scope="row">{{$index+1}}</th>
-                        <td>{{user.firstName}}</td>
-                        <td>{{user.lastName}}</td>
-                        <td>{{user.username}}</td>
-                        <td><span>{{user.role}}</span>
-                        <td><span>{{user.status}}</span>
-                        <td>{{user.createdDate}}</td>
-                        <td><button ng-click="model.deleteUserCancel(user)">Delete</button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                </form>
             </div>
+
+
+            <div style="background-color: white;width:110%" ng-switch-when="UserInfo">
+                <h2 style="color:green;font-weight: 100" align="center">{{model.message.note}}</h2>
+                <h5 class="form-signin-heading" style="color:#e21a2d;padding-left:20px">{{model.message}}</h5>
+                <h2>User Details</h2>
+                <div class="table-responsive" style="padding-left: 20px;padding-right: 10px;">
+                    <table class="table table-hover" border="1">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Username</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Created Date</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="user in model.users track by $index">
+                            <th scope="row">{{$index+1}}</th>
+                            <td>{{user.firstName}}</td>
+                            <td>{{user.lastName}}</td>
+                            <td>{{user.username}}</td>
+                            <td><span>{{user.role}}</span>
+                            <td><span>{{user.status}}</span>
+                            <td>{{user.createdDate}}</td>
+                            <td><button ng-click="model.deleteUserCancel(user)">Delete</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
         </div>
     </div>
-  </div>
 </div>
 

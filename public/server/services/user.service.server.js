@@ -46,8 +46,7 @@ module.exports = function(app,userModel) {
     }
 
     function deserializeUser(user, done) {
-        userModel
-            .findById(user._id)
+        userModel.findUserById(user._id)
             .then(
                 function (user) {
                     delete user.password;
@@ -184,7 +183,6 @@ module.exports = function(app,userModel) {
 
 
     function fetchAll(req,res) {
-        var newUser = req.body;
         userModel.fetchAll().then(function (obj) {
             res.json(obj);
         } , function(err) {

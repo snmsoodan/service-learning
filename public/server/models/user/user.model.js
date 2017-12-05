@@ -20,7 +20,7 @@ module.exports = function () {
     return api;
 
     function findUserById(userId) {
-        return UserInfo.findById({_id: userId});
+        return UserInfo.findById(userId);
     }
 
     function findUserByUserName(name) {
