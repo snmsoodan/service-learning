@@ -29,13 +29,10 @@
                         $rootScope.currentUser = response.data;
                         if ($rootScope.currentUser.role === "FACULTY" && $rootScope.currentUser.status === "Approved") {
                             console.log('-----user console'+$rootScope.currentUser.status);
-                            sessionStorage.setItem('currentUser',JSON.stringify($rootScope.currentUser));
                             $location.url("/faculty/"+$rootScope.currentUser.firstName);
                         } else  if ($rootScope.currentUser.role === "ADMIN" && $rootScope.currentUser.status === "Approved") {
-                            sessionStorage.setItem('currentUser',JSON.stringify($rootScope.currentUser));
-                            $location.url("/admin/");
+                            $location.url("/admin");
                         } else if ($rootScope.currentUser.role === "PARTNER" && $rootScope.currentUser.status === "Approved") {
-                            sessionStorage.setItem('currentUser',JSON.stringify($rootScope.currentUser));
                             $location.url("/partner");
                         } else {
                             vm.message = "User is not Active";
