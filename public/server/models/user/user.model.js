@@ -48,7 +48,7 @@ module.exports = function () {
     }
 
     function updateUserPwd(newUser) {
-        console.log('Model :: updateUserPwd :: newUser --'+newUser._id+'--password --'+newUser.password);
+        //console.log('Model :: updateUserPwd :: newUser --'+newUser._id+'--password --'+newUser.password);
         return UserInfo.update({_id: newUser._id},{
             $set: {
                 password: newUser.password
@@ -62,7 +62,7 @@ module.exports = function () {
 
     function deleteUser(newUser) {
         return UserInfo.remove({_id:newUser._id},function(success){
-            console.log('deleteUser :: newUser '+newUser+' :: success:: '+success);
+            //console.log('deleteUser :: newUser '+newUser+' :: success:: '+success);
             return success;
         } ,function(err){
             return err;

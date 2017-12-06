@@ -73,7 +73,8 @@ module.exports = function(app,userModel) {
     }
 
     function loggedIn(req, res) {
-        //console.log(req.isAuthenticated() ? req.user : '0');
+        console.log("in logged in--------");
+        console.log(req.isAuthenticated() ? req.user : '0');
         res.send(req.isAuthenticated() ? req.user : '0');
     }
 
@@ -120,14 +121,14 @@ module.exports = function(app,userModel) {
             .then(function (obj) {
                     userModel.updateUser(newUser).then(
                         function(success) {
-                            console.log('---updateOne---'+obj+' ---- updated user = '+success);
+                            //console.log('---updateOne---'+obj+' ---- updated user = '+success);
                             res.json(obj);
                         } , function(err) {
                             res.status(400).send(err);
                         });
                 },
                 function (err) {
-                    console.log('---err---'+err);
+                    //console.log('---err---'+err);
                     res.status(400).send(err);
                 });
     }
@@ -147,22 +148,22 @@ module.exports = function(app,userModel) {
         userModel
             .findUserByUserName(newUser.username)
             .then(function (obj) {
-                    console.log('---findUser---'+obj);
+                    //console.log('---findUser---'+obj);
                     res.json(obj);
                 },
                 function (err) {
-                    console.log('---err---'+err);
+                    //console.log('---err---'+err);
                     res.status(400).send(err);
                 });
     }
 
     function updateUser(req,res) {
         var newUser = req.body;
-        console.log('----In updateUser = '+newUser._id);
+        //console.log('----In updateUser = '+newUser._id);
         newUser.password = bcrypt.hashSync(newUser.password);
         userModel.updateUserPwd(newUser).then(
             function(success) {
-                console.log('---updateOne---'+success+' ---- updated user = '+success);
+                //console.log('---updateOne---'+success+' ---- updated user = '+success);
                 res.json(success);
             } , function(err) {
                 res.status(400).send(err);
@@ -171,10 +172,10 @@ module.exports = function(app,userModel) {
 
     function deleteUser(req,res) {
         var newUser = req.body;
-        console.log('----In deleteUser = '+newUser._id);
+        //console.log('----In deleteUser = '+newUser._id);
         userModel.deleteUser(newUser).then(
             function(success) {
-                console.log('---Delete---'+success+' ---- deleted user = '+success);
+                //console.log('---Delete---'+success+' ---- deleted user = '+success);
                 res.json(success);
             } , function(err) {
                 res.status(400).send(err);

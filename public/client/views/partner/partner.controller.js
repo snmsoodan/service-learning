@@ -29,19 +29,23 @@
 
         function init(){
             console.log("in partner controller");
-            PartnerOrgInfoService.getUserOrgId($rootScope.currentUser._id)
-                .then(function(response){
-                    $rootScope.currentUser.orgId = response.data.orgId;
 
-                    OrgInfoService.getOrgById($rootScope.currentUser.orgId)
-                        .then(function (res) {
-                            vm.userOrgInfo = res.data;
-                            if(vm.userOrgInfo.status === 'NoStatus')
-                                $location.url("/OrgNotYetApproved");
-                            else if(vm.userOrgInfo.status === 'Rejected')
-                                $location.url("/OrgRejected");
-                        })
-                })
+            if($rootScope.currentUser._id){
+                PartnerOrgInfoService.getUserOrgId($rootScope.currentUser._id)
+                    .then(function(response){
+                        $rootScope.currentUser.orgId = response.data.orgId;
+
+                        OrgInfoService.getOrgById($rootScope.currentUser.orgId)
+                            .then(function (res) {
+                                vm.userOrgInfo = res.data;
+                                if(vm.userOrgInfo.status === 'NoStatus')
+                                    $location.url("/OrgNotYetApproved");
+                                else if(vm.userOrgInfo.status === 'Rejected')
+                                    $location.url("/OrgRejected");
+                            })
+                    })
+            }
+
         }init();
 
         function startApp(){

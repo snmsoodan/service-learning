@@ -62,6 +62,8 @@
                                         console.log("after add User Org",+response);
                                         //$location.url("/partner");
                                         vm.message = "Partner has been registered successfully , awaiting approval";
+                                        vm.partner = null;
+                                        vm.org = null;
                                     }, function(err){
                                         console.log(err);
                                     });

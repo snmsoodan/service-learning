@@ -18,8 +18,8 @@
         vm.activateRejectUser = activateRejectUser;
         // vm.partners=partners;
         // console.log($rootScope.currentUser._id)
-        vm.aid=JSON.parse(sessionStorage.getItem('currentUser'))._id;
-        console.log(vm.aid);
+        //vm.aid=JSON.parse(sessionStorage.getItem('currentUser'))._id;
+        //console.log(vm.aid);
         vm.currentuser = JSON.parse(sessionStorage.getItem('currentUser'));
         vm.activateRejectUser = activateRejectUser;
         // vm.partners=partners;
@@ -37,32 +37,61 @@
         vm.registerFaculty = registerFaculty;
         vm.registerEnableOrf =registerEnableOrf;
         vm.orgInfoClass = 'partner';
-        vm.makeUserInfoVisible = makeUserInfoVisible;
         vm.userInfoGrid = false;
         vm.deleteUserCancel =deleteUserCancel;
-        vm.makeAuthVisible = makeAuthVisible;
+        //vm.makeAuthVisible = makeAuthVisible;
 
 
         function init(){
             if(vm.currentuser === undefined) {
                 $location.url("/login");
             }
-            var user = {status:"NoStatus"};
-            UserService.getAllUsers(user)
-                .then(function (success) {
-                    vm.users = success.data;
-                    vm.users = JSON.parse(JSON.stringify(vm.users));
-                    removeDuplicates(vm.users,'username');
-                } ,function (error){
-
-                });
-
         }init();
 
 
         function changeView(view) {
             vm.message = null;
+            vm.user = {};
+            vm.users = [];
+            vm.OrgsInfo = [];
+
+            if(view === 'Approve/Reject'){
+                var user = {status:"NoStatus"};
+                UserService.getAllUsers(user)
+                    .then(function (success) {
+                        vm.users = success.data;
+                        vm.users = JSON.parse(JSON.stringify(vm.users));
+                        removeDuplicates(vm.users,'username');
+                    } ,function (error){
+
+                    });
+            }
+
+            if(view === 'UserInfo'){
+                vm.adminAuthenticateMD = true;
+                vm.adminAuthenticateMDGrid = false;
+                vm.makeCreateUserVisibleFlag = true;
+                vm.userInfoGrid = true;
+                UserService.fetchAll(vm.user)
+                    .then(function (success) {
+                        vm.users = success.data;
+                        vm.users = JSON.parse(JSON.stringify(vm.users));
+                        removeDuplicates(vm.users,'username');
+                        //console.log(vm.aid);
+                    } ,function (error){
+                        console.log(':: makeUserInfoVisible :: error --'+error);
+                    });
+            }
+
+            if(view === 'NewUser'){
+                OrgInfoService.getAllOrg()
+                    .then(function(allOrg){
+                        vm.OrgsInfo = allOrg.data;
+                    });
+            }
+
             vm.currentView = view;
+
         }
 
         function makeAuthVisible () {
@@ -87,23 +116,6 @@
                 });
         }
 
-        function makeUserInfoVisible() {
-            vm.adminAuthenticateMD = true;
-            vm.adminAuthenticateMDGrid = false;
-            vm.makeCreateUserVisibleFlag = true;
-            vm.userInfoGrid = true;
-            vm.user = {};
-            vm.users = [];
-            UserService.fetchAll(vm.user)
-                .then(function (success) {
-                    vm.users = success.data;
-                    vm.users = JSON.parse(JSON.stringify(vm.users));
-                    removeDuplicates(vm.users,'username');
-                    console.log(vm.aid);
-                } ,function (error){
-                    console.log(':: makeUserInfoVisible :: error --'+error);
-                });
-        }
 
         function activateRejectUser(user,status,type) {
 
@@ -158,7 +170,7 @@
                                 vm.users = success.data;
                                 vm.users = JSON.parse(JSON.stringify(vm.users));
                                 removeDuplicates(vm.users,'username');
-                                console.log(vm.aid)
+                                //console.log(vm.aid)
                             } ,function (error){
 
                             });
@@ -238,8 +250,8 @@
                 return;
             }
 
-            if(!admin.username || admin.username.indexOf("@northeastern.edu") === -1){
-                vm.message = "Please enter your northeastern email id";
+            if(!admin.username){
+                vm.message = "Please enter email id";
                 return;
             }
 
@@ -258,6 +270,7 @@
                         vm.message = "Admin has been created successfully... kindly login...";
                         vm.adminAuthenticateMD = true;
                         vm.adminAuthenticateMDGrid = false;
+                        vm.admin = null;
                     },function(err){
                         console.log(err);
                     }
@@ -298,7 +311,8 @@
                 "lastName":partner.lastName,
                 "username":partner.username,
                 "password":partner.password,
-                "role":"PARTNER"
+                "role":"PARTNER",
+                "status":"Approved"
             };
 
             if(partner.orgId === "0" && partner.username === "admin@test.com"){
@@ -332,7 +346,7 @@
                                             console.log('Mail Sending Failed'+error);
                                         });
                                         vm.message = 'Partner Has been Successfully added';
-                                        partner = {};
+                                        vm.partner = {};
                                     }, function(err){
                                         console.log(err);
                                     });
@@ -377,9 +391,9 @@
                 return;
             }
 
-            org.status = 'NoStatus';
+            org.status = 'Approved';
             partner.role = 'PARTNER';
-            partner.status = 'NoStatus';
+            partner.status = 'Approved';
 
             console.log(org);
 
@@ -401,7 +415,9 @@
                                 PartnerOrgInfoService.addUserOrgInfo(userOrgInfo) //entering partner and organization relation
                                     .then(function(response){
                                         console.log("after add User Org",+response);
-                                        vm.message = "Partner has been registered successfully , awaiting approval";
+                                        vm.message = "Partner and organisation has been registered successfully";
+                                        vm.partner = null;
+                                        vm.org = null;
                                     }, function(err){
                                         console.log(err);
                                     });
@@ -446,7 +462,7 @@
                 "username":faculty.username,
                 "password":faculty.password,
                 "role":"FACULTY",
-                "status":"NoStatus"
+                "status":"Approved"
             };
 
             UserService.register(newFaculty)
@@ -454,9 +470,11 @@
                         console.log("returned from registering faculty",user);
                         $rootScope.currentUser = user.data;
                         //$location.url("/login?message=Request for approval has been sent to ADMIN successfully...");
-                        vm.message = "Request for approval has been sent to ADMIN successfully...";
+                        vm.message = "Faculty created successfully..";
+                        vm.faculty = null;
                     },function(err){
-                        console.log(err);
+                    vm.message = "Email already exists..";
+                    console.log(err);
                     }
                 );
         }
@@ -472,7 +490,7 @@
                             vm.users = success.data;
                             vm.users = JSON.parse(JSON.stringify(vm.users));
                             removeDuplicates(vm.users,'username');
-                            console.log(vm.aid);
+                            //console.log(vm.aid);
                         } ,function (error){
                             console.log(':: deleteUserCancel :: error --'+error);
                         });

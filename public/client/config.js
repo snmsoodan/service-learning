@@ -44,27 +44,39 @@
             .when("/form", {
                 templateUrl: "client/views/admin/forms/forms.view.html",
                 controller:"FormController",
-                controllerAs:"model"
+                controllerAs:"model",
+                resolve:{
+                    loggedin:checkloggedIn
+                }
             })
 
             .when("/field", {
                 templateUrl:"client/views/admin/forms/fields.view.html",
                 controller:"FieldController",
-                controllerAs:"model"
+                controllerAs:"model",
+                resolve:{
+                    loggedin:checkloggedIn
+                }
             })
 
             .when("/form/:formId/field",{
                 templateUrl: "client/views/admin/forms/fields.view.html",
                 controller: "FieldController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve:{
+                    loggedin:checkloggedIn
+                }
             })
 
 
             //admin start
-            .when("/admin/", {
+            .when("/admin", {
                 templateUrl: "client/views/admin/admin.view.html",
                 controller: "AdminController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve:{
+                    loggedin:checkloggedIn
+                }
             })
 
             //start admin partner proposals
@@ -77,37 +89,55 @@
             .when("/admin/:aid/adminPartnerList", {
                 templateUrl: "client/views/admin/partnerList.view.html",
                 controller: "PartnerListController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve:{
+                    loggedin:checkloggedIn
+                }
             })
 
             .when("/admin/:aid/adminPartnerList/:pid", {
                 templateUrl: "client/views/admin/adminPartnerSpecificProposal.view.html",
                 controller: "AdminPartnerSpecificController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve:{
+                    loggedin:checkloggedIn
+                }
             })
 
             .when("/admin/:aid/adminPartnerList/:pid/proposal/:prid", {
                 templateUrl: "client/views/admin/adminPartnerSpecificProposalView.view.html",
                 controller: "AdminPartnerSpecificProposalViewController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve:{
+                    loggedin:checkloggedIn
+                }
             })
 
             .when("/admin/:aid/adminPartnerListInProgress", {
                 templateUrl: "client/views/admin/partnerListInProgress.view.html",
                 controller: "PartnerListInProgressController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve:{
+                    loggedin:checkloggedIn
+                }
             })
 
             .when("/admin/:aid/adminPartnerListInProgress/:pid", {
                 templateUrl: "client/views/admin/adminPartnerSpecificProposalInProgress.view.html",
                 controller: "AdminPartnerSpecificInProgressController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve:{
+                    loggedin:checkloggedIn
+                }
             })
 
             .when("/admin/:aid/adminPartnerListInProgress/:pid/proposal/:prid", {
                 templateUrl: "client/views/admin/adminPartnerSpecificProposalViewInProgress.view.html",
                 controller: "AdminPartnerSpecificProposalViewInProgressController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve:{
+                    loggedin:checkloggedIn
+                }
             })
 
 
@@ -126,39 +156,60 @@
             .when("/partner", {
                 templateUrl: "client/views/partner/partner.view.html",
                 controller: "PartnerController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve:{
+                    loggedin:checkloggedIn
+                }
             })
 
             //faculty start
             .when("/faculty/:fid", {
                 templateUrl: "client/views/faculty/faculty.view.html",
                 controller: "FacultyController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve:{
+                    loggedin:checkloggedIn
+                }
             })
             .when("/faculty/:fid/facultyProfile", {
                 templateUrl: "client/views/faculty/faculty.view.html",
                 controller: "FacultyController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve:{
+                    loggedin:checkloggedIn
+                }
             })
             .when("/faculty/:fid/facultySuggestedJobs", {
                 templateUrl: "client/views/faculty/facultySuggestedJobs.view.html",
                 controller: "FacultyController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve:{
+                    loggedin:checkloggedIn
+                }
             })
             .when("/faculty/:fid/facultyAcceptedJobs", {
                 templateUrl: "client/views/faculty/facultyAcceptedJobs.view.html",
                 controller: "FacultyController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve:{
+                    loggedin:checkloggedIn
+                }
             })
             .when("/faculty/:fid/facultyRejectedJobs", {
                 templateUrl: "client/views/faculty/facultyRejectedJobs.view.html",
                 controller: "FacultyController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve:{
+                    loggedin:checkloggedIn
+                }
             })
             .when("/faculty/:fid/facultyAllJobs", {
                 templateUrl: "client/views/faculty/facultyAllJobs.view.html",
                 controller: "FacultyController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve:{
+                    loggedin:checkloggedIn
+                }
             })
             .when("/passwordChange", {
                 templateUrl: "client/views/passwordChange/passwordChange.view.html",
@@ -174,13 +225,18 @@
     {
         var deferred = $q.defer();
 
-        $http.get('/api/loggedIn').success(function(user)
+        console.log("in check logged in ");
+
+        $http.get('/api/loggedIn').then(function(user)
         {
+            console.log("in check logged in 1");
+
             $rootScope.errorMessage = null;
             // User is Authenticated
             if (user !== '0')
             {
                 $rootScope.currentUser = user;
+                console.log("in check logged in 2" +$rootScope.currentUser._id);
                 deferred.resolve();
             }
             // User is Not Authenticated
