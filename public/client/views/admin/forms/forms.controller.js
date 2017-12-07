@@ -14,6 +14,7 @@
         vm.changeView = changeView;
         vm.forms = [];
         var currentUser = $rootScope.currentUser;
+        // console.log(currentUser.data._id)
         vm.form = null;
 
 
@@ -37,7 +38,8 @@
                 console.log("add form - controller");
                 console.log(form);
                 var newForm = {"title": form.formName, "status": "Active"};
-                FormService.createFormForUser(currentUser._id,newForm)
+                // console.log($rootScope.currentUser.data._id)
+                FormService.createFormForUser(currentUser.data._id,newForm)
                     .then(init(),function(err){
                         console.log(err);
                     });

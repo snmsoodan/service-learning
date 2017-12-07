@@ -42,6 +42,7 @@
 
                     <div class="modal-body">
                         <form>
+<!--{{model.fields}}-->
                             <div ng-model="model.fields">
 
                                 <div ng-repeat="field in model.fields" style="">
@@ -58,9 +59,10 @@
 
                                         <div ng-switch on="field.type" class="pull-left">
 
-                                            <input ng-switch-when="TEXT" type="text" class="form-control">
 
-                                            <textarea ng-switch-when="TEXTAREA"  class="form-control"></textarea>
+                                            <input ng-model="field.value" ng-switch-when="TEXT" type="text" class="form-control">
+
+                                            <textarea ng-model="field.value" ng-switch-when="TEXTAREA"  class="form-control"></textarea>
 
                                             <select ng-switch-when="OPTIONS" class="form-control">
                                                 <option ng-repeat="option in field.options track by $index">{{option.label}}</option>
@@ -68,16 +70,18 @@
 
                                             <div ng-switch-when="CHECKBOXES">
                                                 <div ng-repeat="option in field.options track by $index">
-                                                    <input type="checkbox" value="{{option.value}}">{{option.label}}
+                                                    <input ng-model="option.selected" type="checkbox" value="{{option.value}}">{{option.label}}
                                                 </div>
                                             </div>
 
                                             <div ng-switch-when="RADIOS">
                                                 <div ng-repeat="option in field.options track by $index">
-                                                    <input type="radio" value="{{option.value}}">{{option.label}}
+                                                    <input  type="radio" value="{{option.value}}">{{option.label}}
                                                 </div>
                                             </div>
+
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -86,7 +90,7 @@
 
                     <div class="modal-footer">
                         <button  type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                        <button ng-click="model.commitEdit()" type="button" class="btn btn-success" data-dismiss="modal">Submit</button>
+                        <button ng-click="model.commitEdit(model.forms[0],model.fields)" type="button" class="btn btn-success" data-dismiss="modal">Submit</button>
                     </div>
                 </div>
             </div>

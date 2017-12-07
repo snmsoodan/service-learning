@@ -7,6 +7,8 @@ module.exports = function(app,formModel){
     app.get("/api/userForms/:userId/form",findFormsByUserId);
     app.get("/api/allForms",findAllForms);
 
+    app.post("/api/partnerCreateForm/",PartnerCreateForm);
+
 
     function findFormsByUserId(req,res){
         var userId = req.params.userId;
@@ -52,6 +54,16 @@ module.exports = function(app,formModel){
         var userId = req.params.userId;
         var newForm = req.body;
         formModel.createForm(userId,newForm)
+            .then(function(form){
+                res.json(form);
+            },function(err){
+                res.status(400).send(err);
+            });
+    }
+
+    function PartnerCreateForm(req,res) {
+        var form=req.body;
+        formModel.PartnerCreateForm(form)
             .then(function(form){
                 res.json(form);
             },function(err){

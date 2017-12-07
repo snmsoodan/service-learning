@@ -12,6 +12,8 @@
         vm.startApp = startApp;
         vm.forms = [];
         vm.fields = [];
+        vm.commitEdit=commitEdit;
+        console.log(vm.pid);
 
 
         vm.currentSemData = [
@@ -47,6 +49,54 @@
             }
 
         }init();
+
+        function sleep(ms) {
+            var unixtime_ms = new Date().getTime();
+            while(new Date().getTime() < unixtime_ms + ms) {}
+        }
+        
+        function commitEdit(form,fields) {
+            var fieldsIds=[]
+            var count=0;
+
+            // console.log(form)
+            delete form._id;
+            form.fields=[];
+            console.log($rootScope.currentUser.data._id)
+            form.userId=$rootScope.currentUser.data._id
+
+            // console.log(form)
+            FormService.PartnerCreateForm(form)
+                .then(function (response) {
+                    console.log(response.data)
+                    var formId=response.data._id;
+
+                    for(var i in fields)
+                    {
+                        sleep(300)
+                        count++;
+                        delete fields[i]._id
+                        console.log(fields[i].type)
+                        FieldService.partnerCreateField(formId,fields[i])
+                            .then(function (response) {
+                                console.log(response.data)
+                            },function (err) {
+                                console.log(err)
+                            })
+                    } //deleted _id from all fields
+
+                    console.log(count)
+
+
+                },function (err) {
+                    console.log(err)
+                })
+
+
+
+
+
+        }
 
         function startApp(){
             FormService.findAllForms()

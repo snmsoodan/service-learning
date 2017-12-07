@@ -14,10 +14,17 @@ module.exports = function(app){
         findFormsByUserId:findFormsByUserId,
         deleteFormById:deleteFormById,
         updateFormById:updateFormById,
-        findAllForms:findAllForms
+        findAllForms:findAllForms,
+
+        PartnerCreateForm:PartnerCreateForm
     };
 
     return api;
+
+
+    function PartnerCreateForm(newform) {
+        return form.create(newform)
+    }
 
     function createForm(userid,newForm){
         var deferred = q.defer();

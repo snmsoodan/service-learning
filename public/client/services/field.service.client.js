@@ -11,10 +11,16 @@
             findFieldByForm:findFieldByForm,
             deleteField:deleteField,
             updateField:updateField,
-            sortField:sortField
+            sortField:sortField,
+
+            partnerCreateField:partnerCreateField
         };
 
         return api;
+
+        function partnerCreateField(formId,field) {
+            return $http.post("/api/field/partnerCreate/"+formId, field);
+        }
 
         function sortField(formId,startIndex,endIndex){
             return $http.put("/api/"+formId+"/field?startIndex="+startIndex+"&endIndex="+endIndex);
