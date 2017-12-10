@@ -42,12 +42,14 @@
 
 
         function init(){
+
             if($rootScope.currentUser) {
-                console.log("admin controller"+$rootScope.currentUser._id);
                 console.log("admin controller- user id"+$rootScope.currentUser._id);
                 vm.currentuser = $rootScope.currentUser;
-            }else
+            }else{
                 $location.url("/login");
+            }
+
         }init();
 
 

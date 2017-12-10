@@ -143,26 +143,26 @@
                     field = {"title": "New Label", "type": "LABEL"};
                     break;
                 case "TEXT":
-                    field = {"title": "New Text Field", "type": "TEXT"};
+                    field = {"title": "New Text Field", "type": "TEXT","value":""};
                     break;
                 case "TEXTAREA":
-                    field = {"title": "New Text Field", "type": "TEXTAREA"};
+                    field = {"title": "New Text Field", "type": "TEXTAREA","value":""};
                     break;
                 case "CHECKBOXES":
                     field = {
                         "title": "New Checkboxes", "type": "CHECKBOXES", "options": [
-                            {"label": "Option A", "value": "OPTION_A"},
-                            {"label": "Option B", "value": "OPTION_B"},
-                            {"label": "Option C", "value": "OPTION_C"}
+                            {"label": "Option A", "value": "OPTION_A","selected":"false"},
+                            {"label": "Option B", "value": "OPTION_B","selected":"false"},
+                            {"label": "Option C", "value": "OPTION_C","selected":"false"}
                         ]
                     };
                     break;
                 case "RADIOS":
                     field = {
                         "title": "New Radio Buttons", "type": "RADIOS", "options": [
-                            {"label": "Option X", "value": "OPTION_X"},
-                            {"label": "Option Y", "value": "OPTION_Y"},
-                            {"label": "Option Z", "value": "OPTION_Z"}
+                            {"label": "Option X", "value": "OPTION_X","selected":"false"},
+                            {"label": "Option Y", "value": "OPTION_Y","selected":"false"},
+                            {"label": "Option Z", "value": "OPTION_Z","selected":"false"}
                         ]
                     };
                     break;

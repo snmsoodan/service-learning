@@ -8,10 +8,25 @@ module.exports = function(form){
         updateField:updateField,
         findField:findField,
         findAllFieldsForForm:findAllFieldsForForm,
-        sortField:sortField
+        sortField:sortField,
+
+        PartnerCreateField:PartnerCreateField
     };
 
     return api;
+
+
+
+
+    function PartnerCreateField(formId,newField) {
+        console.log(newField.type)
+       return form
+           .update({_id:formId},{$push:{
+               fields:newField
+           }})
+
+
+    }
 
     function createField(formId,newField){
         var deferred = q.defer();

@@ -6,6 +6,8 @@ module.exports = function(app,fieldModel) {
     app.put("/api/form/:formId/field/:fieldId", updateFieldById);
     app.put("/api/:formId/field",sortField);
 
+    app.post("/api/field/partnerCreate/:formId", partnerCreateField);
+
     function findFormFields(req,res){
         var formId = req.params.formId;
         fieldModel.findAllFieldsForForm(formId)
@@ -35,6 +37,20 @@ module.exports = function(app,fieldModel) {
         fieldModel.deleteField(formId,fieldId)
             .then(function(stats){
                     res.send(200);
+                },
+                function(err){
+                    res.status(400).send(err);
+                });
+    }
+
+
+    function partnerCreateField(req,res) {
+        var field= req.body;
+        var formId = req.params.formId;
+
+        fieldModel.PartnerCreateField(formId,field)
+            .then(function(doc){
+                    res.json(doc);
                 },
                 function(err){
                     res.status(400).send(err);

@@ -15,11 +15,25 @@ module.exports = function(app,userModel) {
     app.post('/api/updateUser',updateUser);
     app.post('/api/deleteUser',deleteUser);
     app.post('/api/fetchAll',fetchAll);
+    app.get('/api/findUserById/:id',findUserById)
 
     passport.use('local', new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
     passport.deserializeUser(deserializeUser);
 
+
+    function findUserById(req,res) {
+        var id=req.params.id;
+        userModel
+            .findUserById(id)
+            .then(function (obj) {
+                    res.json(obj);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                });
+
+    }
 
     function localStrategy(username, password, done) {
         userModel

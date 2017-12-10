@@ -6,7 +6,11 @@ module.exports = function () {
         userId:String,
         title:{type:String,default:"New Form"},
         status:{type: String,
-                enum: ['Active','InActive']},
+            enum: ['Active','InActive']},
+        state:{type: String,
+            enum: ['InProgress','Submitted']},
+        type:{type: String,
+            enum: ['Partner','Admin']},
         fields:[FieldSchema],
         created:{type:Date,default:new Date()},
         updated:{type:Date,default:new Date()}

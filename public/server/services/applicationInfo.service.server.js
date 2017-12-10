@@ -2,7 +2,7 @@ module.exports = function(app,applicationInfoModel) {
 
      // app.post('/api/userOrgInfo',addUserOrgInfo);
 
-    app.get('/api/application/organizationNames/applicationSubmitted',getAllOrganizationIdApplicationSubmitted);
+    // app.get('/api/application/organizationNames/applicationSubmitted',getAllOrganizationIdApplicationSubmitted);
     app.get('/api/application/organizationNames/applicationInProgress',getAllOrganizationIdApplicationInProgress);
 
     app.get('/api/applpication/applicationNames/applicationSubmitted/:pid',getSpecificOrganizationSubmitted);
@@ -12,17 +12,17 @@ module.exports = function(app,applicationInfoModel) {
     app.get('/api/applpication/applicationDetail/applicationInProgress/:prid',getSpecificApplicationInProgress);
 
 
-    function getAllOrganizationIdApplicationSubmitted(req,res) {
-        applicationInfoModel.getAllOrganizationIdApplicationSubmitted()
-            .then(
-                function (res) {
-                    res.json(res);
-                },
-                function (err) {
-                    res.sendStatus(400);
-                }
-            )
-    }
+    // function getAllOrganizationIdApplicationSubmitted(req,res) {
+    //     applicationInfoModel.getAllOrganizationIdApplicationSubmitted()
+    //         .then(
+    //             function (res) {
+    //                 res.json(res);
+    //             },
+    //             function (err) {
+    //                 res.sendStatus(400);
+    //             }
+    //         )
+    // }
 
     function getAllOrganizationIdApplicationInProgress(req,res) {
         applicationInfoModel.getAllOrganizationIdApplicationInProgress()

@@ -7,6 +7,50 @@ module.exports = function(app,formModel){
     app.get("/api/userForms/:userId/form",findFormsByUserId);
     app.get("/api/allForms",findAllForms);
 
+    app.get("/api/findActiveForms/",findFormsActive);
+
+    app.post("/api/partnerCreateForm/",PartnerCreateForm);
+
+    app.put("/api/updateFormObject/",updateFormObject);
+
+    app.get('/api/application/organizationNames/applicationSubmitted/',getAllOrganizationIdApplicationSubmitted);
+
+
+
+    function getAllOrganizationIdApplicationSubmitted(req,res) {
+        console.log("server")
+        formModel.getAllOrganizationIdApplicationSubmitted()
+            .then(
+                function (res) {
+                    console.log(res)
+                    res.json(res);
+                },
+                function (err) {
+                    res.sendStatus(400);
+                }
+            )
+    }
+
+
+    function updateFormObject(req,res) {
+        var form=req.body;
+        formModel.updateFormObject(form)
+            .then(function(forms){
+                res.json(forms);
+            }, function(err) {
+                res.status(400).send(err);
+            });
+    }
+
+
+    function findFormsActive(req,res) {
+        formModel.findFormsActive()
+            .then(function(forms){
+                res.json(forms);
+            }, function(err) {
+                res.status(400).send(err);
+            });
+    }
 
     function findFormsByUserId(req,res){
         var userId = req.params.userId;
@@ -52,6 +96,16 @@ module.exports = function(app,formModel){
         var userId = req.params.userId;
         var newForm = req.body;
         formModel.createForm(userId,newForm)
+            .then(function(form){
+                res.json(form);
+            },function(err){
+                res.status(400).send(err);
+            });
+    }
+
+    function PartnerCreateForm(req,res) {
+        var form=req.body;
+        formModel.PartnerCreateForm(form)
             .then(function(form){
                 res.json(form);
             },function(err){
