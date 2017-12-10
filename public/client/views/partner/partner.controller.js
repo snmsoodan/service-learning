@@ -28,7 +28,7 @@
 
 
         function init(){
-            console.log("in partner controller");
+            console.log("in partner controller"+$rootScope.currentUser._id);
 
             if($rootScope.currentUser._id){
                 PartnerOrgInfoService.getUserOrgId($rootScope.currentUser._id)

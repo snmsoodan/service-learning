@@ -233,10 +233,10 @@
 
             $rootScope.errorMessage = null;
             // User is Authenticated
-            if (user !== '0')
+            if (user.data !== '0')
             {
-                $rootScope.currentUser = user;
-                console.log("in check logged in 2" +$rootScope.currentUser._id);
+                $rootScope.currentUser = user.data;
+                console.log("in check logged in 2" +user.data);
                 deferred.resolve();
             }
             // User is Not Authenticated

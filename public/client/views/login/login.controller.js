@@ -27,6 +27,7 @@
             UserService.login(user)
                 .then(function (response) {
                         $rootScope.currentUser = response.data;
+
                         if ($rootScope.currentUser.role === "FACULTY" && $rootScope.currentUser.status === "Approved") {
                             console.log('-----user console'+$rootScope.currentUser.status);
                             $location.url("/faculty/"+$rootScope.currentUser.firstName);

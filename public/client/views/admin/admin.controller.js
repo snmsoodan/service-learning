@@ -20,7 +20,6 @@
         // console.log($rootScope.currentUser._id)
         //vm.aid=JSON.parse(sessionStorage.getItem('currentUser'))._id;
         //console.log(vm.aid);
-        vm.currentuser = JSON.parse(sessionStorage.getItem('currentUser'));
         vm.activateRejectUser = activateRejectUser;
         // vm.partners=partners;
         vm.authAdmin = authAdmin;
@@ -43,9 +42,12 @@
 
 
         function init(){
-            if(vm.currentuser === undefined) {
+            if($rootScope.currentUser) {
+                console.log("admin controller"+$rootScope.currentUser._id);
+                console.log("admin controller- user id"+$rootScope.currentUser._id);
+                vm.currentuser = $rootScope.currentUser;
+            }else
                 $location.url("/login");
-            }
         }init();
 
 
