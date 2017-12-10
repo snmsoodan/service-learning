@@ -123,8 +123,8 @@
             // console.log(form)
             delete form._id;
             form.fields=[];
-            console.log($rootScope.currentUser.data._id)
-            form.userId=$rootScope.currentUser.data._id
+            console.log($rootScope.currentUser._id)
+            form.userId=$rootScope.currentUser._id
             form.state="Submitted";
             form.type="Partner";
 
@@ -170,8 +170,8 @@
             // console.log(form)
             delete form._id;
             form.fields=[];
-            console.log($rootScope.currentUser.data._id)
-            form.userId=$rootScope.currentUser.data._id
+            console.log($rootScope.currentUser._id)
+            form.userId=$rootScope.currentUser._id
             form.state="InProgress";
             form.type="Partner";
 
