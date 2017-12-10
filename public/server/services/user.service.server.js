@@ -89,7 +89,7 @@ module.exports = function(app,userModel) {
     function loggedIn(req, res) {
         console.log("in logged in--------");
         console.log(req.isAuthenticated() ? req.user : '0');
-        res.send(req.isAuthenticated() ? req.user : '0');
+        res.json(req.isAuthenticated() ? req.user : '0');
     }
 
     function logout(req, res) {
