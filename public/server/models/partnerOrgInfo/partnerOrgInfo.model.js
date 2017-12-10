@@ -7,10 +7,16 @@ module.exports = function () {
 
     var api = {
         addUserOrgInfo: addUserOrgInfo,
-        getUserOrgId:getUserOrgId
+        getUserOrgId:getUserOrgId,
+        getPartnerId:getPartnerId
     };
 
     return api;
+
+
+    function getPartnerId(userId) {
+        return PartnerOrgInfo.find({"userId":userId})
+    }
 
     function addUserOrgInfo(info) {
         return PartnerOrgInfo.create(info);

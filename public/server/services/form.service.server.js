@@ -13,7 +13,7 @@ module.exports = function(app,formModel){
 
     app.put("/api/updateFormObject/",updateFormObject);
 
-    app.get('/api/application/organizationNames/applicationSubmitted/',getAllOrganizationIdApplicationSubmitted);
+    app.get("/api/application/organizationNames/applicationSubmitted/",getAllOrganizationIdApplicationSubmitted);
 
 
 
@@ -21,9 +21,9 @@ module.exports = function(app,formModel){
         console.log("server")
         formModel.getAllOrganizationIdApplicationSubmitted()
             .then(
-                function (res) {
-                    console.log(res)
-                    res.json(res);
+                function (obj) {
+                    // console.log("obj "+obj)
+                    res.json(obj);
                 },
                 function (err) {
                     res.sendStatus(400);

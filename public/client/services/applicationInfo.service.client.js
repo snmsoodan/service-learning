@@ -6,7 +6,7 @@
     function ApplicationInfoService($http){
 
         var model = {
-            getAllOrganizationIdApplicationSubmitted:getAllOrganizationIdApplicationSubmitted,
+            // getAllOrganizationIdApplicationSubmitted:getAllOrganizationIdApplicationSubmitted,
             getAllOrganizationIdApplicationInProgress:getAllOrganizationIdApplicationInProgress,
 
             getSpecificOrganizationSubmitted:getSpecificOrganizationSubmitted,
@@ -18,9 +18,9 @@
 
         return model;
 
-        function getAllOrganizationIdApplicationSubmitted() {
-            return $http.get("/api/application/organizationNames/applicationSubmitted");
-        }
+        // function getAllOrganizationIdApplicationSubmitted() {
+        //     return $http.get("/api/application/organizationNames/applicationSubmitted");
+        // }
 
         function getAllOrganizationIdApplicationInProgress() {
             return $http.get("/api/application/organizationNames/applicationInProgress");

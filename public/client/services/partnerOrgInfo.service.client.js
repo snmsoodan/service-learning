@@ -7,7 +7,8 @@
 
         var model = {
             addUserOrgInfo:addUserOrgInfo,
-            getUserOrgId:getUserOrgId
+            getUserOrgId:getUserOrgId,
+            getPartnerId:getPartnerId
         };
 
         return model;
@@ -19,6 +20,10 @@
         function getUserOrgId(userId) {
             console.log('Method :: getUserOrgId :: userId '+userId);
             return $http.get("/api/getUserOrgId/"+userId);
+        }
+        
+        function getPartnerId(userId) {
+            return $http.get("/api/getOrgId/"+userId);
         }
     }
 })();

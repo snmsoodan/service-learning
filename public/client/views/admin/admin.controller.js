@@ -13,7 +13,7 @@
     function AdminController($rootScope,$location,$routeParams,$scope,$http,UserService,PartnerOrgInfoService,OrgInfoService) {
         var vm = this;
 
-        // vm.aid = $routeParams.aid;
+        vm.aid = $rootScope.currentUser.data._id;
         // console.log($rootScope.currentUser._id)
         vm.activateRejectUser = activateRejectUser;
         // vm.partners=partners;
@@ -43,7 +43,7 @@
 
 
         function init(){
-            console.log("current user "+$rootScope.currentUser.data._id)
+            // console.log("current user "+$rootScope.currentUser.data._id)
             if(vm.currentuser === undefined) {
                 $location.url("/login");
             }

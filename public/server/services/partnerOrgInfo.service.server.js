@@ -2,6 +2,17 @@ module.exports = function(app,partnerOrgInfoModel) {
 
     app.post('/api/userOrgInfo',addUserOrgInfo);
     app.get('/api/getUserOrgId/:userId',getUserOrgId);
+    app.get("/api/getOrgId/:userId",getPartnerId);
+
+    function getPartnerId(req,res) {
+        var userId=req.params.userId
+        partnerOrgInfoModel.getPartnerId(userId)
+            .then(function(info) {
+                res.json(info);
+            },function (err) {
+                res.status(400).send(err);
+            });
+    }
 
     function addUserOrgInfo(req,res){
 
