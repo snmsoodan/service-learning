@@ -15,9 +15,13 @@ module.exports = function(form){
 
     return api;
 
+
+
+
     function PartnerCreateField(formId,newField) {
+        console.log(newField.type)
        return form
-           .update({_id:formId},{$addToSet:{
+           .update({_id:formId},{$push:{
                fields:newField
            }})
 

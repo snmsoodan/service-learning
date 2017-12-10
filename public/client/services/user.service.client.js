@@ -13,10 +13,17 @@
             findUser:findUser,
             updateUser:updateUser,
             deleteUser:deleteUser,
-            fetchAll:fetchAll
+            fetchAll:fetchAll,
+            findUserById:findUserById
         };
 
         return model;
+
+
+        function findUserById(id) {
+            return $http.get("/api/findUserById/"+id);
+        }
+
         function login(user) {
             console.log("client server login",user);
             return $http.post("/api/login",user);

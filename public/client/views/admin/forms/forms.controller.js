@@ -37,6 +37,7 @@
             if(form.formName !== null){
                 console.log("add form - controller");
                 console.log(form);
+                // var newForm = {"title": form.formName, "status": "Active"};
                 var newForm = {"title": form.formName, "status": "Active"};
                 // console.log($rootScope.currentUser.data._id)
                 FormService.createFormForUser(currentUser.data._id,newForm)

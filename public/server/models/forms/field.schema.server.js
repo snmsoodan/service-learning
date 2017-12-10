@@ -7,7 +7,7 @@ module.exports = function () {
         type: {type: String,
                enum: ['LABEL','TEXT','TEXTAREA','RADIOS','CHECKBOXES']},
         value:String,
-        options:[{label:String,value:String,selected:String}]
+        options:[{label:String,value:String,selected:Boolean}]
     });
     return FieldSchema;
 };

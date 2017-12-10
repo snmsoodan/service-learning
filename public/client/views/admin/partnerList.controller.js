@@ -12,7 +12,7 @@
     ]
 
 
-    function PartnerListController($rootScope,$location,$routeParams,$scope,$http,OrgInfoService,ApplicationInfoService) {
+    function PartnerListController($rootScope,$location,$routeParams,$scope,$http,OrgInfoService,ApplicationInfoService,FormService) {
         var vm = this;
         // vm.aid = $routeParams.aid;
         vm.aid=$rootScope.currentUser._id
@@ -24,12 +24,37 @@
 
         function init(){
 
+            // ApplicationInfoService.getAllOrganizationIdApplicationSubmitted()
+            //     .then(
+            //         function (response) {
+            //             console.log(response)
+            //
+            //             var applicationData=response.data;
+            //             var organizationIds=[];
+            //
+            //             for(var i in applicationData)
+            //             {
+            //                 OrgInfoService.getAllPartnerNamesApplicationsSubmitted(applicationData[i].organizationId)
+            //                     .then(
+            //                         function (response2) {
+            //                             console.log(response2)
+            //                             var organizationName=response2.data;
+            //                             vm.partners.push(organizationName);
+            //
+            //                         }
+            //                     )
+            //             }
+            //
+            //
+            //
+            //         }
+            //     )
 
 
-            ApplicationInfoService.getAllOrganizationIdApplicationSubmitted()
+            FormService.getAllOrganizationIdApplicationSubmitted()
                 .then(
                     function (response) {
-                        console.log(response)
+                        console.log(response.data)
 
                         var applicationData=response.data;
                         var organizationIds=[];
@@ -49,6 +74,9 @@
 
 
 
+                    },
+                    function (err) {
+                        console.log(err)
                     }
                 )
 
