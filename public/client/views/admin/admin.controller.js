@@ -43,6 +43,7 @@
 
 
         function init(){
+            console.log("current user "+$rootScope.currentUser.data._id)
             if(vm.currentuser === undefined) {
                 $location.url("/login");
             }

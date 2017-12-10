@@ -14,10 +14,48 @@ module.exports = function(app){
         findFormsByUserId:findFormsByUserId,
         deleteFormById:deleteFormById,
         updateFormById:updateFormById,
-        findAllForms:findAllForms
+        findAllForms:findAllForms,
+
+        findFormsActive:findFormsActive,
+        updateFormObject:updateFormObject,
+
+        getAllOrganizationIdApplicationSubmitted:getAllOrganizationIdApplicationSubmitted,
+
+        PartnerCreateForm:PartnerCreateForm
     };
 
     return api;
+
+    function getAllOrganizationIdApplicationSubmitted() {
+        console.log("model")
+        return form.find({state:'Submitted'})
+    }
+
+    function updateFormObject(newForm) {
+
+        console.log(newForm)
+        var deferred = q.defer();
+        form.update({_id:newForm._id},{$set:newForm},
+            function(err,stats){
+                if(!err){
+                    // console.log("server pass")
+                    deferred.resolve(stats);
+                }else{
+                    // console.log("server error")
+                    deferred.reject(err);
+                }
+            });
+        return deferred.promise;
+    }
+
+    function findFormsActive() {
+        return form.find({"status":"Active","type":"Partner"})
+    }
+
+
+    function PartnerCreateForm(newform) {
+        return form.create(newform)
+    }
 
     function createForm(userid,newForm){
         var deferred = q.defer();
