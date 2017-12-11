@@ -119,7 +119,6 @@
         function commitSubmit(form,fields) {
             var fieldsIds=[]
             var count=0;
-
             // console.log(form)
             delete form._id;
             form.fields=[];
@@ -127,6 +126,18 @@
             form.userId=$rootScope.currentUser._id
             form.state="Submitted";
             form.type="Partner";
+
+            PartnerOrgInfoService.getPartnerId(form.userId)
+                .then(
+                    function (response) {
+                        var organisationId=response.data;
+                        form.orgId=organisationId
+                        console.log(orgId)
+                    },function (err) {
+                        console.log(err)
+                    }
+                )
+            console.log(form.orgId)
 
             // console.log(form)
             FormService.PartnerCreateForm(form)

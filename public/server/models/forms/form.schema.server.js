@@ -13,7 +13,8 @@ module.exports = function () {
             enum: ['Partner','Admin']},
         fields:[FieldSchema],
         created:{type:Date,default:new Date()},
-        updated:{type:Date,default:new Date()}
+        updated:{type:Date,default:new Date()},
+        orgId:String,
     },{collection:'form'});
     return FormSchema;
 };

@@ -56,7 +56,7 @@
 
                                 <label ng-style="{'font-size' : field.type == 'LABEL' ? '22px' : '18px','float': 'left'}">{{field.title}}</label>
                                 <label ng-if="field.subTitle" ng-style="{'font-size' : field.type == 'LABEL' ? '14px' : '12px', 'font-weight': 'normal','float': 'left'}">
-                                    {{field.subTitle}}
+                                    <!--{{field.subTitle}}-->
                                 </label>
 
                                 <br><br>
@@ -74,7 +74,7 @@
                                         </select>
 
                                         <div ng-switch-when="CHECKBOXES">
-                                                {{field.options}}
+                                                <!--{{field.options}}-->
                                             <div ng-repeat="option in field.options track by $index">
                                                 <input  type="checkbox" ng-model="option.selected">{{option.label}}
                                                 <!--<div ng-if="option.selected==='true'">-->
@@ -87,7 +87,7 @@
                                         </div>
 
                                         <div ng-switch-when="RADIOS">
-                                            {{field.options}}
+                                            <!--{{field.options}}-->
                                             <div ng-repeat="option in field.options ">
                                                 <input ng-model="option.selected" name="1" type="radio" >{{option.label}}
                                             </div>
