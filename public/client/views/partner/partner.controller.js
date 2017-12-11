@@ -27,11 +27,11 @@
         //     {id:3,appName:'App3',status:'Approved',editBy:'xxx@gmail.com',editAt:'2017-10-12 08:30'}
         // ];
 
-        vm.prevSemData = [
-            {id:1,appName:'App1',status:'Approved',editBy:'xxx@gmail.com',editAt:'2016-10-16 16:55'},
-            {id:2,appName:'App2',status:'Approved',editBy:'xxx@gmail.com',editAt:'2016-10-15 18:55'},
-            {id:3,appName:'App3',status:'Approved',editBy:'xxx@gmail.com',editAt:'2016-10-12 08:30'}
-        ];
+        // vm.prevSemData = [
+        //     {id:1,appName:'App1',status:'Approved',editBy:'xxx@gmail.com',editAt:'2016-10-16 16:55'},
+        //     {id:2,appName:'App2',status:'Approved',editBy:'xxx@gmail.com',editAt:'2016-10-15 18:55'},
+        //     {id:3,appName:'App3',status:'Approved',editBy:'xxx@gmail.com',editAt:'2016-10-12 08:30'}
+        // ];
 
 
         function init(){
@@ -52,6 +52,29 @@
                             })
                     })
             }
+
+            FormService.findFormsInActive()
+                .then(function (response) {
+                    console.log(response.data)
+                    vm.prevSemData=response.data
+                    var q=0;
+                    for(var p in vm.prevSemData)
+                    {
+
+                        UserService.findUserById(vm.prevSemData[p].userId)
+                            .then(
+                                function (res) {
+                                    vm.prevSemData[q].userName=res.data.firstName+" "+res.data.lastName;
+                                    q++
+                                },function (err) {
+                                    console.log(err)
+                                }
+                            )
+
+                    }
+                },function (err) {
+                    console.log(err)
+                })
 
                 FormService.findFormsActive()
                     .then(

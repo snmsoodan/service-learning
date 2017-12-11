@@ -12,6 +12,7 @@
             updateFormById: updateFormById,
             findFormById:findFormById,
             findAllForms:findAllForms,
+            findFormsInActive:findFormsInActive,
 
             findFormsActive:findFormsActive,
             updateFormObject:updateFormObject,
@@ -29,6 +30,11 @@
         };
 
         return api;
+
+        function findFormsInActive() {
+            return $http.get("/api/findInActiveForms/");
+        }
+
         function getSpecificOrganizationInProgress(pid) {
             return $http.get("/api/applpication/applicationNames/applicationInProgress/"+pid);
         }

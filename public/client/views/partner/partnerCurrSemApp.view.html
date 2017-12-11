@@ -25,7 +25,7 @@
                    <td>{{appInfo.updated}}</td>
                    <td>
                        <!--<button type="button" class="btn btn-info">View</button>-->
-                       <button ng-if="appInfo.state==='Submitted'" type="button" class="btn btn-success" ng-click="model.findFormById(appInfo._id)" data-toggle="modal" data-target="#editApp2" style="width: 80px">View</button>
+                       <button ng-if="appInfo.state==='Submitted'" type="button" class="btn btn-success" ng-click="model.findFormById(appInfo._id)" data-toggle="modal" data-target="#editApp4" style="width: 80px">View</button>
                        <button ng-if="appInfo.state==='InProgress'" type="button" class="btn btn-success" ng-click="model.findFormById(appInfo._id)" data-toggle="modal" data-target="#editApp2">Continue</button>
                        <button type="button" class="btn btn-danger" ng-click="model.deleteFormById(appInfo._id)" ng-disabled="appInfo.status == 'InActive'">Delete</button>
                    </td>
@@ -34,6 +34,84 @@
         </table>
 
     <!---->
+    <div id="editApp4" class="modal fade" data-keyboard="false" data-backdrop="static">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss ="modal">&times;</button>
+                    <h4 class="modal-title" align="center"><b>{{model.form.title}}</b></h4>
+                </div>
+
+                <div class="modal-body">
+                    <form>
+                        <!--{{model.fields}}-->
+                        <div ng-model="model.form.fields">
+
+                            <div ng-repeat="field in model.form.fields" style="">
+
+                                <br>
+
+                                <label ng-style="{'font-size' : field.type == 'LABEL' ? '22px' : '18px','float': 'left'}">{{field.title}}</label>
+                                <label ng-if="field.subTitle" ng-style="{'font-size' : field.type == 'LABEL' ? '14px' : '12px', 'font-weight': 'normal','float': 'left'}">
+                                    <!--{{field.subTitle}}-->
+                                </label>
+
+                                <br><br>
+                                <div class="input-group">
+
+                                    <div ng-switch on="field.type" class="pull-left">
+
+
+                                        <input ng-model="field.value" ng-switch-when="TEXT" type="text" class="form-control" disabled>
+
+                                        <textarea ng-model="field.value" ng-switch-when="TEXTAREA"  class="form-control" disabled></textarea>
+
+                                        <select ng-switch-when="OPTIONS" class="form-control">
+                                            <option ng-repeat="option in field.options track by $index">{{option.label}}</option>
+                                        </select>
+
+                                        <div ng-switch-when="CHECKBOXES">
+                                            <!--{{field.options}}-->
+                                            <div ng-repeat="option in field.options track by $index">
+                                                <input  type="checkbox" ng-model="option.selected" disabled>{{option.label}}
+                                                <!--<div ng-if="option.selected==='true'">-->
+                                                <!--<input ng-model="option.selected" checked type="checkbox" value="{{option.value}}">{{option.label}}-->
+                                                <!--</div>-->
+                                                <!--<div ng-if="option.selected==='false'">-->
+                                                <!--<input ng-model="option.selected"  type="checkbox" value="{{option.value}}">{{option.label}}-->
+                                                <!--</div>-->
+                                            </div>
+                                        </div>
+
+                                        <div ng-switch-when="RADIOS">
+                                            <!--{{field.options}}-->
+                                            <div ng-repeat="option in field.options ">
+                                                <input ng-model="option.selected" name="1" type="radio" disabled>{{option.label}}
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+
+                    <!--<div ng-if="model.form.state==='InProgress'">-->
+                    <button ng-if="model.form.state==='InProgress'" ng-click="model.saveForm(model.form)" type="button" class="btn btn-success" data-dismiss="modal">Save</button>
+                    <!--</div>-->
+                    <!--<div>-->
+                    <button  type="button" class="btn btn-danger" data-dismiss="modal">close</button>
+                </div>
+                <!--<button ng-click="model.commitSubmit(model.forms[0],model.fields)" type="button" class="btn btn-success" data-dismiss="modal">Submit</button>-->
+            </div>
+        </div>
+    </div>
 
     <div id="editApp2" class="modal fade" data-keyboard="false" data-backdrop="static">
 

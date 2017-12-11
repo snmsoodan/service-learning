@@ -25,10 +25,15 @@ module.exports = function(app){
         getSpecificOrganizationSubmitted:getSpecificOrganizationSubmitted,
         getSpecificOrganizationInProgress:getSpecificOrganizationInProgress,
 
-        PartnerCreateForm:PartnerCreateForm
+        PartnerCreateForm:PartnerCreateForm,
+        findFormsInActive:findFormsInActive
     };
 
     return api;
+
+    function findFormsInActive() {
+        return form.find({status:"InActive"})
+    }
 
     function getSpecificOrganizationInProgress(pid) {
         return form.find({state:'InProgress',orgId:pid})

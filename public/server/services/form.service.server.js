@@ -19,6 +19,22 @@ module.exports = function(app,formModel){
     app.get('/api/applpication/applicationNames/applicationSubmitted/:pid',getSpecificOrganizationSubmitted);
     app.get('/api/applpication/applicationNames/applicationInProgress/:pid',getSpecificOrganizationInProgress);
 
+    app.get('/api/findInActiveForms/',findFormsInActive);
+
+
+    function findFormsInActive(req,res) {
+        formModel.findFormsInActive()
+            .then(
+                function (obj) {
+                    console.log("InActive"+obj)
+                    res.json(obj);
+                },
+                function (err) {
+                    res.sendStatus(400);
+                }
+            )
+    }
+
 
     function getSpecificOrganizationInProgress(req,res) {
         var pid=req.params.pid;
