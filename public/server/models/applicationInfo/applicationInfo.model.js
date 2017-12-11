@@ -6,11 +6,11 @@ module.exports = function () {
     var ApplicationInfo = mongoose.model("applicationInfo", ApplicationInfoSchema);
 
     var api = {
-        getAllOrganizationIdApplicationSubmitted:getAllOrganizationIdApplicationSubmitted,
-        getAllOrganizationIdApplicationInProgress:getAllOrganizationIdApplicationInProgress,
+        // getAllOrganizationIdApplicationSubmitted:getAllOrganizationIdApplicationSubmitted,
+        // getAllOrganizationIdApplicationInProgress:getAllOrganizationIdApplicationInProgress,
 
-        getSpecificOrganizationSubmitted:getSpecificOrganizationSubmitted,
-        getSpecificOrganizationInProgress:getSpecificOrganizationInProgress,
+        // getSpecificOrganizationSubmitted:getSpecificOrganizationSubmitted,
+        // getSpecificOrganizationInProgress:getSpecificOrganizationInProgress,
 
         getSpecificApplicationSubmitted:getSpecificApplicationSubmitted,
         getSpecificApplicationInProgress:getSpecificApplicationInProgress
@@ -18,21 +18,21 @@ module.exports = function () {
 
     return api;
     
-    function getAllOrganizationIdApplicationSubmitted() {
-        return ApplicationInfo.find({status:'Submitted'})
-    }
+    // function getAllOrganizationIdApplicationSubmitted() {
+    //     return ApplicationInfo.find({status:'Submitted'})
+    // }
 
-    function getAllOrganizationIdApplicationInProgress() {
-        return ApplicationInfo.find({status:'InProgress'})
-    }
+    // function getAllOrganizationIdApplicationInProgress() {
+    //     return ApplicationInfo.find({status:'InProgress'})
+    // }
 
-    function getSpecificOrganizationSubmitted(pid) {
-        return ApplicationInfo.find({status:'Submitted',_id:pid})
-    }
+    // function getSpecificOrganizationSubmitted(pid) {
+    //     return ApplicationInfo.find({status:'Submitted',_id:pid})
+    // }
 
-    function getSpecificOrganizationInProgress(pid) {
-        return ApplicationInfo.find({status:'InProgress',_id:pid})
-    }
+    // function getSpecificOrganizationInProgress(pid) {
+    //     return ApplicationInfo.find({status:'InProgress',_id:pid})
+    // }
 
     function getSpecificApplicationSubmitted(prid) {
         return ApplicationInfo.findById(prid);

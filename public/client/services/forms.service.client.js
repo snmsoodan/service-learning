@@ -17,12 +17,29 @@
             updateFormObject:updateFormObject,
 
             getAllOrganizationIdApplicationSubmitted:getAllOrganizationIdApplicationSubmitted,
+            getAllOrganizationIdApplicationInProgress:getAllOrganizationIdApplicationInProgress,
+
+            getSpecificOrganizationSubmitted:getSpecificOrganizationSubmitted,
+            getSpecificOrganizationInProgress:getSpecificOrganizationInProgress,
+
+
 
 
             PartnerCreateForm:PartnerCreateForm
         };
 
         return api;
+        function getSpecificOrganizationInProgress(pid) {
+            return $http.get("/api/applpication/applicationNames/applicationInProgress/"+pid);
+        }
+
+        function getAllOrganizationIdApplicationInProgress() {
+            return $http.get("/api/application/organizationNames/applicationInProgress/");
+        }
+
+        function getSpecificOrganizationSubmitted(pid) {
+            return $http.get("/api/applpication/applicationNames/applicationSubmitted/"+pid);
+        }
 
         function getAllOrganizationIdApplicationSubmitted() {
             console.log("client")

@@ -14,7 +14,50 @@ module.exports = function(app,formModel){
     app.put("/api/updateFormObject/",updateFormObject);
 
     app.get("/api/application/organizationNames/applicationSubmitted/",getAllOrganizationIdApplicationSubmitted);
+    app.get('/api/application/organizationNames/applicationInProgress/',getAllOrganizationIdApplicationInProgress);
 
+    app.get('/api/applpication/applicationNames/applicationSubmitted/:pid',getSpecificOrganizationSubmitted);
+    app.get('/api/applpication/applicationNames/applicationInProgress/:pid',getSpecificOrganizationInProgress);
+
+
+    function getSpecificOrganizationInProgress(req,res) {
+        var pid=req.params.pid;
+        formModel.getSpecificOrganizationInProgress(pid)
+            .then(
+                function (obj) {
+                    res.json(obj);
+                },
+                function (err) {
+                    res.sendStatus(400);
+                }
+            )
+    }
+
+    function getAllOrganizationIdApplicationInProgress(req,res) {
+        formModel.getAllOrganizationIdApplicationInProgress()
+            .then(
+                function (obj) {
+                    console.log(obj)
+                    res.json(obj);
+                },
+                function (err) {
+                    res.sendStatus(400);
+                }
+            )
+    }
+
+    function getSpecificOrganizationSubmitted(req,res) {
+        var pid=req.params.pid;
+        formModel.getSpecificOrganizationSubmitted(pid)
+            .then(
+                function (obj) {
+                    res.json(obj);
+                },
+                function (err) {
+                    res.sendStatus(400);
+                }
+            )
+    }
 
 
     function getAllOrganizationIdApplicationSubmitted(req,res) {

@@ -5,36 +5,22 @@
         <div id="mainMenuBar">
             <a href="#/admin/1/adminPartnerListInProgress" class="btn btn-primary ">In Progress</a>
             <a href="#/admin/1/adminPartnerList" class="btn btn-primary ">Submitted</a>
-            <!--<a class="btn btn-primary ">Login</a>-->
         </div>
     </div>
 </div>
-
+<div style="text-align:center">
+    <label style="font-size: 30px">Submitted Applications</label>
+</div>
 
 <div class="container-fluid" style="margin-top: 100px">
 
     <div class="col-md-2 right-line1">
         <ul class="list-group">
-            <!--<li class="list-group-item active">-->
-                <!--<a style="color: white" href="#/admin/1/adminPartnerList/1">Cras justo odio</a>-->
-            <!--</li>-->
-            <!--<li class="list-group-item">-->
-                <!--<a href="#/admin/1/adminPartnerList/1">Dapibus ac facilisis in</a>-->
-            <!--</li>-->
-            <!--<li class="list-group-item">-->
-                <!--<a href="#/admin/1/adminPartnerList/1">Morbi leo risus</a>-->
-            <!--</li>-->
-            <!--<li class="list-group-item">-->
-                <!--<a href="#/admin/1/adminPartnerList/1">Porta ac consectetur ac</a>-->
-            <!--</li>-->
-            <!--<li class="list-group-item">-->
-                <!--<a href="#/admin/1/adminPartnerList/1">Vestibulum at eros</a>-->
-            <!--</li>-->
 
             <li ng-repeat="partner in model.partners" class="list-group-item"   >
-                <a ng-if="partner._id==model.pid" href="#/admin/{{model.aid}}/adminPartnerList/{{partner._id}}"><b>{{partner.name}}</b></a>
+                <a ng-if="partner._id==model.pid" href="#/admin/{{model.aid}}/adminPartnerList/{{partner.orgId}}"><b>{{partner.name}}</b></a>
 
-                <a ng-if="partner._id!=model.pid" href="#/admin/{{model.aid}}/adminPartnerList/{{partner._id}}">{{partner.name}}</a>
+                <a ng-if="partner._id!=model.pid" href="#/admin/{{model.aid}}/adminPartnerList/{{partner.orgId}}">{{partner.name}}</a>
             </li>
 
         </ul>
@@ -45,78 +31,95 @@
         <ul class="list-group">
 
             <li ng-repeat="p in model.pApplications" class="list-group-item" >
-                <a ng-if="p.applicationId==model.prid" href="#/admin/{{model.aid}}/adminPartnerList/{{p._id}}/proposal/{{p.applicationId}}"><b>{{p.name}}</b></a>
+                <a ng-if="p._id==model.prid" href="#/admin/{{model.aid}}/adminPartnerList/{{p.orgId}}/proposal/{{p._id}}"><b>{{p.title}}</b></a>
 
-                <a ng-if="p.applicationId!=model.prid" href="#/admin/{{model.aid}}/adminPartnerList/{{p._id}}/proposal/{{p.applicationId}}">{{p.name}}</a>
+                <a ng-if="p._id!=model.prid" href="#/admin/{{model.aid}}/adminPartnerList/{{p.orgId}}/proposal/{{p._id}}">{{p.title}}</a>
             </li>
 
         </ul>
 
     </div>
 
-    <!--<div class="col-md-6 right-line1">-->
-        <!--<div class="card" align="center" style="margin: auto">-->
-            <!--<div class="card-header">-->
-              <!--<h3> Organization Name</h3>-->
-                <!--<label>Girl Scout Cookies</label>-->
-                <!--<h3> Organization Address</h3>-->
-                <!--<label>230 Huntington</label>-->
-                <!--<h3> Organization website</h3>-->
-                <!--<label>www.fakewebsite.com</label>-->
-            <!--</div>-->
-            <!--<div class="card-block">-->
-                <!--&lt;!&ndash;<h4 class="card-title">Special title treatment</h4>&ndash;&gt;-->
-                <!--&lt;!&ndash;<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>&ndash;&gt;-->
-                <!--<div>-->
 
-
-                 <!--<a href="#" class="btn btn-primary">Approve</a>-->
-                 <!--<a href="#" class="btn btn-primary">Reject</a>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-
-    <!--</div>-->
 
     <div class="col-md-6 right-line1">
-        <h1>{{model.form.title}}</h1>
 
-        <div ng-repeat="field in model.fields">
+        <div class="modal-dialog">
+            <div class="modal-content">
 
-
-            <label ng-style="{'font-size' : field.type == 'LABEL' ? '22px' : '18px'}">{{field.title}}</label><br>
-            <label ng-style="{'font-size' : field.type == 'LABEL' ? '14px' : '12px', 'font-weight': 'normal'}">{{field.subTitle}}</label>
-
-            <div class="input-group">
-
-                <div ng-switch on="field.type" >
-
-                    <input ng-switch-when="TEXT" type="text" class="form-control">
-
-                    <textarea ng-switch-when="TEXTAREA"  class="form-control"></textarea>
-
-                    <select ng-switch-when="OPTIONS" class="form-control">
-                        <option ng-repeat="option in field.options track by $index">{{option.label}}</option>
-                    </select>
-
-                    <div ng-switch-when="CHECKBOXES">
-                        <div ng-repeat="option in field.options track by $index">
-                            <input type="checkbox" value="{{option.value}}">{{option.label}}
-                        </div>
-                    </div>
-
-                    <div ng-switch-when="RADIOS">
-                        <div ng-repeat="option in field.options track by $index">
-                            <input type="radio" value="{{option.value}}">{{option.label}}
-                        </div>
-                    </div>
+                <div class="modal-header">
+                    <!--<button type="button" class="close" data-dismiss ="modal">&times;</button>-->
+                    <h4 class="modal-title" align="center"><b>{{model.form.title}}</b></h4>
                 </div>
 
+                <div class="modal-body">
+                    <form>
+                        <!--{{model.fields}}-->
+                        <div ng-model="model.form.fields">
 
+                            <div ng-repeat="field in model.form.fields" style="">
+
+                                <br>
+
+                                <label ng-style="{'font-size' : field.type == 'LABEL' ? '22px' : '18px','float': 'left'}">{{field.title}}</label>
+                                <label ng-if="field.subTitle" ng-style="{'font-size' : field.type == 'LABEL' ? '14px' : '12px', 'font-weight': 'normal','float': 'left'}">
+                                    <!--{{field.subTitle}}-->
+                                </label>
+
+                                <br><br>
+                                <div class="input-group">
+
+                                    <div ng-switch on="field.type" class="pull-left">
+
+
+                                        <input ng-model="field.value" ng-switch-when="TEXT" type="text" class="form-control" readonly>
+
+                                        <textarea ng-model="field.value" ng-switch-when="TEXTAREA"  class="form-control" readonly></textarea>
+
+                                        <select ng-switch-when="OPTIONS" class="form-control">
+                                            <option ng-repeat="option in field.options track by $index">{{option.label}}</option>
+                                        </select>
+
+                                        <div ng-switch-when="CHECKBOXES">
+                                            <!--{{field.options}}-->
+                                            <div ng-repeat="option in field.options track by $index">
+                                                <input  type="checkbox" ng-model="option.selected" disabled>{{option.label}}
+                                                <!--<div ng-if="option.selected==='true'">-->
+                                                <!--<input ng-model="option.selected" checked type="checkbox" value="{{option.value}}">{{option.label}}-->
+                                                <!--</div>-->
+                                                <!--<div ng-if="option.selected==='false'">-->
+                                                <!--<input ng-model="option.selected"  type="checkbox" value="{{option.value}}">{{option.label}}-->
+                                                <!--</div>-->
+                                            </div>
+                                        </div>
+
+                                        <div ng-switch-when="RADIOS">
+                                            <!--{{field.options}}-->
+                                            <div ng-repeat="option in field.options ">
+                                                <input ng-model="option.selected" name="1" type="radio" disabled>{{option.label}}
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+
+                    <!--<div ng-if="model.form.state==='InProgress'">-->
+                    <!--<button ng-if="model.form.state==='InProgress'" ng-click="model.saveForm(model.form)" type="button" class="btn btn-success" data-dismiss="modal">Save</button>-->
+                    <!--</div>-->
+                    <!--<div>-->
+                    <!--<button  type="button" class="btn btn-danger" data-dismiss="modal">close</button>-->
+                </div>
+                <!--<button ng-click="model.commitSubmit(model.forms[0],model.fields)" type="button" class="btn btn-success" data-dismiss="modal">Submit</button>-->
             </div>
-            <hr style="border-color: red">
         </div>
-
+    </div>
 
     </div>
 

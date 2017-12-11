@@ -27,7 +27,7 @@
                        <!--<button type="button" class="btn btn-info">View</button>-->
                        <button ng-if="appInfo.state==='Submitted'" type="button" class="btn btn-success" ng-click="model.findFormById(appInfo._id)" data-toggle="modal" data-target="#editApp2" style="width: 80px">View</button>
                        <button ng-if="appInfo.state==='InProgress'" type="button" class="btn btn-success" ng-click="model.findFormById(appInfo._id)" data-toggle="modal" data-target="#editApp2">Continue</button>
-                       <button type="button" class="btn btn-danger" ng-disabled="appInfo.status == 'Approved'">Delete</button>
+                       <button type="button" class="btn btn-danger" ng-click="model.deleteFormById(appInfo._id)" ng-disabled="appInfo.status == 'InActive'">Delete</button>
                    </td>
                </tr>
             </tbody>

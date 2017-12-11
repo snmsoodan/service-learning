@@ -5,11 +5,13 @@
         <div id="mainMenuBar">
             <a href="#/admin/{{model.aid}}/adminPartnerListInProgress" class="btn btn-primary ">In Progress</a>
             <a href="#/admin/{{model.aid}}/adminPartnerList" class="btn btn-primary ">Submitted</a>
-            <!--<a class="btn btn-primary ">Login</a>-->
         </div>
     </div>
 </div>
 
+<div style="text-align:center">
+    <label style="font-size: 30px">Submitted Applications</label>
+</div>
 
 <div class="container-fluid" style="margin-top: 100px">
 
@@ -30,7 +32,7 @@
         <ul class="list-group">
 
             <li ng-repeat="p in model.pApplications" class="list-group-item" >
-                <a href="#/admin/{{model.aid}}/adminPartnerList/{{p._id}}/proposal/{{p.applicationId}}">{{p.name}}</a>
+                <a href="#/admin/{{model.aid}}/adminPartnerList/{{p.orgId}}/proposal/{{p._id}}">{{p.title}}</a>
             </li>
 
         </ul>

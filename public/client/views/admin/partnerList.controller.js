@@ -14,7 +14,6 @@
 
     function PartnerListController($rootScope,OrgInfoService,FormService,PartnerOrgInfoService) {
         var vm = this;
-        // vm.aid = $routeParams.aid;
         vm.aid=$rootScope.currentUser._id
         vm.partners=[];
 
@@ -25,42 +24,25 @@
                         var organizationIds=[];
                         var userIds=[];
                         for(var a in response.data) {
-                            if(!(userIds.indexOf(response.data[a].userId)>-1))
+                            if(!(organizationIds.indexOf(response.data[a].orgId)>-1))
                             {
-                                userIds.push(response.data[a].userId)
+                                organizationIds.push(response.data[a].orgId)
                             }
                         }
 
-                        for(var i in userIds)
-                        {
-                            PartnerOrgInfoService.getPartnerId(userIds[i])
-                                .then(
-                                    function (response) {
-                                        organizationIds=response.data;
-                                        for(var b in organizationIds) {
-                                            OrgInfoService.getOrgById(organizationIds[b].orgId)
-                                                .then(function (resposnse) {
-                                                    vm.partners.push(resposnse.data)
-                                                }, function (err) {
-                                                    console.log(err)
-                                                })
-                                        }
-                                    },function (err) {
+                            for(var b in organizationIds) {
+                                OrgInfoService.getOrgById(organizationIds[b])
+                                    .then(function (resposnse) {
+                                        vm.partners.push(resposnse.data)
+                                    }, function (err) {
                                         console.log(err)
-                                    }
-                                )
-
-
-
-                        }
+                                    })
+                            }
                     },
                     function (err) {
                         console.log(err)
                     }
                 )
-
-
-
 
         }init();
 

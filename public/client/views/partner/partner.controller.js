@@ -3,7 +3,7 @@
     angular.module("ServiceLearningApp")
         .controller("PartnerController",PartnerController);
 
-    function PartnerController($rootScope,PartnerOrgInfoService,OrgInfoService,FormService,FieldService,$location,UserService) {
+    function PartnerController($rootScope,PartnerOrgInfoService,OrgInfoService,FormService,FieldService,$location,UserService,$route,$window) {
         var vm = this;
         vm.message = null;
         vm.pid = $rootScope.currentUser._id;
@@ -17,6 +17,7 @@
         vm.currentSemData=[];
         vm.findFormById=findFormById;
         vm.saveForm=saveForm
+        vm.deleteFormById=deleteFormById;
         // console.log(vm.pid);
 
 
@@ -82,12 +83,25 @@
 
         }init();
 
+        function deleteFormById(id) {
+            FormService.deleteFormById(id)
+                .then(function (response) {
+                    console.log(response.data)
+                    vm.form=response.data;
+                    vm.fields=vm.form.fields
+                    $route.reload();
+                },function (err) {
+                    console.log(err)
+                })
+        }
+
         function saveForm(form) {
             form.state="Submitted";
             console.log(form)
             FormService.updateFormObject(form)
                 .then(function (response) {
                     console.log(response.data)
+                    $window.location.reload();
                 },function (err) {
                     console.log(err)
                 })
@@ -109,12 +123,20 @@
         function a() {
             console.log(vm.currentSemData.length)
         }
+        function getOrgId() {
+            PartnerOrgInfoService.getPartnerId($rootScope.currentUser._id)
+                .then(
+                    function (response) {
+                        console.log(response.data[0].orgId)
+                       vm.orgId=response.data[0].orgId;
+                    }, function (err) {
+                        console.log(err)
+                    }
+                )
+        }getOrgId();
 
 
-        function sleep(ms) {
-            var unixtime_ms = new Date().getTime();
-            while(new Date().getTime() < unixtime_ms + ms) {}
-        }
+
         
         function commitSubmit(form,fields) {
             var fieldsIds=[]
@@ -122,47 +144,36 @@
             // console.log(form)
             delete form._id;
             form.fields=[];
-            console.log($rootScope.currentUser._id)
+            // console.log($rootScope.currentUser._id)
             form.userId=$rootScope.currentUser._id
             form.state="Submitted";
             form.type="Partner";
-
-            PartnerOrgInfoService.getPartnerId(form.userId)
-                .then(
-                    function (response) {
-                        var organisationId=response.data;
-                        form.orgId=organisationId
-                        console.log(orgId)
-                    },function (err) {
-                        console.log(err)
-                    }
-                )
-            console.log(form.orgId)
+            form.orgId=vm.orgId
+            // console.log(form.orgId)
 
             // console.log(form)
             FormService.PartnerCreateForm(form)
                 .then(function (response) {
-                    console.log(response.data)
+                    // console.log(response.data)
                     var formId=response.data._id;
 
                     for(var i in fields)
                     {
-                        // sleep(1000)
                         count++;
                         delete fields[i]._id;
-                        console.log(fields[i].type)
+                        // console.log(fields[i].type)
                         FieldService.partnerCreateField(formId,fields[i])
                             .then(function (response) {
-                                console.log(response.data)
+                                // console.log(response.data)
                             },function (err) {
                                 // sleep(1000)
                                 console.log(err)
                             })
                     } //deleted _id from all fields
 
-                    console.log(count)
+                    // console.log(count)
 
-
+                    $window.location.reload();
                 },function (err) {
                     console.log(err)
                 })
@@ -185,8 +196,9 @@
             form.userId=$rootScope.currentUser._id
             form.state="InProgress";
             form.type="Partner";
+            form.orgId=vm.orgId
+            console.log(form.orgId)
 
-            // console.log(form)
             FormService.PartnerCreateForm(form)
                 .then(function (response) {
                     console.log(response.data)
@@ -207,8 +219,8 @@
                             })
                     } //deleted _id from all fields
 
-                    console.log(count)
-
+                    // console.log(count)
+                    $window.location.reload();
 
                 },function (err) {
                     console.log(err)

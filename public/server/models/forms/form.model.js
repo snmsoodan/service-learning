@@ -20,11 +20,27 @@ module.exports = function(app){
         updateFormObject:updateFormObject,
 
         getAllOrganizationIdApplicationSubmitted:getAllOrganizationIdApplicationSubmitted,
+        getAllOrganizationIdApplicationInProgress:getAllOrganizationIdApplicationInProgress,
+
+        getSpecificOrganizationSubmitted:getSpecificOrganizationSubmitted,
+        getSpecificOrganizationInProgress:getSpecificOrganizationInProgress,
 
         PartnerCreateForm:PartnerCreateForm
     };
 
     return api;
+
+    function getSpecificOrganizationInProgress(pid) {
+        return form.find({state:'InProgress',orgId:pid})
+    }
+
+    function getAllOrganizationIdApplicationInProgress() {
+        return form.find({state:'InProgress'})
+    }
+
+    function getSpecificOrganizationSubmitted(pid) {
+        return form.find({state:'Submitted',orgId:pid})
+    }
 
     function getAllOrganizationIdApplicationSubmitted() {
         console.log("model")
