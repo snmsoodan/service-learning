@@ -25,6 +25,36 @@
          <a class="btn btn-primary" type="button" ng-click="model.changeView('UserInfo')">
              User Info
          </a>
+         <button type="button" class="btn btn-danger"  data-toggle="modal" data-target="#editApp">Archive All Applications</button>
+
+
+         <div id="editApp" class="modal fade" data-keyboard="false" data-backdrop="static">
+
+             <div class="modal-dialog">
+                 <div class="modal-content">
+
+                     <div class="modal-header">
+                         <p>Click on YES to Archive All Current Semester Applications</p>
+                         <p>Note: This process cannot be reverted</p>
+                     </div>
+
+                     <div class="modal-body">
+                         <div class="modal-footer">
+
+                     </div>
+
+
+
+                         <button  ng-click="model.archiveAllForms()" type="button" class="btn btn-success" style="width: 100px" data-dismiss="modal">Yes</button>
+                         <button  type="button" class="btn btn-danger" data-dismiss="modal" style="width: 100px">close</button>
+                     </div>
+                     <!--<button ng-click="model.commitSubmit(model.forms[0],model.fields)" type="button" class="btn btn-success" data-dismiss="modal">Submit</button>-->
+                 </div>
+             </div>
+         </div>
+
+
+
      </div>
 
 
@@ -242,3 +272,7 @@
     </div>
 </div>
 
+
+
+
+</div>

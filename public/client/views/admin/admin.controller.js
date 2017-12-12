@@ -10,7 +10,7 @@
     //     {_id: "456", name: "jannunzi", applicationId:"4" }
     // ]
 
-    function AdminController($rootScope,$location,$routeParams,$scope,$http,UserService,PartnerOrgInfoService,OrgInfoService) {
+    function AdminController($rootScope,$location,$routeParams,$scope,$http,UserService,PartnerOrgInfoService,OrgInfoService,FormService) {
         var vm = this;
 
         vm.aid = $rootScope.currentUser._id;
@@ -38,6 +38,7 @@
         vm.orgInfoClass = 'partner';
         vm.userInfoGrid = false;
         vm.deleteUserCancel =deleteUserCancel;
+        vm.archiveAllForms=archiveAllForms;
         //vm.makeAuthVisible = makeAuthVisible;
 
 
@@ -56,6 +57,19 @@
             }
 
         }init();
+
+        function archiveAllForms() {
+            FormService.archiveAllForms()
+                .then(
+                    function (response) {
+                        console.log(response.data)
+                        vm.success="All Applications have been Archived"
+                    },function (err) {
+                        vm.failure="Error while archiving applications"
+                        console.log(err)
+                    }
+                )
+        }
 
 
         function changeView(view) {

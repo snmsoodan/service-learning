@@ -26,6 +26,37 @@ module.exports = function(app,orgInfoModel) {
 
     app.post('/api/sendMail',sendMail);
     app.post('/api/sendMailAp',sendMailAp);
+    app.get('/api/sendMailAp/:email',nudge);
+
+    function nudge(req,res) {
+        var email=req.params.email;
+        console.log(email)
+        var transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'serviceLearningNorthEdu@gmail.com',
+                pass: 'serviceLearningNorthEdu@123'
+            }
+        });
+
+
+        var mailOptions = {
+            from: 'serviceLearningNorthEdu@gmail.com',
+            to: email,
+            subject: 'Service Learning :: Submit Application',
+            text: 'Dear User ,\n One of your applications is still pending, kindly submit the application before deadline.\n \n' +
+            'Thank You\n'+'Service Learning'};
+        transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+                console.log(error);
+                res.status(400).send(error);
+            } else {
+                console.log('Email sent: ' + info.response);
+                res.json(user);
+            }
+        });
+
+    }
 
     function sendMail(req,res) {
         console.log('----body-'+req.body);

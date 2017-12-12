@@ -16,7 +16,8 @@
 
             testExport:testExport,
 
-            sendMailAp:sendMailAp
+            sendMailAp:sendMailAp,
+            nudge:nudge
 
         };
 
@@ -66,6 +67,10 @@
 
         function sendMailAp(user) {
             return $http.post("/api/sendMailAp",user);
+        }
+
+        function nudge(email) {
+            return $http.get("/api/sendMailAp/"+email);
         }
     }
 })();

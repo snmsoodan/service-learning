@@ -20,6 +20,19 @@ module.exports = function(app,formModel){
     app.get('/api/applpication/applicationNames/applicationInProgress/:pid',getSpecificOrganizationInProgress);
 
     app.get('/api/findInActiveForms/',findFormsInActive);
+    app.get('/api/archiveAllFoms/',archiveAllForms);
+
+    function archiveAllForms(req,res) {
+        formModel.archiveAllForms()
+            .then(
+                function (obj) {
+                    res.json(obj);
+                },
+                function (err) {
+                    res.sendStatus(400);
+                }
+            )
+    }
 
 
     function findFormsInActive(req,res) {

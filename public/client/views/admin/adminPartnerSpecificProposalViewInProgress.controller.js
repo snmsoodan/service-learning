@@ -6,11 +6,12 @@
 
 
 
-    function AdminPartnerSpecificProposalViewInProgressController($routeParams,OrgInfoService,FormService) {
+    function AdminPartnerSpecificProposalViewInProgressController($routeParams,OrgInfoService,FormService,UserService) {
         var vm = this;
         vm.aid = $routeParams.aid;
         vm.pid = $routeParams.pid;
         vm.prid=$routeParams.prid;
+        vm.nudge=nudge;
         vm.pApplications=[];
         vm.partners=[];
 
@@ -63,6 +64,23 @@
 
 
         }init();
+
+        function nudge(userId) {
+            UserService.findUserById(userId)
+                .then(function (response) {
+                    console.log(response.data.username)
+                    var email=response.data.username
+                    OrgInfoService.nudge(email)
+                        .then(function (response) {
+                            console.log(response.data)
+                        },function (err) {
+                            console.log(err)
+                        })
+                },function (err) {
+                    console.log(err)
+                })
+
+        }
 
 
     }

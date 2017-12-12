@@ -26,10 +26,17 @@ module.exports = function(app){
         getSpecificOrganizationInProgress:getSpecificOrganizationInProgress,
 
         PartnerCreateForm:PartnerCreateForm,
-        findFormsInActive:findFormsInActive
+        findFormsInActive:findFormsInActive,
+        archiveAllForms:archiveAllForms
     };
 
     return api;
+
+    function archiveAllForms() {
+        return form.update({status:"Active",type:"Partner"},{$set:{
+            status:"InActive"
+        }})
+    }
 
     function findFormsInActive() {
         return form.find({status:"InActive"})
@@ -40,7 +47,7 @@ module.exports = function(app){
     }
 
     function getAllOrganizationIdApplicationInProgress() {
-        return form.find({state:'InProgress'})
+        return form.find({state:'InProgress',status:"Active"})
     }
 
     function getSpecificOrganizationSubmitted(pid) {
@@ -49,7 +56,7 @@ module.exports = function(app){
 
     function getAllOrganizationIdApplicationSubmitted() {
         console.log("model")
-        return form.find({state:'Submitted'})
+        return form.find({state:'Submitted',status:"Active"})
     }
 
     function updateFormObject(newForm) {

@@ -22,6 +22,7 @@
 
             getSpecificOrganizationSubmitted:getSpecificOrganizationSubmitted,
             getSpecificOrganizationInProgress:getSpecificOrganizationInProgress,
+            archiveAllForms:archiveAllForms,
 
 
 
@@ -30,6 +31,10 @@
         };
 
         return api;
+
+        function archiveAllForms() {
+            return $http.get("/api/archiveAllFoms/");
+        }
 
         function findFormsInActive() {
             return $http.get("/api/findInActiveForms/");
