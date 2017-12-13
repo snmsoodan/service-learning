@@ -108,6 +108,8 @@
 
         }init();
 
+
+
         function deleteFormById(id) {
             FormService.deleteFormById(id)
                 .then(function (response) {
@@ -200,7 +202,11 @@
                         count++;
                         delete fields[i]._id;
                         fields[i].position=i;
-                        // console.log(fields[i].type)
+                        if(fields[i].type==="RADIOS")
+                        {
+                            console.log(fields[i].selected)
+                        }
+
                         FieldService.partnerCreateField(formId,fields[i])
                             .then(function (response) {
                                 // console.log(response.data)

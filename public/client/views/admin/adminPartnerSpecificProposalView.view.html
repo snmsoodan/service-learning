@@ -88,19 +88,14 @@
                                             <!--{{field.options}}-->
                                             <div ng-repeat="option in field.options track by $index">
                                                 <input  type="checkbox" ng-model="option.selected" >{{option.label}}
-                                                <!--<div ng-if="option.selected==='true'">-->
-                                                <!--<input ng-model="option.selected" checked type="checkbox" value="{{option.value}}">{{option.label}}-->
-                                                <!--</div>-->
-                                                <!--<div ng-if="option.selected==='false'">-->
-                                                <!--<input ng-model="option.selected"  type="checkbox" value="{{option.value}}">{{option.label}}-->
-                                                <!--</div>-->
+
                                             </div>
                                         </div>
 
                                         <div ng-switch-when="RADIOS">
                                             <!--{{field.options}}-->
                                             <div ng-repeat="option in field.options ">
-                                                <input ng-model="option.selected" name="1" type="radio" >{{option.label}}
+                                                <input ng-model="field.selected" name="1" value="{{option.value}}" type="radio" >{{option.label}}
                                             </div>
                                         </div>
 

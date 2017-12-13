@@ -20,7 +20,7 @@
                 <td>{{appInfo.userName}}</td>
                 <td>{{appInfo.updated}}</td>
                 <td>
-                    <!--<button ng-if="appInfo.state==='Submitted'" type="button" class="btn btn-success" ng-click="model.findFormById(appInfo._id)" data-toggle="modal" data-target="#editApp2" style="width: 80px">View</button>-->
+
                     <button  type="button" class="btn btn-success" ng-click="model.findFormById(appInfo._id)" data-toggle="modal" data-target="#editApp2" style="width: 80px">View</button>
                 </td>
             </tr>
@@ -71,19 +71,13 @@
                                         <!--{{field.options}}-->
                                         <div ng-repeat="option in field.options track by $index">
                                             <input  type="checkbox" ng-model="option.selected" disabled>{{option.label}}
-                                            <!--<div ng-if="option.selected==='true'">-->
-                                            <!--<input ng-model="option.selected" checked type="checkbox" value="{{option.value}}">{{option.label}}-->
-                                            <!--</div>-->
-                                            <!--<div ng-if="option.selected==='false'">-->
-                                            <!--<input ng-model="option.selected"  type="checkbox" value="{{option.value}}">{{option.label}}-->
-                                            <!--</div>-->
                                         </div>
                                     </div>
 
                                     <div ng-switch-when="RADIOS">
                                         <!--{{field.options}}-->
                                         <div ng-repeat="option in field.options ">
-                                            <input ng-model="option.selected" name="1" type="radio" disabled>{{option.label}}
+                                            <input ng-model="field.selected" name="1" type="radio" value="{{option.value}}" disabled>{{option.label}}
                                         </div>
                                     </div>
 
@@ -97,14 +91,9 @@
 
             <div class="modal-footer">
 
-                <!--<div ng-if="model.form.state==='InProgress'">-->
-                <!--<button  type="button" class="btn btn-success" data-dismiss="modal">Save</button>-->
                 <button  ng-click="model.clone(model.form,model.fields)" type="button" class="btn btn-success" data-dismiss="modal">Clone</button>
-                <!--</div>-->
-                <!--<div>-->
                 <button  type="button" class="btn btn-danger" data-dismiss="modal">close</button>
             </div>
-            <!--<button ng-click="model.commitSubmit(model.forms[0],model.fields)" type="button" class="btn btn-success" data-dismiss="modal">Submit</button>-->
         </div>
     </div>
 </div>

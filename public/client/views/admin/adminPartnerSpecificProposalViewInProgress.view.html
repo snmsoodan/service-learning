@@ -97,7 +97,7 @@
                                         <div ng-switch-when="RADIOS">
                                             <!--{{field.options}}-->
                                             <div ng-repeat="option in field.options ">
-                                                <input ng-model="option.selected" name="1" type="radio" >{{option.label}}
+                                                <input ng-model="field.selected" name="1" value="{{option.value}}" type="radio" >{{option.label}}
                                             </div>
                                         </div>
 
