@@ -18,6 +18,8 @@
         vm.findFormById=findFormById;
         vm.saveForm=saveForm
         vm.deleteFormById=deleteFormById;
+        vm.saveFormInProgress=saveFormInProgress;
+        vm.clone=clone;
         // console.log(vm.pid);
 
 
@@ -118,6 +120,19 @@
                 })
         }
 
+
+        function saveFormInProgress(form) {
+            // form.state="Submitted";
+            console.log(form)
+            FormService.updateFormObject(form)
+                .then(function (response) {
+                    console.log(response.data)
+                    $window.location.reload();
+                },function (err) {
+                    console.log(err)
+                })
+        }
+
         function saveForm(form) {
             form.state="Submitted";
             console.log(form)
@@ -184,6 +199,7 @@
                     {
                         count++;
                         delete fields[i]._id;
+                        fields[i].position=i;
                         // console.log(fields[i].type)
                         FieldService.partnerCreateField(formId,fields[i])
                             .then(function (response) {
@@ -232,7 +248,53 @@
 
                         count++;
                         delete fields[i]._id
-                        console.log(fields[i].type)
+                        fields[i].position=i;
+                        // console.log(fields[i].type)
+                        FieldService.partnerCreateField(formId,fields[i])
+                            .then(function (response) {
+                                console.log(response.data)
+                            },function (err) {
+                                // sleep(1000)
+                                console.log(err)
+                            })
+                    } //deleted _id from all fields
+
+                    // console.log(count)
+                    $window.location.reload();
+
+                },function (err) {
+                    console.log(err)
+                })
+
+        }
+
+        function clone(form,fields) {
+            var fieldsIds=[]
+            // var count=0;
+
+            // console.log(form)
+            delete form._id;
+            form.fields=[];
+            console.log($rootScope.currentUser._id)
+            form.userId=$rootScope.currentUser._id
+            form.state="InProgress";
+            form.status="Active"
+            // form.type="Partner";
+            // form.orgId=vm.orgId
+            // console.log(form.orgId)
+
+            FormService.PartnerCreateForm(form)
+                .then(function (response) {
+                    // console.log(response.data)
+                    var formId=response.data._id;
+
+                    for(var i in fields)
+                    {
+
+                        // count++;
+                        delete fields[i]._id
+                        // fields[i].position=i;
+                        // console.log(fields[i].type)
                         FieldService.partnerCreateField(formId,fields[i])
                             .then(function (response) {
                                 console.log(response.data)

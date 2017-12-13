@@ -6,7 +6,7 @@
 
 
 
-    function AdminPartnerSpecificProposalViewInProgressController($routeParams,OrgInfoService,FormService,UserService) {
+    function AdminPartnerSpecificProposalViewInProgressController($routeParams,OrgInfoService,FormService,UserService,$window,$location) {
         var vm = this;
         vm.aid = $routeParams.aid;
         vm.pid = $routeParams.pid;
@@ -14,6 +14,8 @@
         vm.nudge=nudge;
         vm.pApplications=[];
         vm.partners=[];
+        vm.saveForm=saveForm;
+        vm.deleteFormById=deleteFormById;
 
         function init(){
             FormService.getAllOrganizationIdApplicationInProgress()
@@ -80,6 +82,29 @@
                     console.log(err)
                 })
 
+        }
+
+        function saveForm(form) {
+            FormService.updateFormObject(form)
+                .then(function (response) {
+                    console.log(response.data)
+                    $window.location.reload();
+                },function (err) {
+                    console.log(err)
+                })
+        }
+
+        function deleteFormById(id) {
+            FormService.deleteFormById(id)
+                .then(function (response) {
+                    console.log(response.data)
+                    vm.form=response.data;
+                    vm.fields=vm.form.fields;
+                    $location.url("/admin/"+vm.aid+"/adminPartnerListInProgress/"+vm.pid);
+                    // $window.location.reload();
+                },function (err) {
+                    console.log(err)
+                })
         }
 
 

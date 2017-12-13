@@ -20,8 +20,8 @@
                 <td>{{appInfo.userName}}</td>
                 <td>{{appInfo.updated}}</td>
                 <td>
-                    <button ng-if="appInfo.state==='Submitted'" type="button" class="btn btn-success" ng-click="model.findFormById(appInfo._id)" data-toggle="modal" data-target="#editApp2" style="width: 80px">View</button>
-
+                    <!--<button ng-if="appInfo.state==='Submitted'" type="button" class="btn btn-success" ng-click="model.findFormById(appInfo._id)" data-toggle="modal" data-target="#editApp2" style="width: 80px">View</button>-->
+                    <button  type="button" class="btn btn-success" ng-click="model.findFormById(appInfo._id)" data-toggle="modal" data-target="#editApp2" style="width: 80px">View</button>
                 </td>
             </tr>
             </tbody>
@@ -44,7 +44,7 @@
                     <!--{{model.fields}}-->
                     <div ng-model="model.form.fields">
 
-                        <div ng-repeat="field in model.form.fields" style="">
+                        <div ng-repeat="field in model.form.fields | orderBy: 'position'" style="">
 
                             <br>
 
@@ -98,7 +98,8 @@
             <div class="modal-footer">
 
                 <!--<div ng-if="model.form.state==='InProgress'">-->
-                <button ng-if="model.form.state==='InProgress'" ng-click="model.saveForm(model.form)" type="button" class="btn btn-success" data-dismiss="modal">Save</button>
+                <!--<button  type="button" class="btn btn-success" data-dismiss="modal">Save</button>-->
+                <button  ng-click="model.clone(model.form,model.fields)" type="button" class="btn btn-success" data-dismiss="modal">Clone</button>
                 <!--</div>-->
                 <!--<div>-->
                 <button  type="button" class="btn btn-danger" data-dismiss="modal">close</button>

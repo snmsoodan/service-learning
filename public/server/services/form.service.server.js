@@ -20,10 +20,11 @@ module.exports = function(app,formModel){
     app.get('/api/applpication/applicationNames/applicationInProgress/:pid',getSpecificOrganizationInProgress);
 
     app.get('/api/findInActiveForms/',findFormsInActive);
-    app.get('/api/archiveAllFoms/',archiveAllForms);
+    app.get('/api/archiveAllFoms/:id',archiveForm);
 
-    function archiveAllForms(req,res) {
-        formModel.archiveAllForms()
+    function archiveForm(req,res) {
+        var id=req.params.id;
+        formModel.archiveForm(id)
             .then(
                 function (obj) {
                     res.json(obj);

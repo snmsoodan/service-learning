@@ -19,9 +19,9 @@
         <ul class="list-group">
 
             <li ng-repeat="partner in model.partners" class="list-group-item"   >
-                <a ng-if="partner._id==model.pid" href="#/admin/{{model.aid}}/adminPartnerList/{{partner.orgId}}"><b>{{partner.name}}</b></a>
+                <a ng-if="partner._id==model.pid" href="#/admin/{{model.aid}}/adminPartnerList/{{model.pid}}"><b>{{partner.name}}</b></a>
 
-                <a ng-if="partner._id!=model.pid" href="#/admin/{{model.aid}}/adminPartnerList/{{partner.orgId}}">{{partner.name}}</a>
+                <a ng-if="partner._id!=model.pid" href="#/admin/{{model.aid}}/adminPartnerList/{{model.pid}}">{{partner.name}}</a>
             </li>
 
         </ul>
@@ -45,6 +45,8 @@
 
     <div class="col-md-6 right-line1">
 
+        <!--{{model.form}}-->
+
         <div class="modal-dialog">
             <div class="modal-content">
 
@@ -53,12 +55,13 @@
                     <h4 class="modal-title" align="center"><b>{{model.form.title}}</b></h4>
                 </div>
 
+
                 <div class="modal-body">
                     <form>
                         <!--{{model.fields}}-->
                         <div ng-model="model.form.fields">
 
-                            <div ng-repeat="field in model.form.fields" style="">
+                            <div ng-repeat="field in model.form.fields | orderBy: 'position'" style="">
 
                                 <br>
 
@@ -73,9 +76,9 @@
                                     <div ng-switch on="field.type" class="pull-left">
 
 
-                                        <input ng-model="field.value" ng-switch-when="TEXT" type="text" class="form-control" readonly>
+                                        <input ng-model="field.value" ng-switch-when="TEXT" type="text" class="form-control" >
 
-                                        <textarea ng-model="field.value" ng-switch-when="TEXTAREA"  class="form-control" readonly></textarea>
+                                        <textarea ng-model="field.value" ng-switch-when="TEXTAREA"  class="form-control" ></textarea>
 
                                         <select ng-switch-when="OPTIONS" class="form-control">
                                             <option ng-repeat="option in field.options track by $index">{{option.label}}</option>
@@ -84,7 +87,7 @@
                                         <div ng-switch-when="CHECKBOXES">
                                             <!--{{field.options}}-->
                                             <div ng-repeat="option in field.options track by $index">
-                                                <input  type="checkbox" ng-model="option.selected" disabled>{{option.label}}
+                                                <input  type="checkbox" ng-model="option.selected" >{{option.label}}
                                                 <!--<div ng-if="option.selected==='true'">-->
                                                 <!--<input ng-model="option.selected" checked type="checkbox" value="{{option.value}}">{{option.label}}-->
                                                 <!--</div>-->
@@ -97,7 +100,7 @@
                                         <div ng-switch-when="RADIOS">
                                             <!--{{field.options}}-->
                                             <div ng-repeat="option in field.options ">
-                                                <input ng-model="option.selected" name="1" type="radio" disabled>{{option.label}}
+                                                <input ng-model="option.selected" name="1" type="radio" >{{option.label}}
                                             </div>
                                         </div>
 
@@ -112,7 +115,9 @@
                 <div class="modal-footer">
 
                     <!--<div ng-if="model.form.state==='InProgress'">-->
-                    <!--<button ng-if="model.form.state==='InProgress'" ng-click="model.saveForm(model.form)" type="button" class="btn btn-success" data-dismiss="modal">Save</button>-->
+                    <button  ng-click="model.saveForm(model.form)" type="button" class="btn btn-success" data-dismiss="modal">Update</button>
+
+                    <button type="button" class="btn btn-danger" ng-click="model.deleteFormById(model.form._id)" >Delete</button>
                     <!--</div>-->
                     <!--<div>-->
                     <!--<button  type="button" class="btn btn-danger" data-dismiss="modal">close</button>-->

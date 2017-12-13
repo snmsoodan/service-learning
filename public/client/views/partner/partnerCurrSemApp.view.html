@@ -49,7 +49,7 @@
                         <!--{{model.fields}}-->
                         <div ng-model="model.form.fields">
 
-                            <div ng-repeat="field in model.form.fields" style="">
+                            <div ng-repeat="field in model.form.fields | orderBy: 'position'" style="" >
 
                                 <br>
 
@@ -128,7 +128,7 @@
                         <!--{{model.fields}}-->
                         <div ng-model="model.form.fields">
 
-                            <div ng-repeat="field in model.form.fields" style="">
+                            <div ng-repeat="field in model.form.fields | orderBy: 'position'" style="">
 
                                 <br>
 
@@ -182,7 +182,8 @@
                 <div class="modal-footer">
 
                     <!--<div ng-if="model.form.state==='InProgress'">-->
-                    <button ng-if="model.form.state==='InProgress'" ng-click="model.saveForm(model.form)" type="button" class="btn btn-success" data-dismiss="modal">Save</button>
+                    <button ng-if="model.form.state==='InProgress'" ng-click="model.saveForm(model.form)" type="button" class="btn btn-success" data-dismiss="modal">Submit</button>
+                    <button ng-if="model.form.state==='InProgress'" ng-click="model.saveFormInProgress(model.form)" type="button" class="btn btn-success" data-dismiss="modal">Save</button>
                     <!--</div>-->
                     <!--<div>-->
                         <button  type="button" class="btn btn-danger" data-dismiss="modal">close</button>

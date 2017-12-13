@@ -59,16 +59,41 @@
         }init();
 
         function archiveAllForms() {
-            FormService.archiveAllForms()
-                .then(
-                    function (response) {
-                        console.log(response.data)
-                        vm.success="All Applications have been Archived"
-                    },function (err) {
-                        vm.failure="Error while archiving applications"
-                        console.log(err)
+
+            FormService.findFormsActive()
+                .then(function (response1) {
+                    // console.log(response1.data)
+                    var applicationIds=response1.data
+
+                    for(var i in applicationIds)
+                    {
+                        console.log(applicationIds[i]._id)
+                        FormService.archiveForm(applicationIds[i]._id)
+                            .then(
+                                function (response) {
+                                    console.log(response.data)
+                                    vm.success="All Applications have been Archived"
+                                },function (err) {
+                                    vm.failure="Error while archiving applications"
+                                    console.log(err)
+                                }
+                            )
                     }
-                )
+
+                },function (err) {
+                    console.log(err)
+                })
+
+            // FormService.archiveAllForms()
+            //     .then(
+            //         function (response) {
+            //             console.log(response.data)
+            //             vm.success="All Applications have been Archived"
+            //         },function (err) {
+            //             vm.failure="Error while archiving applications"
+            //             console.log(err)
+            //         }
+            //     )
         }
 
 

@@ -3,13 +3,15 @@
     angular.module("ServiceLearningApp")
         .controller("AdminPartnerSpecificProposalViewController",AdminPartnerSpecificProposalViewController);
 
-    function AdminPartnerSpecificProposalViewController($routeParams,OrgInfoService,FormService) {
+    function AdminPartnerSpecificProposalViewController($routeParams,OrgInfoService,FormService,$window,$location) {
         var vm = this;
         vm.aid = $routeParams.aid;
         vm.pid = $routeParams.pid;
         vm.prid=$routeParams.prid;
         vm.pApplications=[];
         vm.partners=[];
+        vm.saveForm=saveForm;
+        vm.deleteFormById=deleteFormById;
 
         function init(){
             FormService.getAllOrganizationIdApplicationSubmitted()
@@ -60,6 +62,29 @@
 
 
         }init();
+
+        function saveForm(form) {
+            FormService.updateFormObject(form)
+                .then(function (response) {
+                    console.log(response.data)
+                    $window.location.reload();
+                },function (err) {
+                    console.log(err)
+                })
+        }
+
+        function deleteFormById(id) {
+            FormService.deleteFormById(id)
+                .then(function (response) {
+                    console.log(response.data)
+                    vm.form=response.data;
+                    vm.fields=vm.form.fields;
+                    $location.url("/admin/"+vm.aid+"/adminPartnerList/"+vm.pid);
+                    // $window.location.reload();
+                },function (err) {
+                    console.log(err)
+                })
+        }
 
 
 
