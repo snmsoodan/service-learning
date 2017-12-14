@@ -112,8 +112,8 @@
                 <div class="modal-footer">
 
                     <!--<div ng-if="model.form.state==='InProgress'">-->
-                    <button ng-if="model.form.state==='InProgress'" ng-click="model.nudge(model.form.userId)" type="button" class="btn btn-success" data-dismiss="modal">Nudge User</button>
-
+                    <!--<button ng-if="model.form.state==='InProgress'" ng-click="model.nudge(model.form.userId)" type="button" class="btn btn-success" data-dismiss="modal">Nudge User</button>-->
+                    <button ng-if="model.form.state==='InProgress'"  type="button" class="btn btn-success"  data-toggle="modal" data-target="#editApp">Nudge User</button>
                     <button  ng-click="model.saveForm(model.form)" type="button" class="btn btn-success" data-dismiss="modal">Update</button>
 
                     <button type="button" class="btn btn-danger" ng-click="model.deleteFormById(model.form._id)" >Delete</button>
@@ -128,6 +128,30 @@
         </div>
     </div>
 
+</div>
+
+<div id="editApp" class="modal fade" data-keyboard="false" data-backdrop="static">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <p>Click on YES to send a reminder to the user</p>
+            </div>
+
+            <div class="modal-body">
+                <div class="modal-footer">
+
+                </div>
+
+
+
+                <button  ng-click="model.nudge(model.form.userId)" type="button" class="btn btn-success" style="width: 100px" data-dismiss="modal">Yes</button>
+                <button  type="button" class="btn btn-danger" data-dismiss="modal" style="width: 100px">close</button>
+            </div>
+            <!--<button ng-click="model.commitSubmit(model.forms[0],model.fields)" type="button" class="btn btn-success" data-dismiss="modal">Submit</button>-->
+        </div>
+    </div>
 </div>
 
 
