@@ -3,10 +3,11 @@
     angular.module("ServiceLearningApp")
         .controller("PartnerController",PartnerController);
 
-    function PartnerController($rootScope,PartnerOrgInfoService,OrgInfoService,FormService,FieldService,$location,UserService,$route,$window) {
+    function PartnerController($rootScope,PartnerOrgInfoService,OrgInfoService,FormService,FieldService,$location,UserService,$route,$window,$timeout) {
         var vm = this;
         vm.message = null;
         vm.pid = $rootScope.currentUser._id;
+        vm.currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
         vm.currentView = "CS";
         vm.changeView = changeView;
         vm.startApp = startApp;
@@ -20,6 +21,9 @@
         vm.deleteFormById=deleteFormById;
         vm.saveFormInProgress=saveFormInProgress;
         vm.clone=clone;
+        vm.checkOppInfo = checkOppInfo;
+        vm.oppView = [];
+        vm.oppInfoArr = [];
         // console.log(vm.pid);
 
 
@@ -102,7 +106,20 @@
                         function (err) {
                             console.log(err)
                         }
-                    )
+                    );
+
+            vm.message ="";
+            UserService.getAllOppInfo(vm.currentuser).then(function(user){
+                    console.log("returned from adding Opportunity ..",user.data);
+                    for (var g = 0; g< user.data.length ;g ++) {
+                        var oppInfoArrNew = user.data[g].opportunities;
+                        vm.oppInfoArr = vm.oppInfoArr.concat(oppInfoArrNew);
+                    }
+                },function(err){
+                    console.log(err);
+                }
+
+            );
 
             a();
 
@@ -188,7 +205,7 @@
             form.userId=$rootScope.currentUser._id
             form.state="Submitted";
             form.type="Partner";
-            form.orgId=vm.orgId
+            form.orgId=vm.orgId;
             // console.log(form.orgId)
 
             // console.log(form)
@@ -338,6 +355,66 @@
 
         function changeView(view) {
             vm.currentView = view;
+        }
+
+
+        function checkOppInfo(oppInfoArr) {
+            for (var i = 0 ; i < oppInfoArr.length ; i ++) {
+
+                var oppInfo = oppInfoArr[i];
+                if (oppInfo.partnerId === true) {
+
+                    var id = oppInfo._id;
+                    PartnerOrgInfoService.getUserOrgId(vm.currentUser).then(function(user){
+                            console.log("returned from getUserOrgId ..",user);
+                            if (user.data) {
+                                OrgInfoService.getOrgById(user.data.orgId).then(function(user){
+                                        console.log("returned from getOrgById ..",user);
+                                        oppInfo.partnerOrgId  = user.data.name;
+                                        oppInfo.partnerId = vm.currentUser.username;
+                                        oppInfo.requestedBy = vm.currentUser.username;
+                                        oppInfo.status = "requested";
+                                        oppInfo._id = id;
+                                        UserService.updateOppInfo(oppInfo).then(function(user){
+                                            console.log("returned from updateOppInfo ..",user);
+                                            vm.message = "Request has been sent to Admin , awaiting approval";
+
+                                        },function(err){
+                                            console.log(err);
+                                        });
+
+                                    },function(err){
+                                        console.log(err);
+                                    }
+
+                                );
+                            }
+
+                        },function(err){
+                            console.log(err);
+                        }
+
+                    );
+                }
+
+            }
+
+            $timeout( function(){
+                UserService.getAllOppInfo(vm.currentUser).then(function(user){
+                    console.log("returned from adding Opportunity ..",user.data);
+                    vm.oppInfoArr = [];
+                    for (var g = 0; g< user.data.length ;g ++) {
+                        var oppInfoArrNew = user.data[g].opportunities;
+                        vm.oppInfoArr = oppInfoArrNew;
+                    }
+
+                },function(err){
+                    console.log(err);
+                } );
+            }, 2000 );
+
+
+
         }
 
     }

@@ -18,7 +18,7 @@
             <i class="fa fa-sign-in" aria-hidden="true"> Log in</i></a>
         </li>
 
-        <li class="nav-item dropdown"  ng-show = "currentUser">
+        <li class="nav-item dropdown"  ng-show = "currentUser" style="display: none;">
             <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-fw fa-bell"></i>
                 <span class="d-lg-none">Alerts
@@ -73,7 +73,7 @@
         <li>
 
         <li ng-show = "currentUser" class="nav-item">
-            <a href="#/passwordChange" ng-click="model.logout()">
+            <a href="#/passwordChange">
                 <i class="fa fa-key" aria-hidden="true"> Change Password</i></a>
         </li>
 

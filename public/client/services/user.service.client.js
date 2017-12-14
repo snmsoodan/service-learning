@@ -14,7 +14,11 @@
             updateUser:updateUser,
             deleteUser:deleteUser,
             fetchAll:fetchAll,
-            findUserById:findUserById
+            findUserById:findUserById,
+            addOppInfo: addOppInfo,
+            getAllOppInfo:getAllOppInfo,
+            updateOppInfo:updateOppInfo,
+            updateOppInfoApproved:updateOppInfoApproved
         };
 
         return model;
@@ -55,6 +59,26 @@
         function fetchAll(user){
             return  $http.post("/api/fetchAll",user);
         }
+
+        function addOppInfo(info) {
+            return $http.post("/api/addOppInfo",info);
+
+        }
+
+        function getAllOppInfo(info) {
+            return $http.post("/api/getAllOppInfo",info);
+        }
+
+        function updateOppInfo(info) {
+            return $http.post("/api/updateOppInfo",info);
+        }
+
+
+        function updateOppInfoApproved(info) {
+            return $http.post("/api/updateOppInfoApproved",info);
+        }
+
+
 
     }
 })();

@@ -1,16 +1,24 @@
 (function() {
     "use strict";
-    angular.module("ServiceLearningApp")
-        .controller("AdminController",AdminController);
+    var myApp=angular.module("ServiceLearningApp");
+    myApp.factory('Excel',function($window){
+        var uri='data:application/vnd.ms-excel;base64,',
+            template='<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>',
+            base64=function(s){return $window.btoa(unescape(encodeURIComponent(s)));},
+            format=function(s,c){return s.replace(/{(\w+)}/g,function(m,p){return c[p];})};
+        return {
+            tableToExcel:function(tableId,worksheetName){
+                var table=$(tableId),
+                    ctx={worksheet:worksheetName,table:table.html()},
+                    href=uri+base64(format(template,ctx));
+                return href;
+            }
+        };
+    });
 
-    // var partners=[
-    //     {_id: "123", name: "alice", applicationId:"1" },
-    //     {_id: "234", name: "bob", applicationId:"2" },
-    //     {_id: "345", name: "charly", applicationId:"3"  },
-    //     {_id: "456", name: "jannunzi", applicationId:"4" }
-    // ]
+    myApp.controller("AdminController",AdminController);
 
-    function AdminController($rootScope,$location,$routeParams,$scope,$http,UserService,PartnerOrgInfoService,OrgInfoService,FormService) {
+    function AdminController($rootScope,$location,$routeParams,$scope,$http,UserService,PartnerOrgInfoService,OrgInfoService,FormService,$window,Excel, $timeout) {
         var vm = this;
 
         vm.aid = $rootScope.currentUser._id;
@@ -40,6 +48,16 @@
         vm.deleteUserCancel =deleteUserCancel;
         vm.archiveAllForms=archiveAllForms;
         //vm.makeAuthVisible = makeAuthVisible;
+        vm.makeOppInfoVisibleFlag = false;
+        vm.makeOppInfoVisible = makeOppInfoVisible;
+        vm.registerOppInfo =registerOppInfo;
+        vm.getOppInfo = getOppInfo;
+        vm.oppInfoArr = [];
+        vm.approveOppInfo = approveOppInfo;
+        vm.getTable =getTable;
+        vm.allUsers = [];
+        vm.mapUserToOrg = mapUserToOrg;
+        vm.getModelDisplay = getModelDisplay;
 
 
         function init(){
@@ -55,6 +73,27 @@
 
                 $location.url("/login");
             }
+
+            var user = {status:"NoStatus"};
+            UserService.getAllUsers(user)
+                .then(function (success) {
+                    vm.users = success.data;
+                    vm.users = JSON.parse(JSON.stringify(vm.users));
+
+                    removeDuplicates(vm.users,'username');
+                } ,function (error){
+                    console.log('Error'+error);
+                });
+
+            var user = {role:"FACULTY"};
+            UserService.fetchAll(user)
+                .then(function (success) {
+                    vm.users = success.data;
+                    vm.allUsers = JSON.parse(JSON.stringify(vm.users));
+                    //removeDuplicates(vm.users,'username');
+                } ,function (error){
+                    console.log('Error'+error);
+                });
 
         }init();
 
@@ -105,14 +144,33 @@
 
             if(view === 'Approve/Reject'){
                 var user = {status:"NoStatus"};
-                UserService.getAllUsers(user)
-                    .then(function (success) {
-                        vm.users = success.data;
-                        vm.users = JSON.parse(JSON.stringify(vm.users));
-                        removeDuplicates(vm.users,'username');
-                    } ,function (error){
+                vm.allOrgUserId = [];
+                 PartnerOrgInfoService.getAllOrgUserInfo(user)
+                    .then(function(response){
+                        console.log("line 150 update the Org Id", +response.data+"---response.orgId ---"+response.data);
+                        vm.allOrgUserId = response.data;
+                        UserService.getAllUsers(user)
+                            .then(function (success) {
+                                vm.users = success.data;
+                                vm.users = JSON.parse(JSON.stringify(vm.users));
+                                vm.usersArr = [];
+                                for (var g = 0 ; g < vm.users.length ; g++) {
+                                    var userObj = vm.users[g];
+                                    for (var h = 0 ; h < vm.allOrgUserId.length ; h++) {
+                                        if (userObj._id === vm.allOrgUserId[h].userId) {
+                                            userObj.orgName = vm.allOrgUserId[h].orgName;
+                                        }
+                                    }
+                                    vm.usersArr.push(userObj);
+                                }
+                                removeDuplicates(vm.users,'username');
+                            } ,function (error){
 
+                            });
+                    }, function(err){
+                        console.log(err);
                     });
+
             }
 
             if(view === 'UserInfo'){
@@ -120,16 +178,44 @@
                 vm.adminAuthenticateMDGrid = false;
                 vm.makeCreateUserVisibleFlag = true;
                 vm.userInfoGrid = true;
-                UserService.fetchAll(vm.user)
-                    .then(function (success) {
-                        vm.users = success.data;
-                        vm.users = JSON.parse(JSON.stringify(vm.users));
-                        removeDuplicates(vm.users,'username');
-                        //console.log(vm.aid);
-                    } ,function (error){
-                        console.log(':: makeUserInfoVisible :: error --'+error);
+                vm.allOrgUserId = [];
+                PartnerOrgInfoService.getAllOrgUserInfo(user)
+                    .then(function(response){
+                        console.log("line 150 update the Org Id", +response.data+"---response.orgId ---"+response.data);
+                        vm.allOrgUserId = response.data;
+                        UserService.fetchAll(vm.user)
+                            .then(function (success) {
+                                vm.users = success.data;
+                                vm.users = JSON.parse(JSON.stringify(vm.users));
+                                vm.usersArr = [];
+                                for (var g = 0 ; g < vm.users.length ; g++) {
+                                    var userObj = vm.users[g];
+                                    for (var h = 0 ; h < vm.allOrgUserId.length ; h++) {
+                                        if (userObj._id === vm.allOrgUserId[h].userId) {
+                                            userObj.orgName = vm.allOrgUserId[h].orgName;
+                                        }
+                                    }
+                                    vm.usersArr.push(userObj);
+                                }
+                                removeDuplicates(vm.users,'username');
+                            } ,function (error){
+
+                            });
+                    }, function(err){
+                        console.log(err);
                     });
-            }
+
+
+            //     UserService.fetchAll(vm.user)
+            //         .then(function (success) {
+            //             vm.users = success.data;
+            //             vm.users = JSON.parse(JSON.stringify(vm.users));
+            //             removeDuplicates(vm.users,'username');
+            //             //console.log(vm.aid);
+            //         } ,function (error){
+            //             console.log(':: makeUserInfoVisible :: error --'+error);
+            //         });
+             }
 
             if(view === 'NewUser'){
                 OrgInfoService.getAllOrg()
@@ -137,7 +223,10 @@
                         vm.OrgsInfo = allOrg.data;
                     });
             }
-
+            OrgInfoService.getAllOrg()
+                .then(function(allOrg){
+                    vm.OrgsInfo = allOrg.data;
+                });
             vm.currentView = view;
 
         }
@@ -533,18 +622,202 @@
                 .then(function (success) {
                     vm.users = console.log('---success User Deletion --'+success.data);
                     vm.message = "User has been successfully deleted";
-                    UserService.fetchAll(user)
-                        .then(function (success) {
-                            vm.users = success.data;
-                            vm.users = JSON.parse(JSON.stringify(vm.users));
-                            removeDuplicates(vm.users,'username');
-                            //console.log(vm.aid);
-                        } ,function (error){
-                            console.log(':: deleteUserCancel :: error --'+error);
+                    // UserService.fetchAll(user)
+                    //     .then(function (success) {
+                    //         vm.users = success.data;
+                    //         vm.users = JSON.parse(JSON.stringify(vm.users));
+                    //         removeDuplicates(vm.users,'username');
+                    //         //console.log(vm.aid);
+                    //     } ,function (error){
+                    //         console.log(':: deleteUserCancel :: error --'+error);
+                    //     });
+                    vm.allOrgUserId = [];
+                    PartnerOrgInfoService.getAllOrgUserInfo(user)
+                        .then(function(response){
+                            console.log("line 150 update the Org Id", +response.data+"---response.orgId ---"+response.data);
+                            vm.allOrgUserId = response.data;
+                            UserService.fetchAll(vm.user)
+                                .then(function (success) {
+                                    vm.users = success.data;
+                                    vm.users = JSON.parse(JSON.stringify(vm.users));
+                                    vm.usersArr = [];
+                                    for (var g = 0 ; g < vm.users.length ; g++) {
+                                        var userObj = vm.users[g];
+                                        for (var h = 0 ; h < vm.allOrgUserId.length ; h++) {
+                                            if (userObj._id === vm.allOrgUserId[h].userId) {
+                                                userObj.orgName = vm.allOrgUserId[h].orgName;
+                                            }
+                                        }
+                                        vm.usersArr.push(userObj);
+                                    }
+                                    removeDuplicates(vm.users,'username');
+                                } ,function (error){
+
+                                });
+                        }, function(err){
+                            console.log(err);
                         });
+
                 } ,function (error){
                     console.log(':: makeUserInfoVisible :: error --'+error);
                 });
+        }
+
+
+        function makeOppInfoVisible () {
+
+            vm.makeOppInfoVisibleFlag = true;
+
+        }
+
+        function registerOppInfo(oppInfo) {
+
+            if(!oppInfo.oppHeader){
+                vm.message = "Please enter a Opportunity Name";
+                return;
+            }
+
+            if(!oppInfo.oppBody){
+                vm.message = "Please enter a Opportunity Desc";
+                return;
+            }
+            oppInfo.publishTo = "0";
+            oppInfo.userid = vm.currentuser._id;
+            oppInfo.createdBy = vm.currentuser._id;
+            oppInfo.adminId = vm.currentuser._id;
+            oppInfo.status = "available";
+            vm.currentuser.opportunities = oppInfo;
+            UserService.addOppInfo(vm.currentuser).then(function(user){
+                    console.log("returned from adding Opportunity ..",user);
+                    vm.message = "Opportunity has been added successfully...";
+                },function(err){
+                    console.log(err);
+                }
+
+            );
+
+
+
+
+
+        }
+
+        function getOppInfo() {
+            vm.oppInfoArr = [];
+            UserService.getAllOppInfo(vm.currentuser).then(function(user){
+                    console.log("returned from adding Opportunity ..",user.data);
+                    for (var g = 0; g< user.data.length ;g ++) {
+                        var oppInfoArrNew = user.data[g].opportunities;
+                        vm.oppInfoArr = vm.oppInfoArr.concat(oppInfoArrNew);
+                    }
+
+                    // $scope.viewby = 10;
+                    // $scope.totalItems = vm.oppInfoArr.length;
+                    // $scope.currentPage = 4;
+                    // $scope.itemsPerPage = $scope.viewby;
+                    // $scope.maxSize = 5; //Number of pager buttons to show
+                    //
+                    // $scope.setPage = function (pageNo) {
+                    //     $scope.currentPage = pageNo;
+                    // };
+                    //
+                    // $scope.pageChanged = function() {
+                    //     console.log('Page changed to: ' + $scope.currentPage);
+                    // };
+                    //
+                    // $scope.setItemsPerPage = function(num) {
+                    //     $scope.itemsPerPage = num;
+                    //     $scope.currentPage = 1; //reset to first page
+                    // }
+                },function(err){
+                    console.log(err);
+                }
+
+            );
+
+        }
+
+        $scope.exportToExcel=function(tableId){ // ex: '#my-table'
+            var exportHref=Excel.tableToExcel(tableId,'OppurtunitiesExport');
+            $timeout(function(){location.href=exportHref;},100); // trigger download
+        }
+
+        function approveOppInfo(oppInfo,status) {
+            oppInfo.status = status;
+            oppInfo.approvedBy = vm.currentuser._id;
+            oppInfo.allocatedTo = oppInfo.partnerId;
+            oppInfo.allocatedDate = new Date();
+            UserService.updateOppInfoApproved(oppInfo).then(function(user){
+                console.log("returned from approveOppInfo ..",user);
+                vm.oppInfoArr = [];
+                UserService.getAllOppInfo(vm.currentuser).then(function(user){
+                    console.log("returned from approveOppInfo getAll ..",user.data);
+                    for (var g = 0; g< user.data.length ;g ++) {
+                        var oppInfoArrNew = user.data[g].opportunities;
+                        vm.oppInfoArr = vm.oppInfoArr.concat(oppInfoArrNew);
+                    }
+                },function(err){
+                    console.log(err);
+                } );
+                vm.message = "Opportunity has been approved , allocated to "+oppInfo.partnerId;
+            },function(err){
+                console.log(err);
+            });
+
+        }
+
+        function mapUserToOrg(mapOrgUser){
+            if(!mapOrgUser.orgId){
+                vm.message = "Please Select Organisation";
+                return;
+            }
+
+            if(!mapOrgUser.userId){
+                vm.message = "Please Select User ";
+                return;
+            }
+            var userObj = {_id:mapOrgUser.userId};
+            PartnerOrgInfoService.getUserOrgId(userObj).then(function(user){
+                    console.log("returned from getUserOrgId ..",user);
+                    user.data.orgId = mapOrgUser.orgId;
+                    for (var h = 0 ; h < vm.OrgsInfo.length ; h ++) {
+                        if (user.data.orgId === vm.OrgsInfo[h]._id) {
+                            user.data.orgName = vm.OrgsInfo[h].name;
+                        }
+                    }
+                    PartnerOrgInfoService.updateOrgUserInfo(user.data).then(function(user){
+                            console.log("returned from getUserOrgId ..",user);
+                            vm.message = "Mapping has been updated Successfully";
+                        },function(err){
+                            console.log(err);
+                        }
+                    );
+                },function(err){
+                    console.log(err);
+                }
+
+            );
+
+        }
+
+        function getModelDisplay(userId) {
+            var userObj = {_id:userId};
+            PartnerOrgInfoService.getUserOrgId(userObj).then(function(user){
+                    console.log("returned from getUserOrgId ..",user);
+                    vm.orgName = user.data.orgName;
+
+                },function(err){
+                    console.log(err);
+                }
+
+            );
+
+        }
+
+        function getTable() {
+            // $(document).ready(function() {
+            //     $('#example').DataTable();
+            // } );
         }
 
     }

@@ -15,7 +15,11 @@ module.exports = function(app,userModel) {
     app.post('/api/updateUser',updateUser);
     app.post('/api/deleteUser',deleteUser);
     app.post('/api/fetchAll',fetchAll);
-    app.get('/api/findUserById/:id',findUserById)
+    app.get('/api/findUserById/:id',findUserById);
+    app.post('/api/addOppInfo',addOppInfo);
+    app.post('/api/getAllOppInfo',getAllOppInfo);
+    app.post('/api/updateOppInfo',updateOppInfo);
+    app.post('/api/updateOppInfoApproved',updateOppInfoApproved);
 
     passport.use('local', new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
@@ -136,7 +140,7 @@ module.exports = function(app,userModel) {
                     userModel.updateUser(newUser).then(
                         function(success) {
                             //console.log('---updateOne---'+obj+' ---- updated user = '+success);
-                            res.json(obj);
+                            res.json(newUser);
                         } , function(err) {
                             res.status(400).send(err);
                         });
@@ -204,6 +208,43 @@ module.exports = function(app,userModel) {
             res.status(400).send(err);
         });
 
+    }
+
+    function addOppInfo(req,res){
+        console.log('---addOppInfo'+req.body);
+        userModel.addOppInfo(req.body)
+            .then(function(info) {
+                res.json(info);
+            },function (err) {
+                res.status(400).send(err);
+            });
+    }
+
+    function getAllOppInfo(req,res){
+
+        userModel.getAllOppInfo(req.body)
+            .then(function(info) {
+                res.json(info);
+            },function (err) {
+                res.status(400).send(err);
+            });
+    }
+
+    function updateOppInfo(req,res) {
+        userModel.updateOppInfo(req.body).then(function(info) {
+            res.json(info);
+        },function (err) {
+            res.status(400).send(err);
+        });
+
+    }
+
+    function updateOppInfoApproved(req,res) {
+        userModel.updateOppInfoApproved(req.body).then(function(info) {
+            res.json(info);
+        },function (err) {
+            res.status(400).send(err);
+        });
     }
 
 

@@ -1,5 +1,8 @@
-<div>
-    <h3 align="center"><b>Other Opportunities</b></h3>
+<div ng-controller="PartnerController as model">
+    <h3 align="center"><b>Other Opportunities</b>
+        <br>
+        {{model.message}}
+    </h3>
 
     <div style="padding-top: 20px">
         <p align="justify">Beyond the service role(s) or project(s) you applied for through the RFP,
@@ -13,73 +16,78 @@
             creative possibilities with us.
         </p>
     </div>
+    <div class="row">
 
-    <div class="col-sm-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title"><b>Computer-Human Interaction</b></h3>
-            </div>
-            <div class="panel-body" align="justify">
-                This doctoral-level course covers the principles of human-computer
-                interaction and the design and evaluation of user interfaces.
-                Topics include an overview of human information processing subsystems (
-                perception, memory, attention, and problem solving)
-            </div>
-            <div class="panel-footer" align="pull-right">
-                <input type="checkbox"><b>I'm interested</b>
+        <div class="col-sm-6" ng-repeat="opp in model.oppInfoArr | filter: { status: 'available' } track by $index">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><b>{{opp.oppHeader}}</b></h3>
+                </div>
+                <div class="panel-body" align="justify">
+                    {{opp.oppBody}}
+                </div>
+                <div class="panel-footer" align="pull-right">
+                    <input type="checkbox" ng-model= "opp.partnerId" ><b>I'm interested</b>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-sm-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title"><b>Computer-Human Interaction</b></h3>
-            </div>
-            <div class="panel-body" align="justify">
-                This doctoral-level course covers the principles of human-computer
-                interaction and the design and evaluation of user interfaces.
-                Topics include an overview of human information processing subsystems (
-                perception, memory, attention, and problem solving)
-            </div>
-            <div class="panel-footer" align="pull-right">
-                <input type="checkbox"><b>I'm interested</b>
-            </div>
-        </div>
     </div>
+    <div class="row">
+        <div align="center">
+            <button class="btn btn-primary" ng-click="model.checkOppInfo(model.oppInfoArr)">Choose Opportunities</button>
+        </div>
+        <br>
+    </div>
+    <!--<div class="col-sm-6">-->
+    <!--<div class="panel panel-default">-->
+    <!--<div class="panel-heading">-->
+    <!--<h3 class="panel-title"><b>Computer-Human Interaction</b></h3>-->
+    <!--</div>-->
+    <!--<div class="panel-body" align="justify">-->
+    <!--This doctoral-level course covers the principles of human-computer-->
+    <!--interaction and the design and evaluation of user interfaces.-->
+    <!--Topics include an overview of human information processing subsystems (-->
+    <!--perception, memory, attention, and problem solving)-->
+    <!--</div>-->
+    <!--<div class="panel-footer" align="pull-right">-->
+    <!--<input type="checkbox"><b>I'm interested</b>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
 
-    <div class="col-sm-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title"><b>Computer-Human Interaction</b></h3>
-            </div>
-            <div class="panel-body" align="justify">
-                This doctoral-level course covers the principles of human-computer
-                interaction and the design and evaluation of user interfaces.
-                Topics include an overview of human information processing subsystems (
-                perception, memory, attention, and problem solving)
-            </div>
-            <div class="panel-footer" align="pull-right">
-                <input type="checkbox"><b>I'm interested</b>
-            </div>
-        </div>
-    </div>
+    <!--<div class="col-sm-6">-->
+    <!--<div class="panel panel-default">-->
+    <!--<div class="panel-heading">-->
+    <!--<h3 class="panel-title"><b>Computer-Human Interaction</b></h3>-->
+    <!--</div>-->
+    <!--<div class="panel-body" align="justify">-->
+    <!--This doctoral-level course covers the principles of human-computer-->
+    <!--interaction and the design and evaluation of user interfaces.-->
+    <!--Topics include an overview of human information processing subsystems (-->
+    <!--perception, memory, attention, and problem solving)-->
+    <!--</div>-->
+    <!--<div class="panel-footer" align="pull-right">-->
+    <!--<input type="checkbox"><b>I'm interested</b>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
 
-    <div class="col-sm-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title"><b>Computer-Human Interaction</b></h3>
-            </div>
-            <div class="panel-body" align="justify">
-                This doctoral-level course covers the principles of human-computer
-                interaction and the design and evaluation of user interfaces.
-                Topics include an overview of human information processing subsystems (
-                perception, memory, attention, and problem solving)
-            </div>
-            <div class="panel-footer" align="pull-right">
-                <input type="checkbox"><b>I'm interested</b>
-            </div>
-        </div>
-    </div>
+    <!--<div class="col-sm-6">-->
+    <!--<div class="panel panel-default">-->
+    <!--<div class="panel-heading">-->
+    <!--<h3 class="panel-title"><b>Computer-Human Interaction</b></h3>-->
+    <!--</div>-->
+    <!--<div class="panel-body" align="justify">-->
+    <!--This doctoral-level course covers the principles of human-computer-->
+    <!--interaction and the design and evaluation of user interfaces.-->
+    <!--Topics include an overview of human information processing subsystems (-->
+    <!--perception, memory, attention, and problem solving)-->
+    <!--</div>-->
+    <!--<div class="panel-footer" align="pull-right">-->
+    <!--<input type="checkbox"><b>I'm interested</b>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
 
 </div>

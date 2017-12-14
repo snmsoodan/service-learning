@@ -1,8 +1,10 @@
 module.exports = function(app,partnerOrgInfoModel) {
 
     app.post('/api/userOrgInfo',addUserOrgInfo);
-    app.get('/api/getUserOrgId/:userId',getUserOrgId);
-    app.get("/api/getOrgId/:userId",getPartnerId);
+    app.post('/api/getUserOrgId',getUserOrgId);
+    app.post('/api/updateOrgUserInfo',updateOrgUserInfo);
+    app.post('/api/updateOrgUserInfo',updateOrgUserInfo);
+    app.post('/api/getAllOrgUserInfo',getAllOrgUserInfo);
 
     function getPartnerId(req,res) {
         var userId=req.params.userId
@@ -24,11 +26,21 @@ module.exports = function(app,partnerOrgInfoModel) {
             });
     }
 
+    function getAllOrgUserInfo(req,res){
+
+        partnerOrgInfoModel.getAllOrgUserInfo()
+            .then(function(info) {
+                res.json(info);
+            },function (err) {
+                res.status(400).send(err);
+            });
+    }
+
 
     function getUserOrgId(req,res){
-        var userId =req.params.userId;
-        //console.log(' Method :: getUserOrgId :: userId'+userId);
-        partnerOrgInfoModel.getUserOrgId(userId)
+        var userId =req.body;
+        console.log(' Method :: getUserOrgId :: userId'+userId._id);
+        partnerOrgInfoModel.getUserOrgId(userId._id)
             .then(function(doc){
                     res.json(doc);
                 },
@@ -36,4 +48,16 @@ module.exports = function(app,partnerOrgInfoModel) {
                     res.status(400).send(err);
                 });
     }
+
+
+    function updateOrgUserInfo(req,res){
+        console.log(' Method :: updateOrgUserInfo :: userId'+req.body);
+        partnerOrgInfoModel.updateOrgUserInfo(req.body)
+            .then(function(info) {
+                res.json(info);
+            },function (err) {
+                res.status(400).send(err);
+            });
+    }
+
 };

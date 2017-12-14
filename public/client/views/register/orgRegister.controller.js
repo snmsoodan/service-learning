@@ -54,7 +54,9 @@
                                 $rootScope.currentUser.orgId = orgRes.data._id;
                                 var userOrgInfo = {
                                     userId : partnerInfo.data._id,
-                                    orgId : orgRes.data._id
+                                    orgId : orgRes.data._id,
+                                    userName : partnerInfo.data.username,
+                                    orgName : orgRes.data.name
                                 };
 
                                 PartnerOrgInfoService.addUserOrgInfo(userOrgInfo) //entering partner and organization relation
@@ -62,14 +64,16 @@
                                         console.log("after add User Org",+response);
                                         //$location.url("/partner");
                                         vm.message = "Partner has been registered successfully , awaiting approval";
-                                        vm.partner = null;
-                                        vm.org = null;
                                     }, function(err){
                                         console.log(err);
                                     });
+
                             })
                     }
+
                 });
+
+
         }
     }
 })();

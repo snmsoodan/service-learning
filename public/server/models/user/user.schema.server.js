@@ -20,7 +20,22 @@ module.exports = function () {
         alertBy: String,
             alertText:String,
             alertStatus:String
-    }
+    },opportunities : [{ userId: String,
+            orgId: String,
+            createdDate : {type: Date, default : Date.now},
+            createdBy : String ,
+            adminId : String ,
+            partnerId : String ,
+            partnerOrgId : String ,
+            requestedBy : String ,
+            requestedDate : {type: Date},
+            approvedBy : String ,
+            allocatedTo : String ,
+            allocatedDate : {type: Date} ,
+            status : String ,
+            oppHeader : String ,
+            oppBody : String,
+            publishTo : String}]
     }, {collection: "UserInfo"});
 
     return UserSchema;

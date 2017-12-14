@@ -66,11 +66,17 @@
                             $rootScope.currentUser = user.data;
                             $rootScope.currentUser.orgId = partner.orgId;
                             console.log("user data"+user);
-
+                            for (var h = 0 ; h < vm.OrgsInfo.length ; h ++) {
+                                if (partner.orgId === vm.OrgsInfo[h]._id) {
+                                    partner.orgName = vm.OrgsInfo[h].name;
+                                }
+                            }
                             if($rootScope.currentUser.role === "PARTNER"){
                                 var info = {
                                     userId : user.data._id,
-                                    orgId : partner.orgId
+                                    orgId : partner.orgId,
+                                    userName : user.data.username,
+                                    orgName : partner.orgName
                                 };
 
                                 PartnerOrgInfoService.addUserOrgInfo(info)

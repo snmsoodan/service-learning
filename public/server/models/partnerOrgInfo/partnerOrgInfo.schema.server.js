@@ -4,7 +4,9 @@ module.exports = function () {
     var PartnerOrgInfoSchema = mongoose.Schema ({
 
         userId: String,
-        orgId: String
+        orgId: String,
+        userName : String,
+        orgName : String
 
     }, {collection: "PartnerOrgInfo"});
     return PartnerOrgInfoSchema;
